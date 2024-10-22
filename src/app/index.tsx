@@ -12,14 +12,6 @@ function App() {
       </Routes>
     );
   }
-
-  return (
-    <Routes>
-      {ROUTES.map((item) => (
-        <Route path={item.path} element={item.element} />
-      ))}
-    </Routes>
-  );
 }
 
 export default App;
