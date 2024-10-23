@@ -1,4 +1,4 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Avatar, Box, Button, TextField } from "@mui/material";
 import React from "react";
 
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
@@ -20,7 +20,9 @@ const Header = (props: Props) => {
 
         <Box>
           <NotificationsActiveIcon />
-          <Button variant="outlined"> sey helllo</Button>
+          <Button variant="outlined">
+            <Avatar></Avatar> sey helllo
+          </Button>
         </Box>
       </Box>
     </HeaderStyles>
