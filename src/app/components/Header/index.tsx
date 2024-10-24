@@ -12,8 +12,16 @@ const Header = (props: Props) => {
     <HeaderStyles>
       <Box className="Header__wrapper">
         <Box>
-          <TextField placeholder="Search food" variant="outlined" />
-          <Button variant="outlined" endIcon={<FilterAltIcon />}>
+          <TextField
+            className="Header__search"
+            placeholder="Search food"
+            variant="outlined"
+          />
+          <Button
+            className="Header__filter-btn;"
+            variant="outlined"
+            endIcon={<FilterAltIcon />}
+          >
             filter
           </Button>
         </Box>
