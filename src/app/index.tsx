@@ -1,15 +1,20 @@
-import React from "react";
 import { Route, Routes } from "react-router-dom";
+
 import { ROUTES } from "./routes";
+import Container from "./components/Container";
+
+import "../index.css";
 
 function App() {
   if (true) {
     return (
-      <Routes>
-        {ROUTES.map((item) => (
-          <Route path={item.path} element={item.element} />
-        ))}
-      </Routes>
+      <Container>
+        <Routes>
+          {ROUTES.map((item) => (
+            <Route path={item.path} element={item.component} />
+          ))}
+        </Routes>
+      </Container>
     );
   }
 }

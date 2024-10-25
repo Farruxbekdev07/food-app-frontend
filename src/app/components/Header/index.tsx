@@ -1,38 +1,45 @@
-import { Avatar, Box, Button, TextField } from "@mui/material";
-import React from "react";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import {
+  Avatar,
+  Button,
+  ButtonGroup,
+  TextField,
+  Typography,
+} from "@mui/material";
 
-import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
-import { HeaderStyles } from "./HeaderStyle";
+import { HeaderStyles } from "./Header.style";
+import UserImage from "../../assets/images/food-icon.avif";
 
 type Props = {};
 
-const Header = (props: Props) => {
+const Header = ({}: Props) => {
   return (
     <HeaderStyles>
-      <Box className="Header__wrapper">
-        <Box>
+      <div className="header__wrapper">
+        <ButtonGroup className="button_group">
           <TextField
-            className="Header__search"
-            placeholder="Search food"
             variant="outlined"
+            className="search__input"
+            label="Search food"
+            size="small"
           />
-          <Button
-            className="Header__filter-btn;"
-            variant="outlined"
-            endIcon={<FilterAltIcon />}
-          >
-            filter
+          <Button size="small" variant="contained" className="search_button">
+            Search
           </Button>
-        </Box>
+        </ButtonGroup>
 
-        <Box>
-          <NotificationsActiveIcon />
-          <Button variant="outlined">
-            <Avatar></Avatar> sey helllo
+        <div className="user__info">
+          <Button variant="outlined" size="small" className="user__info-button">
+            <Avatar
+              src={UserImage}
+              alt="User name"
+              className="user__info-image"
+            />
+            <Typography className="user__info-name">User Name</Typography>
+            <KeyboardArrowDownIcon className="user__info-icon" />
           </Button>
-        </Box>
-      </Box>
+        </div>
+      </div>
     </HeaderStyles>
   );
 };
