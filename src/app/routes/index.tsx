@@ -1,9 +1,27 @@
-import PATHS from "../constants/paths";
-import Home from "../pages/home";
+import { ReactNode } from "react";
 
-export const ROUTES = [
+import ROUTE_PATHS from "./paths";
+import Foods from "../pages/Foods";
+import NotFound from "../pages/NotFound";
+
+type RouteType = {
+  path: string;
+  component: ReactNode;
+};
+
+const { FOODS, MAIN } = ROUTE_PATHS;
+
+export const ROUTES: RouteType[] = [
   {
-    element: <Home />,
-    path: PATHS.HOME,
+    path: "*",
+    component: <NotFound />,
+  },
+  {
+    path: MAIN,
+    component: <Foods />,
+  },
+  {
+    path: FOODS,
+    component: <Foods />,
   },
 ];
