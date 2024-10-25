@@ -3944,6 +3944,13 @@ data-view-byte-offset@^1.0.0:
     es-errors "^1.3.0"
     is-data-view "^1.0.1"
 
+dazzle-icons@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/dazzle-icons/-/dazzle-icons-1.0.7.tgz#c3eb66ac51480988a99d21bc22fc5e7a94d6ec0e"
+  integrity sha512-KPHBy49uQw9CJAC2VY9pmDm6OlLlJIdROzPr6TUw4WvzfonQNfFGIGgTvnAKiPbvRmBszmzfK8eEwIQsePWScA==
+  dependencies:
+    react "^17.0.0"
+
 debug@2.6.9, debug@^2.6.0:
   version "2.6.9"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
@@ -8293,6 +8300,14 @@ react-transition-group@^4.4.5:
     dom-helpers "^5.0.1"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
+
+react@^17.0.0:
+  version "17.0.2"
+  resolved "https://registry.yarnpkg.com/react/-/react-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"
+  integrity sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
 
 react@^18.3.1:
   version "18.3.1"

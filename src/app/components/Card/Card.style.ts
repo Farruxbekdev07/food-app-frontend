@@ -50,6 +50,7 @@ const CardStyle = styled.div`
   .card__food-rating-wrapper {
     display: flex;
     align-items: center;
+    font-size: 13px;
   }
 
   .card__food-cost {
