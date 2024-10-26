@@ -1,7 +1,9 @@
 import styled from "@emotion/styled";
 
-import { HEADER_HEIGHT, pxToRem, SIDEBAR_WIDTH } from "../../constants";
+import { pxToRem } from "../../constants";
 import { colors } from "../../theme/colors";
+import { HEADER_HEIGHT } from "./constants";
+import { SIDEBAR_WIDTH } from "../Sidebar/constants";
 
 const SEARCH_INPUT_HEIGHT = 40;
 const SEARCH_INPUT_WIDTH = 300;
@@ -12,11 +14,11 @@ export const HeaderStyles = styled.header`
   align-items: center;
   left: ${pxToRem(SIDEBAR_WIDTH)};
   height: ${pxToRem(HEADER_HEIGHT)};
-  border-bottom: 1px solid ${colors.grey[300]};
   width: ${`calc(100% - ${pxToRem(SIDEBAR_WIDTH)})`};
 
   .header__wrapper {
     display: flex;
+    gap: ${pxToRem(10)};
     align-items: center;
     padding: 0 ${pxToRem(10)};
     justify-content: space-between;
@@ -46,5 +48,18 @@ export const HeaderStyles = styled.header`
   }
   .user__info-icon {
     color: ${colors.grey[600]};
+  }
+
+  .toggle__sidebar {
+    display: none;
+  }
+
+  @media screen and (max-width: ${pxToRem(900)}) {
+    left: 0;
+    width: 100%;
+
+    .toggle__sidebar {
+      display: block;
+    }
   }
 `;

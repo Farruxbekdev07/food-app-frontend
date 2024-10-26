@@ -1,26 +1,33 @@
 import styled from "@emotion/styled";
 
-import { colors } from "../../theme/colors";
-import { HEADER_HEIGHT, pxToRem, SIDEBAR_WIDTH } from "../../constants";
+import { pxToRem } from "../../constants";
+import { SIDEBAR_WIDTH } from "./constants";
+import { customColors } from "../../theme/colors";
+import { HEADER_HEIGHT } from "../Header/constants";
 
 export const SidebarStyles = styled.aside`
   position: fixed;
   min-height: 100vh;
-  border-right: 1px solid ${colors.grey[300]};
   width: ${pxToRem(SIDEBAR_WIDTH)};
 
   .sidebar__wrapper {
+    z-index: 9;
     display: flex;
+    width: inherit;
+    transition: 1s;
     flex-shrink: 0;
+    position: relative;
+    min-height: inherit;
     flex-direction: column;
+    background-color: white;
     padding: 0 ${pxToRem(8)};
   }
   .sidebar__logo {
-    height: ${pxToRem(HEADER_HEIGHT)};
-    overflow: hidden;
     display: flex;
-    justify-content: center;
+    overflow: hidden;
     align-items: center;
+    justify-content: center;
+    height: ${pxToRem(HEADER_HEIGHT)};
 
     img {
       height: 100%;
@@ -38,19 +45,37 @@ export const SidebarStyles = styled.aside`
     align-items: center;
     text-transform: none;
     text-decoration: none;
-    color: ${colors.grey[700]};
     justify-content: flex-start;
     border-radius: ${pxToRem(8)};
-    border: 1px solid ${colors.grey[400]};
+    color: ${customColors.gray[700]};
     padding: ${pxToRem(12)} ${pxToRem(16)};
+    border: 1px solid ${customColors.gray[100]};
   }
   .sidebar__list-item--active {
-    color: ${colors.red[700]};
-    border: 1px solid ${colors.orange[900]};
-    background-color: ${colors.orange[100]};
+    color: ${customColors.activeColor[600]};
+    border: 1px solid ${customColors.primary[600]};
+    background-color: ${customColors.secondary[50]};
 
     .sidebar__list-item-title {
-      color: ${colors.orange[900]};
+      color: ${customColors.activeColor[600]};
+    }
+  }
+
+  @media screen and (max-width: ${pxToRem(900)}) {
+    top: ${pxToRem(HEADER_HEIGHT)};
+    min-height: ${`calc(100vh - ${pxToRem(HEADER_HEIGHT)})`};
+    z-index: 9;
+
+    .sidebar__logo {
+      display: none;
+    }
+
+    .sidebar-open {
+      left: 0;
+    }
+
+    .sidebar-close {
+      left: -${pxToRem(SIDEBAR_WIDTH)};
     }
   }
 `;
