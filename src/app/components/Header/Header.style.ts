@@ -7,7 +7,7 @@ const SEARCH_INPUT_HEIGHT = 40;
 const SEARCH_INPUT_WIDTH = 300;
 
 export const HeaderStyles = styled.header`
-  display: grid;
+  display: flex;
   position: fixed;
   align-items: center;
   left: ${pxToRem(SIDEBAR_WIDTH)};
@@ -18,7 +18,7 @@ export const HeaderStyles = styled.header`
   .header__wrapper {
     display: flex;
     align-items: center;
-    padding: 0 ${pxToRem(10)};
+    padding: 0 ${pxToRem(20)};
     justify-content: space-between;
   }
   .button_group {

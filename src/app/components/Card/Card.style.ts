@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { colors } from "@mui/material";
 
 const CardStyle = styled.div`
   /* vertical card style */
@@ -54,7 +55,7 @@ const CardStyle = styled.div`
   .card__fast-food-name {
     font-size: 16px;
     font-weight: 600;
-    color: #2e344c;
+    color: ${colors.blueGrey[800]};
     padding: 15px 0 0 0;
   }
 
@@ -69,14 +70,17 @@ const CardStyle = styled.div`
     display: flex;
     align-items: center;
     font-size: 13px;
+    color: ${colors.blueGrey[800]};
   }
 
   .card__food-cost {
     font-size: 24px;
-    color: orange;
+    font-weight: 600;
+    color: ${colors.orange[900]};
 
     del {
       font-size: 14px;
+      font-weight: 400;
       color: #2e344c;
     }
   }

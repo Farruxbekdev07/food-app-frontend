@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { colors } from "@mui/material";
 
 const FoodsStyle = styled.div`
   .food__wrapper {
@@ -6,7 +7,7 @@ const FoodsStyle = styled.div`
     display: flex;
     gap: 16px;
 
-    padding: 10px;
+    padding: 20px;
   }
 
   .categories__wrapper {
@@ -24,14 +25,32 @@ const FoodsStyle = styled.div`
 
   .categories__title {
     padding: 0 0 10px 0;
-    color: black;
+    color: ${colors.blueGrey[800]};
     font-weight: 600;
+    font-size: 24px;
+  }
+
+  .categories__card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: ${colors.blueGrey[800]};
   }
 
   .popular__menu-title {
     padding: 10px 0;
-    color: black;
+    color: ${colors.blueGrey[800]};
     font-weight: 600;
+    font-size: 24px;
+  }
+
+  .menu__card-btn-wrapper {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      padding: 8px 20px;
+      font-size: 12px;
+    }
   }
 `;
 export default FoodsStyle;

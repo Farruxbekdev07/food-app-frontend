@@ -1,16 +1,9 @@
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  Grid2,
-  Rating,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Grid2, Rating, Typography } from "@mui/material";
 import Card from "../../components/Card";
 import React from "react";
 import FoodsStyle from "./Foods.style";
 import Invoice from "./components/Invoice";
+import Container from "../../Container";
 
 type Props = {};
 
@@ -19,7 +12,7 @@ const Foods = ({}: Props) => {
   return (
     <FoodsStyle>
       <Box className="food__wrapper">
-        <Container maxWidth="lg" sx={{ paddingLeft: "0px" }}>
+        <Container>
           <Box className="categories__wrapper">
             <Typography className="categories__title">
               Explore Categories
@@ -27,62 +20,9 @@ const Foods = ({}: Props) => {
             <Grid2 container spacing={1}>
               <Grid2 size={2}>
                 <Card direction="vertical">
-                  <Typography>Donuts</Typography>
-                </Card>
-              </Grid2>
-              <Grid2 size={2}>
-                <Card direction="vertical">
-                  <Typography>Donuts</Typography>
-                </Card>
-              </Grid2>
-              <Grid2 size={2}>
-                <Card direction="vertical">
-                  <Typography>Donuts</Typography>
-                </Card>
-              </Grid2>
-              <Grid2 size={2}>
-                <Card direction="vertical">
-                  <Typography>Donuts</Typography>
-                </Card>
-              </Grid2>
-              <Grid2 size={2}>
-                <Card direction="vertical">
-                  <Typography>Donuts</Typography>
-                </Card>
-              </Grid2>
-              <Grid2 size={2}>
-                <Card direction="vertical">
-                  <Typography>Donuts</Typography>
-                </Card>
-              </Grid2>
-              <Grid2 size={2}>
-                <Card direction="vertical">
-                  <Typography>Donuts</Typography>
-                </Card>
-              </Grid2>
-              <Grid2 size={2}>
-                <Card direction="vertical">
-                  <Typography>Donuts</Typography>
-                </Card>
-              </Grid2>
-              <Grid2 size={2}>
-                <Card direction="vertical">
-                  <Typography>Donuts</Typography>
-                </Card>
-              </Grid2>
-              <Grid2 size={2}>
-                <Card direction="vertical">
-                  <Typography>Donuts</Typography>
-                </Card>
-              </Grid2>
-              <Grid2 size={2}>
-                <Card direction="vertical">
-                  <Typography>Donuts</Typography>
-                </Card>
-              </Grid2>
-              <Grid2 size={2}>
-                <Card direction="vertical">
-                  <Typography>Donuts</Typography>
+                  <Typography className="categories__card-title">
+                    Donuts
+                  </Typography>
                 </Card>
               </Grid2>
             </Grid2>
@@ -114,182 +54,11 @@ const Foods = ({}: Props) => {
                           1.5K+
                         </Box>
                       </Box>
-                      <Box
-                        display="flex"
-                        justifyContent="space-between"
-                        gap={1}
-                      >
-                        <Button
-                          sx={{
-                            fontSize: "12px",
-                          }}
-                          variant="outlined"
-                          color="inherit"
-                        >
+                      <Box className="menu__card-btn-wrapper">
+                        <Button variant="outlined" color="inherit">
                           Wishlist
                         </Button>
-                        <Button
-                          sx={{
-                            fontSize: "12px",
-                          }}
-                          variant="contained"
-                          color="warning"
-                        >
-                          Order Now
-                        </Button>
-                      </Box>
-                    </>
-                  </Card>
-                </Grid2>
-                <Grid2 size={3}>
-                  <Card direction="horizontal">
-                    <>
-                      <Typography variant="h6" className="card__fast-food-name">
-                        Meat Burger
-                      </Typography>
-                      <Box className="card__food-cost-wrapper">
-                        <Box className="card__food-cost">
-                          $30 <del> $28.30 </del>
-                        </Box>
-
-                        <Box className="card__food-rating-wrapper">
-                          <Rating
-                            size="small"
-                            name="simple-controlled"
-                            value={value}
-                            onChange={(event, newValue) => {
-                              setValue(newValue);
-                            }}
-                            max={1}
-                          />
-                          1.5K+
-                        </Box>
-                      </Box>
-                      <Box
-                        display="flex"
-                        justifyContent="space-between"
-                        gap={1}
-                      >
-                        <Button
-                          sx={{
-                            fontSize: "12px",
-                          }}
-                          variant="outlined"
-                          color="inherit"
-                        >
-                          Wishlist
-                        </Button>
-                        <Button
-                          sx={{
-                            fontSize: "12px",
-                          }}
-                          variant="contained"
-                          color="warning"
-                        >
-                          Order Now
-                        </Button>
-                      </Box>
-                    </>
-                  </Card>
-                </Grid2>
-                <Grid2 size={3}>
-                  <Card direction="horizontal">
-                    <>
-                      <Typography variant="h6" className="card__fast-food-name">
-                        Meat Burger
-                      </Typography>
-                      <Box className="card__food-cost-wrapper">
-                        <Box className="card__food-cost">
-                          $30 <del> $28.30 </del>
-                        </Box>
-
-                        <Box className="card__food-rating-wrapper">
-                          <Rating
-                            size="small"
-                            name="simple-controlled"
-                            value={value}
-                            onChange={(event, newValue) => {
-                              setValue(newValue);
-                            }}
-                            max={1}
-                          />
-                          1.5K+
-                        </Box>
-                      </Box>
-                      <Box
-                        display="flex"
-                        justifyContent="space-between"
-                        gap={1}
-                      >
-                        <Button
-                          sx={{
-                            fontSize: "12px",
-                          }}
-                          variant="outlined"
-                          color="inherit"
-                        >
-                          Wishlist
-                        </Button>
-                        <Button
-                          sx={{
-                            fontSize: "12px",
-                          }}
-                          variant="contained"
-                          color="warning"
-                        >
-                          Order Now
-                        </Button>
-                      </Box>
-                    </>
-                  </Card>
-                </Grid2>
-                <Grid2 size={3}>
-                  <Card direction="horizontal">
-                    <>
-                      <Typography variant="h6" className="card__fast-food-name">
-                        Meat Burger
-                      </Typography>
-                      <Box className="card__food-cost-wrapper">
-                        <Box className="card__food-cost">
-                          $30 <del> $28.30 </del>
-                        </Box>
-
-                        <Box className="card__food-rating-wrapper">
-                          <Rating
-                            size="small"
-                            name="simple-controlled"
-                            value={value}
-                            onChange={(event, newValue) => {
-                              setValue(newValue);
-                            }}
-                            max={1}
-                          />
-                          1.5K+
-                        </Box>
-                      </Box>
-                      <Box
-                        display="flex"
-                        justifyContent="space-between"
-                        gap={1}
-                      >
-                        <Button
-                          sx={{
-                            fontSize: "12px",
-                          }}
-                          variant="outlined"
-                          color="inherit"
-                        >
-                          Wishlist
-                        </Button>
-                        <Button
-                          sx={{
-                            fontSize: "12px",
-                          }}
-                          variant="contained"
-                          color="warning"
-                        >
-                          Order Now
-                        </Button>
+                        <Button variant="contained">Order Now</Button>
                       </Box>
                     </>
                   </Card>

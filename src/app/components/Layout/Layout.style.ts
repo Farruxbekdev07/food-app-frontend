@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { colors } from "../../theme/colors";
 import { HEADER_HEIGHT, pxToRem, SIDEBAR_WIDTH } from "../../constants";
 
-export const ContainerStyles = styled.div`
+export const LayoutStyles = styled.div`
   display: flex;
   min-height: 100vh;
   height: fit-content;
