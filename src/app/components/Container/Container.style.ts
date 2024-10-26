@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import { pxToRem } from "../../constants";
-import { colors, customColors } from "../../theme/colors";
+import { customColors } from "../../theme/colors";
 import { HEADER_HEIGHT } from "../Header/constants";
 import { SIDEBAR_WIDTH } from "../Sidebar/constants";
 

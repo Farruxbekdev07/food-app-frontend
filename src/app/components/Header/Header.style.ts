@@ -5,8 +5,8 @@ import { colors } from "../../theme/colors";
 import { HEADER_HEIGHT } from "./constants";
 import { SIDEBAR_WIDTH } from "../Sidebar/constants";
 
-const SEARCH_INPUT_HEIGHT = 40;
 const SEARCH_INPUT_WIDTH = 300;
+const SEARCH_INPUT_HEIGHT = 40;
 
 export const HeaderStyles = styled.header`
   display: grid;
@@ -20,7 +20,7 @@ export const HeaderStyles = styled.header`
     display: flex;
     gap: ${pxToRem(10)};
     align-items: center;
-    padding: 0 ${pxToRem(10)};
+    padding: 0 ${pxToRem(16)};
     justify-content: space-between;
   }
   .button_group {

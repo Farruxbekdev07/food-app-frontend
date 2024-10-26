@@ -20,7 +20,7 @@ export const SidebarStyles = styled.aside`
     min-height: inherit;
     flex-direction: column;
     background-color: white;
-    padding: 0 ${pxToRem(8)};
+    padding: 0 ${pxToRem(16)};
   }
   .sidebar__logo {
     display: flex;
@@ -36,6 +36,7 @@ export const SidebarStyles = styled.aside`
   }
   .sidebar__list-wrapper {
     display: flex;
+    gap: ${pxToRem(16)};
     flex-direction: column;
     justify-content: space-between;
   }
@@ -62,9 +63,9 @@ export const SidebarStyles = styled.aside`
   }
 
   @media screen and (max-width: ${pxToRem(900)}) {
+    z-index: 9;
     top: ${pxToRem(HEADER_HEIGHT)};
     min-height: ${`calc(100vh - ${pxToRem(HEADER_HEIGHT)})`};
-    z-index: 9;
 
     .sidebar__logo {
       display: none;
