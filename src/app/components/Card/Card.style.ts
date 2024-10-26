@@ -1,33 +1,51 @@
 import styled from "@emotion/styled";
 
 const CardStyle = styled.div`
-  .card__wrapper {
-    border: 2px solid pink;
-    border-radius: 10px;
-    padding: 16px;
-    margin: 10px;
-    max-width: 250px;
-    width: 100%;
+  /* vertical card style */
+  .vertical {
+    .card__wrapper {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-direction: row;
+      padding: 8px;
+      width: fit-content;
+      width: 100%;
+    }
+
+    .card__img-wrapper {
+      padding: 4px 8px;
+      border-radius: 10px;
+    }
+    .card__img-fast-food {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  /* horizontal card style  */
+  .horizontal {
     display: flex;
     flex-direction: column;
   }
 
-  .card__img-wrapper {
+  .card__wrapper {
+    border-radius: 10px;
+    padding: 16px;
+    max-width: 250px;
     width: 100%;
+    background-color: #fff;
+  }
+
+  .card__img-wrapper {
     background-color: #eff1f5;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px 0;
     border-radius: 20px;
-    position: relative;
   }
 
-  .card__img-checked {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-  }
   .card__img-fast-food {
     max-width: 100px;
     width: 100%;

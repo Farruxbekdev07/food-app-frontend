@@ -7,20 +7,22 @@ type Props = {
   direction: "vertical" | "horizontal";
 };
 
-const Card = ({ children }: Props) => {
-  const label = { inputProps: { "aria-label": "checkbox demo" } };
+const Card = ({ children, direction }: Props) => {
   return (
     <CardStyle>
-      <Box className="card__wrapper">
-        <Box className="card__img-wrapper">
-          <Checkbox className="card__img-checked" color="warning" {...label} />
-          <img
-            className="card__img-fast-food"
-            src="https://png.pngtree.com/png-clipart/20230216/ourmid/pngtree-juicy-burgers-with-a-transparent-background-png-image_6603069.png"
-            alt="fast-food"
-          />
+      <Box
+        className={`${direction === "horizontal" ? "horizontal" : "vertical"}`}
+      >
+        <Box className="card__wrapper ">
+          <Box className="card__img-wrapper">
+            <img
+              className="card__img-fast-food"
+              src="https://png.pngtree.com/png-clipart/20230216/ourmid/pngtree-juicy-burgers-with-a-transparent-background-png-image_6603069.png"
+              alt="fast-food"
+            />
+          </Box>
+          {children}
         </Box>
-        {children}
       </Box>
     </CardStyle>
   );
