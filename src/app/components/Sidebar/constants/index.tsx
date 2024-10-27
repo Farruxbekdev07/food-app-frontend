@@ -17,5 +17,4 @@ export const SIDEBAR_LINKS: SidebarLinkType[] = [
   },
 ];
 
-export const SIDEBAR_WIDTH = 240;
-export const SIDEBAR_MIN_WIDTH = 40;
+export const SIDEBAR_WIDTH = 250;

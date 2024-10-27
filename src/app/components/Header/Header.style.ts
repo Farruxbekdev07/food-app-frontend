@@ -1,22 +1,28 @@
 import styled from "@emotion/styled";
 
+import {
+  HEADER_HEIGHT,
+  SEARCH_INPUT_WIDTH,
+  SEARCH_INPUT_HEIGHT,
+} from "./constants";
 import { pxToRem } from "../../constants";
 import { colors } from "../../theme/colors";
-import { HEADER_HEIGHT } from "./constants";
 import { SIDEBAR_WIDTH } from "../Sidebar/constants";
-
-const SEARCH_INPUT_WIDTH = 300;
-const SEARCH_INPUT_HEIGHT = 40;
+import { CONTAINER_MAX_WIDTH } from "../Container/constants";
 
 export const HeaderStyles = styled.header`
-  display: grid;
-  position: fixed;
+  z-index: 10;
+  display: flex;
+  grid-area: header;
   align-items: center;
-  left: ${pxToRem(SIDEBAR_WIDTH)};
   height: ${pxToRem(HEADER_HEIGHT)};
-  width: ${`calc(100% - ${pxToRem(SIDEBAR_WIDTH)})`};
+  width: ${`calc(100vw - ${pxToRem(SIDEBAR_WIDTH)})`};
+  max-width: ${`calc(${pxToRem(CONTAINER_MAX_WIDTH)} - ${pxToRem(
+    SIDEBAR_WIDTH
+  )})`};
 
   .header__wrapper {
+    width: 100%;
     display: flex;
     gap: ${pxToRem(10)};
     align-items: center;

@@ -1,30 +1,34 @@
 import styled from "@emotion/styled";
 
 import { pxToRem } from "../../constants";
+import { CONTAINER_MAX_WIDTH } from "./constants";
 import { customColors } from "../../theme/colors";
 import { HEADER_HEIGHT } from "../Header/constants";
 import { SIDEBAR_WIDTH } from "../Sidebar/constants";
 
 export const ContainerStyles = styled.div`
-  display: flex;
-  min-height: 100vh;
-  height: fit-content;
-  max-width: ${pxToRem(1200)};
+  display: grid;
+  height: 100vh;
+  margin: 0 auto;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar main";
+  max-width: ${pxToRem(CONTAINER_MAX_WIDTH)};
+  grid-template-rows: ${pxToRem(HEADER_HEIGHT)} 1fr;
+  grid-template-columns: ${pxToRem(SIDEBAR_WIDTH)} 1fr;
 
-  .content {
-    position: absolute;
-    top: ${pxToRem(HEADER_HEIGHT)};
-    left: ${pxToRem(SIDEBAR_WIDTH)};
+  .main {
+    grid-area: main;
+    overflow-y: auto;
+    padding: ${pxToRem(16)};
     background-color: ${customColors.gray[50]};
-    min-width: ${`calc(100% - ${pxToRem(SIDEBAR_WIDTH)})`};
-    min-height: ${`calc(100% - ${pxToRem(HEADER_HEIGHT)})`};
-    max-width: ${`calc(1200 - ${pxToRem(SIDEBAR_WIDTH)})`};
   }
 
   @media screen and (max-width: ${pxToRem(900)}) {
-    .content {
-      left: 0;
-      width: 100%;
-    }
+    grid-template-areas:
+      "header"
+      "main";
+    grid-template-columns: 1fr;
+    grid-template-rows: ${pxToRem(HEADER_HEIGHT)} 1fr;
   }
 `;

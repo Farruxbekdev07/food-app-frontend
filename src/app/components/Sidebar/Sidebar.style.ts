@@ -6,21 +6,20 @@ import { customColors } from "../../theme/colors";
 import { HEADER_HEIGHT } from "../Header/constants";
 
 export const SidebarStyles = styled.aside`
-  position: fixed;
-  min-height: 100vh;
-  width: ${pxToRem(SIDEBAR_WIDTH)};
+  grid-area: sidebar;
+  position: relative;
 
   .sidebar__wrapper {
-    z-index: 9;
+    width: ${pxToRem(SIDEBAR_WIDTH)};
     display: flex;
-    width: inherit;
     transition: 1s;
     flex-shrink: 0;
-    position: relative;
-    min-height: inherit;
+    min-height: 100%;
     flex-direction: column;
     background-color: white;
-    padding: 0 ${pxToRem(16)};
+    justify-content: space-between;
+    padding: ${pxToRem(16)};
+    padding-top: 0;
   }
   .sidebar__logo {
     display: flex;
@@ -63,20 +62,23 @@ export const SidebarStyles = styled.aside`
   }
 
   @media screen and (max-width: ${pxToRem(900)}) {
-    z-index: 9;
+    z-index: 99;
+    position: fixed;
+    transition: left 0.3s ease;
     top: ${pxToRem(HEADER_HEIGHT)};
+    left: -${pxToRem(SIDEBAR_WIDTH)};
     min-height: ${`calc(100vh - ${pxToRem(HEADER_HEIGHT)})`};
 
     .sidebar__logo {
       display: none;
     }
-
     .sidebar-open {
       left: 0;
+      position: fixed;
     }
-
     .sidebar-close {
       left: -${pxToRem(SIDEBAR_WIDTH)};
+      position: fixed;
     }
   }
 `;

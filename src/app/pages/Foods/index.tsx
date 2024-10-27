@@ -1,12 +1,19 @@
-import { Typography } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import { Button, Typography } from "@mui/material";
 
-type Props = {};
+import { FoodStyles } from "./Food.style";
+import PageTitle from "../../components/PageTitle";
 
-const Foods = ({}: Props) => {
+const Foods = () => {
   return (
-    <div>
-      <Typography>Foods</Typography>
-    </div>
+    <FoodStyles>
+      <PageTitle title="Foods">
+        <Button variant="contained" className="create__food-button">
+          <AddIcon />
+          <Typography className="create__food-text">Create food</Typography>
+        </Button>
+      </PageTitle>
+    </FoodStyles>
   );
 };
 

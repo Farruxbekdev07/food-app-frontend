@@ -16,9 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import UserImage from "../../assets/images/food-icon.avif";
 import { FoodState, setSidebarOpen } from "../../../store/reducer/foodSlice";
 
-type Props = {};
-
-const Header = ({}: Props) => {
+const Header = () => {
   const [anchorElMenu, setAnchorElMenu] = useState<null | HTMLElement>(null);
   const { isOpenSidebar }: FoodState = useSelector((state: any) => state?.food);
 
