@@ -13,7 +13,6 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import MenuComponent from "./components/Menu";
 import { HeaderStyles } from "./Header.style";
 import { useDispatch, useSelector } from "react-redux";
-import UserImage from "../../assets/images/food-icon.avif";
 import { FoodState, setSidebarOpen } from "../../../store/reducer/foodSlice";
 
 const Header = () => {
@@ -61,11 +60,7 @@ const Header = () => {
             onClick={handleOpenMenu}
             className="user__info-button"
           >
-            <Avatar
-              src={UserImage}
-              alt="User name"
-              className="user__info-image"
-            />
+            <Avatar alt="User name" className="user__info-image" />
             <Typography className="user__info-name">User Name</Typography>
             <KeyboardArrowDownIcon className="user__info-icon" />
           </Button>
