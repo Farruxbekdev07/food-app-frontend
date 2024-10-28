@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 
 import { ADMIN_ROUTES } from "./routes";
-import Container from "./components/Container";
+import Container from "./components/Layout";
 
 function App() {
   return (

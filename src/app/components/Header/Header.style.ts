@@ -26,7 +26,7 @@ export const HeaderStyles = styled.header`
     display: flex;
     gap: ${pxToRem(10)};
     align-items: center;
-    padding: 0 ${pxToRem(16)};
+    padding: 0 ${pxToRem(20)};
     justify-content: space-between;
   }
   .button_group {

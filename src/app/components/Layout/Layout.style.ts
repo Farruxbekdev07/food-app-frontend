@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 
 import { pxToRem } from "../../constants";
-import { CONTAINER_MAX_WIDTH } from "./constants";
 import { customColors } from "../../theme/colors";
 import { HEADER_HEIGHT } from "../Header/constants";
 import { SIDEBAR_WIDTH } from "../Sidebar/constants";
+import { CONTAINER_MAX_WIDTH } from "../Container/constants";
 
 export const ContainerStyles = styled.div`
   display: grid;
