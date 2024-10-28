@@ -20,6 +20,11 @@ export const SIDEBAR_LINKS: SidebarLinkType[] = [
     path: ROUTE_PATHS.FOODS,
     icon: <DashboardIcon />,
   },
+  {
+    title: "Order",
+    path: ROUTE_PATHS.ORDER,
+    icon: <DashboardIcon />,
+  },
 ];
 
 export const SIDEBAR_WIDTH = 250;
