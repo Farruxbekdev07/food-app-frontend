@@ -4,13 +4,13 @@ import { colors } from "@mui/material";
 const CardStyle = styled.div`
   /* vertical card style */
   .vertical {
+    width: 100%;
     .card__wrapper {
       display: flex;
       align-items: center;
       gap: 16px;
       flex-direction: row;
       padding: 8px;
-      width: fit-content;
       width: 100%;
     }
 
@@ -28,13 +28,15 @@ const CardStyle = styled.div`
   .horizontal {
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 
   .card__wrapper {
     border-radius: 10px;
     padding: 16px;
-    max-width: 250px;
+    max-width: 300px;
     width: 100%;
+
     background-color: #fff;
   }
 
@@ -50,39 +52,6 @@ const CardStyle = styled.div`
   .card__img-fast-food {
     max-width: 100px;
     width: 100%;
-  }
-
-  .card__fast-food-name {
-    font-size: 16px;
-    font-weight: 600;
-    color: ${colors.blueGrey[800]};
-    padding: 15px 0 0 0;
-  }
-
-  .card__food-cost-wrapper {
-    display: flex;
-    justify-content: space-between;
-    gap: 8px;
-    padding: 0 0 5px 0;
-  }
-
-  .card__food-rating-wrapper {
-    display: flex;
-    align-items: center;
-    font-size: 13px;
-    color: ${colors.blueGrey[800]};
-  }
-
-  .card__food-cost {
-    font-size: 24px;
-    font-weight: 600;
-    color: ${colors.orange[900]};
-
-    del {
-      font-size: 14px;
-      font-weight: 400;
-      color: #2e344c;
-    }
   }
 `;
 

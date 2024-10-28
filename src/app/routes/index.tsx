@@ -5,13 +5,14 @@ import Foods from "../pages/Foods";
 import NotFound from "../pages/NotFound";
 import AdminPanel from "../pages/AdminPanel";
 import Order from "../pages/Order";
+import Support from "../pages/Support";
 
 type RouteType = {
   path: string;
   component: ReactNode;
 };
 
-const { FOODS, MAIN, ADMIN_PANEL, ORDER } = ROUTE_PATHS;
+const { FOODS, MAIN, ADMIN_PANEL, ORDER, SUPPORT } = ROUTE_PATHS;
 
 export const ADMIN_ROUTES: RouteType[] = [
   {
@@ -33,5 +34,9 @@ export const ADMIN_ROUTES: RouteType[] = [
   {
     path: ORDER,
     component: <Order />,
+  },
+  {
+    path: SUPPORT,
+    component: <Support />,
   },
 ];

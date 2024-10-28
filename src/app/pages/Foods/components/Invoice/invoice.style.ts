@@ -15,17 +15,53 @@ const InvoiceStyle = styled.div`
   }
 
   .invoice__card-wrapper {
-    border-bottom: 1px solid ${customColors.primary[100]};
+    padding: 0 0 5px 0;
+    border-bottom: 1px solid ${customColors.gray[100]};
   }
 
   .invoice__title {
+    font-weight: 700;
+    color: ${customColors.textColor[900]};
+    padding: 0 0 6px 0;
+    position: sticky;
+    background-color: #fff;
+    top: 0;
+  }
+
+  .invoice__card-box {
+    height: fit-content;
+    overflow-y: auto;
+
+    ::-webkit-scrollbar {
+      width: 20px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #d6dee1;
+      border-radius: 20px;
+      border: 6px solid transparent;
+      background-clip: content-box;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #a8bbbf;
+    }
+  }
+
+  .invoice__card-cost {
+    color: ${customColors.activeColor[700]};
     font-weight: 600;
-    color: ${colors.blueGrey[800]};
+    font-size: 14px;
+    border: none;
   }
 
   .invoice__card-title {
-    font-weight: 600;
-    color: ${customColors.secondary[900]};
+    font-weight: 700;
+    color: ${customColors.gray[600]};
   }
 
   .invoice__card-wrapper {
@@ -38,8 +74,8 @@ const InvoiceStyle = styled.div`
     padding: 10px;
     margin-top: 10px;
     height: fit-content;
-    border: 2px dashed ${colors.grey[500]};
-    background-color: ${colors.grey[50]};
+    border: 2px dashed ${customColors.gray[100]};
+    background-color: ${customColors.gray[50]};
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -47,7 +83,8 @@ const InvoiceStyle = styled.div`
   }
 
   .payment__summary-title {
-    color: ${colors.grey[800]};
+    color: ${customColors.gray[800]};
+    font-weight: 600;
   }
 
   .payment__sub-wrapper,
@@ -62,10 +99,17 @@ const InvoiceStyle = styled.div`
     border-bottom: 2px solid ${colors.grey[300]};
   }
 
+  .payment__sub-title,
+  .payment__sub-cost,
+  .payment__tax-title,
+  .payment__tax-cost {
+    color: ${customColors.gray[600]};
+  }
+
   .payment__total-title,
   .payment__total-cost {
     font-weight: 600;
-    color: ${colors.indigo[900]};
+    color: ${customColors.textColor[700]};
   }
 `;
 export default InvoiceStyle;

@@ -1,4 +1,4 @@
-import DashboardIcon from "@mui/icons-material/Dashboard";
+import { Moped, Cloche, ObjectsColumn, MessageSquareChat } from "dazzle-icons";
 
 import { ChildrenType } from "../../../types";
 import ROUTE_PATHS from "../../../routes/paths";
@@ -13,17 +13,22 @@ export const SIDEBAR_LINKS: SidebarLinkType[] = [
   {
     title: "Dashboard",
     path: ROUTE_PATHS.ADMIN_PANEL,
-    icon: <DashboardIcon />,
+    icon: <ObjectsColumn fontSize={25} />,
   },
   {
     title: "Foods",
     path: ROUTE_PATHS.FOODS,
-    icon: <DashboardIcon />,
+    icon: <Cloche fontSize={25} />,
   },
   {
     title: "Order",
     path: ROUTE_PATHS.ORDER,
-    icon: <DashboardIcon />,
+    icon: <Moped fontSize={25} />,
+  },
+  {
+    title: "Support",
+    path: ROUTE_PATHS.SUPPORT,
+    icon: <MessageSquareChat fontSize={25} />,
   },
 ];
 

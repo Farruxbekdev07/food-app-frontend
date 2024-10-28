@@ -22,6 +22,7 @@ export const LayoutStyles = styled.div`
     overflow-y: auto;
     padding: ${pxToRem(16)};
     background-color: ${customColors.gray[50]};
+    border-top-left-radius: 10px;
   }
 
   @media screen and (max-width: ${pxToRem(900)}) {
