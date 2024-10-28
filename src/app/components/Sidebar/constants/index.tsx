@@ -11,6 +11,11 @@ export type SidebarLinkType = {
 
 export const SIDEBAR_LINKS: SidebarLinkType[] = [
   {
+    title: "Dashboard",
+    path: ROUTE_PATHS.ADMIN_PANEL,
+    icon: <DashboardIcon />,
+  },
+  {
     title: "Foods",
     path: ROUTE_PATHS.FOODS,
     icon: <DashboardIcon />,
