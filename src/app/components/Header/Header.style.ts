@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { colors } from "@mui/material";
 
 import {
   HEADER_HEIGHT,
@@ -6,9 +7,8 @@ import {
   SEARCH_INPUT_HEIGHT,
 } from "./constants";
 import { pxToRem } from "../../constants";
-import { colors } from "../../theme/colors";
 import { SIDEBAR_WIDTH } from "../Sidebar/constants";
-import { CONTAINER_MAX_WIDTH } from "../Container/constants";
+import { LAYOUT_MAX_WIDTH } from "../Layout/constants";
 
 export const HeaderStyles = styled.header`
   z-index: 10;
@@ -17,7 +17,7 @@ export const HeaderStyles = styled.header`
   align-items: center;
   height: ${pxToRem(HEADER_HEIGHT)};
   width: ${`calc(100vw - ${pxToRem(SIDEBAR_WIDTH)})`};
-  max-width: ${`calc(${pxToRem(CONTAINER_MAX_WIDTH)} - ${pxToRem(
+  max-width: ${`calc(${pxToRem(LAYOUT_MAX_WIDTH)} - ${pxToRem(
     SIDEBAR_WIDTH
   )})`};
 

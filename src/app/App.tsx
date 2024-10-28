@@ -1,17 +1,17 @@
 import { Route, Routes } from "react-router-dom";
 
 import { ADMIN_ROUTES } from "./routes";
-import Container from "./components/Layout";
+import Layout from "./components/Layout";
 
 function App() {
   return (
-    <Container>
+    <Layout>
       <Routes>
         {ADMIN_ROUTES.map((item) => (
           <Route path={item.path} element={item.component} />
         ))}
       </Routes>
-    </Container>
+    </Layout>
   );
 }
 

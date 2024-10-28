@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
+import { colors } from "@mui/material";
 
 import { pxToRem } from "../../constants";
-import { colors } from "../../theme/colors";
 
 export const NotFoundStyles = styled.div`
   top: 0;

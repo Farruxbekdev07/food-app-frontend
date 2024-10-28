@@ -1,27 +1,3 @@
-import {
-  amber,
-  blue,
-  common,
-  green,
-  grey,
-  red,
-  brown,
-  orange,
-  lightBlue,
-} from "@mui/material/colors";
-
-export const colors = {
-  grey,
-  common,
-  amber,
-  green,
-  red,
-  blue,
-  brown,
-  orange,
-  lightBlue,
-};
-
 export const customColors = {
   primary: {
     50: "#f9eae8",

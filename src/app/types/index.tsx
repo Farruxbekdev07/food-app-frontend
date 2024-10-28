@@ -13,6 +13,6 @@ export type PageTitleProps = {
   children?: ChildrenType;
 };
 
-export type ContainerProps = {
+export type LayoutProps = {
   children: ChildrenType;
 };
