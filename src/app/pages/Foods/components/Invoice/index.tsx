@@ -2,25 +2,25 @@ import { Box, Button, Typography } from "@mui/material";
 import InvoiceStyle from "./invoice.style";
 import Card from "../../../../components/Card";
 
-type Props = {};
-
-const Invoice = (props: Props) => {
+const Invoice = () => {
   return (
     <InvoiceStyle>
       <Box className="invoice__wrapper">
-        <Box>
+        <Box className="invoice__card-box">
           <Typography className="invoice__title">Invoice</Typography>
-          <Box className="invoice__card-wrapper">
-            <Card direction="vertical">
-              <Box>
-                <Box className="invoice__card-wrapper">
-                  <Typography className="invoice__card-title">
-                    King Burger
-                  </Typography>
-                  <Typography className="invoice__card-cost">100$</Typography>
+          <Box>
+            <Box className="invoice__card-wrapper">
+              <Card direction="vertical">
+                <Box>
+                  <Box className="invoice__card-title-wrapper">
+                    <Typography className="invoice__card-title">
+                      King Burger
+                    </Typography>
+                    <Typography className="invoice__card-cost">$25</Typography>
+                  </Box>
                 </Box>
-              </Box>
-            </Card>
+              </Card>
+            </Box>
           </Box>
         </Box>
 
