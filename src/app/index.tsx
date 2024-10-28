@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 
-import { ROUTES } from "./routes";
+import { ADMIN_ROUTES } from "./routes";
 import Layout from "./components/Layout";
 
 import "../index.css";
@@ -10,7 +10,7 @@ function App() {
     return (
       <Layout>
         <Routes>
-          {ROUTES.map((item) => (
+          {ADMIN_ROUTES.map((item) => (
             <Route path={item.path} element={item.component} />
           ))}
         </Routes>

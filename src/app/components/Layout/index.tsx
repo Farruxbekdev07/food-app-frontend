@@ -1,21 +1,15 @@
 import Header from "../Header";
 import Sidebar from "../Sidebar";
-import { ChildrenType } from "../../types";
+import { ChildrenType, ContainerProps } from "../../types";
 import { SIDEBAR_LINKS } from "../Sidebar/constants";
-import { LayoutStyles } from "./Layout.style";
+import { ContainerStyles } from "./Layout.style";
 
-type Props = {
-  children: ChildrenType;
-};
-
-export default function Layout({ children }: Props) {
+export default function Container({ children }: ContainerProps) {
   return (
-    <LayoutStyles>
+    <ContainerStyles>
       <Sidebar links={SIDEBAR_LINKS} />
-      <div>
-        <Header />
-        <div className="content">{children}</div>
-      </div>
-    </LayoutStyles>
+      <Header />
+      <div className="main">{children}</div>
+    </ContainerStyles>
   );
 }

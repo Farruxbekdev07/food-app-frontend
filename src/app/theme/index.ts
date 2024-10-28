@@ -1,41 +1,30 @@
 import { createTheme } from "@mui/material";
 
-import { colors } from "./colors";
 import { pxToRem } from "../constants";
+import { customColors } from "./colors";
 
 export const theme = createTheme({
   typography: {
-    fontFamily: ["Poppins", "sans-serif"].join(","),
+    fontFamily: ["Open Sans", "sans-serif"].join(","),
     allVariants: {
-      color: colors.grey[700],
-    },
-  },
-  palette: {
-    secondary: colors.orange,
-    text: {
-      secondary: colors.blue[900],
+      color: customColors.textColor[900],
     },
   },
   components: {
     MuiButton: {
       styleOverrides: {
         contained: {
-          background: colors.orange[900],
+          height: pxToRem(48),
           textTransform: "none",
           borderRadius: `${pxToRem(8)}`,
+          background: customColors.primary[600],
         },
         outlined: {
-          background: colors.grey[100],
+          height: pxToRem(48),
           textTransform: "none",
           borderRadius: `${pxToRem(8)}`,
-          border: `1px solid ${colors.grey[300]}`,
-        },
-      },
-    },
-    MuiInputBase: {
-      styleOverrides: {
-        root: {
-          borderRadius: `${pxToRem(16)}`,
+          background: customColors.gray[50],
+          border: `1px solid ${customColors.gray[100]}`,
         },
       },
     },

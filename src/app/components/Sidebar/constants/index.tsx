@@ -16,3 +16,5 @@ export const SIDEBAR_LINKS: SidebarLinkType[] = [
     icon: <DashboardIcon />,
   },
 ];
+
+export const SIDEBAR_WIDTH = 250;

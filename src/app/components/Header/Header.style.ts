@@ -1,22 +1,30 @@
 import styled from "@emotion/styled";
 
-import { HEADER_HEIGHT, pxToRem, SIDEBAR_WIDTH } from "../../constants";
+import {
+  HEADER_HEIGHT,
+  SEARCH_INPUT_WIDTH,
+  SEARCH_INPUT_HEIGHT,
+} from "./constants";
+import { pxToRem } from "../../constants";
 import { colors } from "../../theme/colors";
-
-const SEARCH_INPUT_HEIGHT = 40;
-const SEARCH_INPUT_WIDTH = 300;
+import { SIDEBAR_WIDTH } from "../Sidebar/constants";
+import { CONTAINER_MAX_WIDTH } from "../Container/constants";
 
 export const HeaderStyles = styled.header`
+  z-index: 10;
   display: flex;
-  position: fixed;
+  grid-area: header;
   align-items: center;
-  left: ${pxToRem(SIDEBAR_WIDTH)};
   height: ${pxToRem(HEADER_HEIGHT)};
-  border-bottom: 1px solid ${colors.grey[300]};
-  width: ${`calc(100% - ${pxToRem(SIDEBAR_WIDTH)})`};
+  width: ${`calc(100vw - ${pxToRem(SIDEBAR_WIDTH)})`};
+  max-width: ${`calc(${pxToRem(CONTAINER_MAX_WIDTH)} - ${pxToRem(
+    SIDEBAR_WIDTH
+  )})`};
 
   .header__wrapper {
+    width: 100%;
     display: flex;
+    gap: ${pxToRem(10)};
     align-items: center;
     padding: 0 ${pxToRem(20)};
     justify-content: space-between;
@@ -46,5 +54,18 @@ export const HeaderStyles = styled.header`
   }
   .user__info-icon {
     color: ${colors.grey[600]};
+  }
+
+  .toggle__sidebar {
+    display: none;
+  }
+
+  @media screen and (max-width: ${pxToRem(900)}) {
+    left: 0;
+    width: 100%;
+
+    .toggle__sidebar {
+      display: block;
+    }
   }
 `;

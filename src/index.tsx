@@ -4,7 +4,8 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 
-import App from "./app";
+import "./index.css";
+import App from "./app/App";
 import { store } from "./store";
 import { theme } from "./app/theme";
 
@@ -13,13 +14,13 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <BrowserRouter>
-    <React.StrictMode>
-      <ThemeProvider theme={theme}>
-        <Provider store={store}>
+  <React.StrictMode>
+    <Provider store={store}>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
           <App />
-        </Provider>
-      </ThemeProvider>
-    </React.StrictMode>
-  </BrowserRouter>
+        </ThemeProvider>
+      </BrowserRouter>
+    </Provider>
+  </React.StrictMode>
 );

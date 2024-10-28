@@ -1,9 +1,10 @@
-import { Box, Button, Grid2, Rating, Typography } from "@mui/material";
-import Card from "../../components/Card";
 import React from "react";
+import { Box, Button, Grid2, Rating, Typography } from "@mui/material";
+
 import FoodsStyle from "./Foods.style";
-import Invoice from "./components/Invoice";
 import Container from "../../Container";
+import Card from "../../components/Card";
+import Invoice from "./components/Invoice";
 
 type Props = {};
 

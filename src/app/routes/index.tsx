@@ -11,7 +11,7 @@ type RouteType = {
 
 const { FOODS, MAIN } = ROUTE_PATHS;
 
-export const ROUTES: RouteType[] = [
+export const ADMIN_ROUTES: RouteType[] = [
   {
     path: "*",
     component: <NotFound />,
