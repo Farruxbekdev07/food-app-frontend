@@ -1,4 +1,10 @@
-import { Moped, Cloche, ObjectsColumn, MessageSquareChat } from "dazzle-icons";
+import {
+  Moped,
+  Cloche,
+  ObjectsColumn,
+  RestaurantMenu,
+  MessageSquareChat,
+} from "dazzle-icons";
 
 import { ChildrenType } from "../../../types";
 import ROUTE_PATHS from "../../../routes/paths";
@@ -21,7 +27,7 @@ export const SIDEBAR_LINKS: SidebarLinkType[] = [
     icon: <Cloche fontSize={25} />,
   },
   {
-    title: "Order",
+    title: "Orders",
     path: ROUTE_PATHS.ORDER,
     icon: <Moped fontSize={25} />,
   },
@@ -29,6 +35,11 @@ export const SIDEBAR_LINKS: SidebarLinkType[] = [
     title: "Support",
     path: ROUTE_PATHS.SUPPORT,
     icon: <MessageSquareChat fontSize={25} />,
+  },
+  {
+    title: "History",
+    path: ROUTE_PATHS.HISTORY,
+    icon: <RestaurantMenu fontSize={25} />,
   },
 ];
 
