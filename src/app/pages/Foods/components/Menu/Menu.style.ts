@@ -54,7 +54,7 @@ const MenuStyle = styled.div`
   }
   .menu__card-btn-list,
   .menu___card-btn-order {
-    padding: 2px 24px;
+    padding: 8px 24px;
     font-size: 14px;
     font-weight: 700;
     color: ${customColors.gray[900]};

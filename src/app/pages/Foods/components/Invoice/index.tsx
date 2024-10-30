@@ -1,8 +1,16 @@
+import { useState } from "react";
 import { Box, Button, Typography } from "@mui/material";
+
 import InvoiceStyle from "./invoice.style";
 import Card from "../../../../components/Card";
+import DefaultFood from "../../../../assets/images/default-food.png";
 
 const Invoice = () => {
+  const [counter, setCounter] = useState(0);
+
+  const increment = () => setCounter((prev) => prev + 1);
+  const decrement = () => setCounter((prev) => prev - 1);
+
   return (
     <InvoiceStyle>
       <Box className="invoice__wrapper">
@@ -10,16 +18,14 @@ const Invoice = () => {
           <Typography className="invoice__title">Invoice</Typography>
           <Box>
             <Box className="invoice__card-wrapper">
-              <Card direction="vertical">
-                <Box>
-                  <Box className="invoice__card-title-wrapper">
-                    <Typography className="invoice__card-title">
-                      King Burger
-                    </Typography>
-                    <Typography className="invoice__card-cost">$25</Typography>
-                  </Box>
-                </Box>
-              </Card>
+              <Card
+                price={25}
+                rate={2000}
+                name="Burger"
+                oldPrice={12}
+                image={DefaultFood}
+                direction="vertical"
+              />
             </Box>
           </Box>
         </Box>
