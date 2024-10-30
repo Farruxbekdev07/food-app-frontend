@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import { pxToRem } from "../../constants";
 
 const OrderStyle = styled.div`
@@ -6,10 +6,6 @@ const OrderStyle = styled.div`
     width: 100%;
     display: flex;
     justify-content: center;
-  }
-
-  .order__container {
-    width: 100%;
   }
 `;
 
