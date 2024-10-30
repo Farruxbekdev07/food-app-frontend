@@ -13,7 +13,7 @@ export const LayoutStyles = styled.div`
   grid-template-areas:
     "sidebar header"
     "sidebar main";
-  max-width: ${pxToRem(LAYOUT_MAX_WIDTH)};
+  max-width: 100%;
   grid-template-rows: ${pxToRem(HEADER_HEIGHT)} 1fr;
   grid-template-columns: ${pxToRem(SIDEBAR_WIDTH)} 1fr;
 

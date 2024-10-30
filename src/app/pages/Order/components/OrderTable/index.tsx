@@ -25,7 +25,7 @@ const OrderTable = ({ index, price, img, tax, name }: Props) => {
   return (
     <TableStyle>
       <Accordion>
-        <AccordionSummary>1 order foods</AccordionSummary>
+        <AccordionSummary>1 - Order Foods</AccordionSummary>
         <AccordionDetails>
           <TableContainer className="order__table-container" component={Paper}>
             <Table className="order__table" aria-label="simple table">

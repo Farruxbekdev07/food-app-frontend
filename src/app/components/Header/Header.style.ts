@@ -17,9 +17,7 @@ export const HeaderStyles = styled.header`
   align-items: center;
   height: ${pxToRem(HEADER_HEIGHT)};
   width: ${`calc(100vw - ${pxToRem(SIDEBAR_WIDTH)})`};
-  max-width: ${`calc(${pxToRem(LAYOUT_MAX_WIDTH)} - ${pxToRem(
-    SIDEBAR_WIDTH
-  )})`};
+  max-width: 100%;
 
   .header__wrapper {
     width: 100%;

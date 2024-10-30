@@ -111,5 +111,23 @@ const InvoiceStyle = styled.div`
     font-weight: 600;
     color: ${customColors.textColor[700]};
   }
+
+  .invoice__counter-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 0 0 0;
+  }
+
+  .invoice__cart-counter-number {
+    font-weight: 500;
+    color: ${customColors.textColor[700]};
+  }
+
+  .invoice__cart-btn {
+    padding: 2px 12px;
+    font-size: 14px;
+    font-weight: 700;
+  }
 `;
 export default InvoiceStyle;
