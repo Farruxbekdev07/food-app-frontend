@@ -11,14 +11,14 @@ const Invoice = () => {
           <Box>
             <Box className="invoice__card-wrapper">
               <Card direction="vertical">
-                <Box>
+                {/* <Box>
                   <Box className="invoice__card-title-wrapper">
                     <Typography className="invoice__card-title">
                       King Burger
                     </Typography>
                     <Typography className="invoice__card-cost">$25</Typography>
                   </Box>
-                </Box>
+                </Box> */}
               </Card>
             </Box>
           </Box>
