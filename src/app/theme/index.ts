@@ -14,17 +14,17 @@ export const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         contained: {
-          height: pxToRem(48),
           textTransform: "none",
           borderRadius: `${pxToRem(8)}`,
           background: customColors.primary[600],
+          minWidth: "0",
         },
         outlined: {
-          height: pxToRem(48),
           textTransform: "none",
           borderRadius: `${pxToRem(8)}`,
           background: customColors.gray[50],
           border: `1px solid ${customColors.gray[100]}`,
+          minWidth: "0",
         },
       },
     },
