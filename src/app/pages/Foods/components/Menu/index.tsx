@@ -1,20 +1,45 @@
-import { Box, Grid2, Typography } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
 
+import { FOODS } from "./constants";
 import MenuStyle from "./Menu.style";
 import CardComponent from "../../../../components/Card";
+import PageTitle from "../../../../components/PageTitle";
+import CardProps from "../../../../components/Card/interfaces";
+import { setSelectedFoods } from "../../../../../store/reducer/foodSlice";
 
 const Menu = () => {
+  const [selectFoods, setSelectFood] = useState<number[] | any>([]);
+
+  const dispatch = useDispatch();
+
+  const handleSelectFood = (_id: number | any, isChecked: boolean) => {
+    setSelectFood((prev: any) =>
+      isChecked ? [...prev, _id] : prev.filter((i: any) => i !== _id)
+    );
+  };
+
+  useEffect(() => {
+    dispatch(setSelectedFoods(selectFoods));
+  }, [selectFoods]);
+
   return (
     <MenuStyle>
-      <Box className="popular__foods">
-        <Typography className="popular__menu-title">Menu</Typography>
-        <Grid2 container spacing={2}>
-          <Grid2 size={4}>
-            <CardComponent direction="horizontal" />
-            <CardComponent direction="vertical" />
-          </Grid2>
-        </Grid2>
-      </Box>
+      <PageTitle title="Menu" />
+      <div className="card-container">
+        {FOODS.map(({ name, rate, image, price, oldPrice, _id }: CardProps) => (
+          <CardComponent
+            rate={rate}
+            name={name}
+            image={image}
+            price={price}
+            oldPrice={oldPrice}
+            direction="horizontal"
+            selected={selectFoods.includes(_id)}
+            onChange={(isChecked: boolean) => handleSelectFood(_id, isChecked)}
+          />
+        ))}
+      </div>
     </MenuStyle>
   );
 };

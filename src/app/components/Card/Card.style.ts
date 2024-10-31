@@ -5,21 +5,21 @@ import { pxToRem } from "../../constants";
 import { customColors } from "../../theme/colors";
 
 const CardStyle = styled.div`
-  width: fit-content;
   border-radius: ${pxToRem(12)};
 
   /* chip card styles */
   .chip__card {
     display: flex;
+    box-shadow: none;
     gap: ${pxToRem(16)};
     align-items: center;
     padding: ${pxToRem(12)};
-    max-width: ${pxToRem(200)};
-    min-width: ${pxToRem(200)};
+    min-width: ${pxToRem(80)};
     border-radius: ${pxToRem(12)};
     background-color: ${colors.grey[50]};
   }
   .chip__card__media {
+    object-fit: contain;
     width: ${pxToRem(56)};
     height: ${pxToRem(56)};
     border-radius: ${pxToRem(8)};
@@ -33,7 +33,9 @@ const CardStyle = styled.div`
     }
   }
   .chip__card__content {
+    flex: 1;
     padding: 0;
+    padding-bottom: 0;
   }
   .chip__card__title {
     font-weight: 600;
@@ -48,11 +50,20 @@ const CardStyle = styled.div`
     background-color: ${customColors.primary[50]};
     border: 1px solid ${customColors.primary[700]};
   }
+  .payment__card {
+    height: ${pxToRem(80)};
+    min-width: ${pxToRem(80)};
+  }
+  .payment__media {
+    width: 100%;
+    height: 100%;
+  }
 
   /* card styles  */
   .card {
-    width: ${pxToRem(300)};
+    box-shadow: none;
     padding: ${pxToRem(24)};
+    min-width: ${pxToRem(300)};
     max-height: ${pxToRem(350)};
     border-radius: ${pxToRem(12)};
     background-color: ${colors.grey[50]};
@@ -60,6 +71,7 @@ const CardStyle = styled.div`
   .card__media {
     width: 100%;
     height: auto;
+    object-fit: contain;
     max-height: ${pxToRem(150)};
     border-radius: ${pxToRem(12)};
     background-color: ${customColors.gray[50]};
@@ -114,6 +126,13 @@ const CardStyle = styled.div`
   }
   .card-active {
     border: 1px solid ${customColors.primary[700]};
+  }
+  .selected__card-container {
+    position: relative;
+
+    .checkbox {
+      position: absolute;
+    }
   }
 `;
 

@@ -4,15 +4,15 @@ import { SidebarLinkType } from "../components/Sidebar/constants";
 
 export type ChildrenType = ReactNode;
 
-export type SidebarProps = {
+export interface SidebarProps {
   links: SidebarLinkType[];
-};
+}
 
-export type PageTitleProps = {
+export interface PageTitleProps {
   title: string;
   children?: ChildrenType;
-};
+}
 
-export type LayoutProps = {
+export interface LayoutProps {
   children: ChildrenType;
-};
+}

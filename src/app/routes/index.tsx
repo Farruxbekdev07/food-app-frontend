@@ -4,10 +4,10 @@ import ROUTE_PATHS from "./paths";
 import Foods from "../pages/Foods";
 import NotFound from "../pages/NotFound";
 
-type RouteType = {
+interface RouteType {
   path: string;
   component: ReactNode;
-};
+}
 
 const { FOODS, MAIN } = ROUTE_PATHS;
 
