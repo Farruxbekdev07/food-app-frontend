@@ -12,6 +12,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 import MenuComponent from "./components/Menu";
 import { HeaderStyles } from "./Header.style";
+import TelegramLogin from "../../pages/TelegramLogin";
 import { useDispatch, useSelector } from "react-redux";
 import { FoodState, setSidebarOpen } from "../../../store/reducer/foodSlice";
 
@@ -53,6 +54,7 @@ const Header = () => {
           </Button>
         </ButtonGroup>
 
+        <TelegramLogin />
         <div className="user__info">
           <Button
             size="small"
