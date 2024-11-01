@@ -12,22 +12,27 @@ export type User = {
 
 export interface AuthState {
   user: User | null;
+  token: string;
 }
 
 const initialState: AuthState = {
   user: null,
+  token: "",
 };
 
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setUserData: (state, action: PayloadAction<User>) => {
+    setUserData: (state: AuthState, action: PayloadAction<User>) => {
       state.user = action.payload;
+    },
+    setToken: (state: AuthState, action) => {
+      state.token = action.payload?.token;
     },
   },
 });
 
-export const { setUserData } = authSlice.actions;
+export const { setUserData, setToken } = authSlice.actions;
 
 export default authSlice.reducer;
