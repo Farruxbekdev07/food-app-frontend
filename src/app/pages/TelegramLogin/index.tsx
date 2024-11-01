@@ -1,18 +1,15 @@
 import { useEffect } from "react";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
 
-interface UserType {
-  id: string | null;
-  hash: string | null;
-  username: string | null;
-  auth_date: string | null;
-  last_name: string | null;
-  photo_url: string | null;
-  first_name: string | null;
-}
+import { setUserData, User } from "../../../store/reducer/authSlice";
 
 export default function TelegramLogin() {
-  const handleTelegramAuth = (user: UserType) => {
-    console.log("User Auth Data:", user);
+  const dispatch = useDispatch();
+
+  const handleTelegramAuth = (user: User) => {
+    dispatch(setUserData(user));
+    toast.success("Sign in successfully!");
   };
 
   useEffect(() => {
@@ -22,31 +19,29 @@ export default function TelegramLogin() {
     script.setAttribute("data-telegram-login", "Koronavirus_status_07_bot");
     script.setAttribute("data-size", "large");
     script.setAttribute("data-radius", "8");
-    script.setAttribute(
-      "data-auth-url",
-      `${window.location.origin}/auth/telegram`
-    );
+    script.setAttribute("data-auth-url", `${window.location.origin}/foods`);
     script.setAttribute("data-request-access", "write");
 
     document.getElementById("telegram-login-container")?.appendChild(script);
 
     const queryParams = new URLSearchParams(window.location.search);
 
-    const user = {
-      id: queryParams.get("id"),
-      first_name: queryParams.get("first_name"),
-      last_name: queryParams.get("last_name"),
-      username: queryParams.get("username"),
-      photo_url: queryParams.get("photo_url"),
-      auth_date: queryParams.get("auth_date"),
-      hash: queryParams.get("hash"),
+    const user: User = {
+      id: queryParams.get("id") || "",
+      first_name: queryParams.get("first_name") || "",
+      last_name: queryParams.get("last_name") || "",
+      username: queryParams.get("username") || "",
+      photo_url: queryParams.get("photo_url") || "",
+      auth_date: queryParams.get("auth_date") || "",
+      hash: queryParams.get("hash") || "",
     };
-
-    console.log("user:", user);
 
     if (user.id) {
       handleTelegramAuth(user);
+    } else {
+      toast.error("User not found!");
     }
   }, []);
+
   return <div id="telegram-login-container"></div>;
 }
