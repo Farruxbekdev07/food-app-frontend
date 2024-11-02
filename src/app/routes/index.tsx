@@ -3,13 +3,14 @@ import { ReactNode } from "react";
 import ROUTE_PATHS from "./paths";
 import Foods from "../pages/Foods";
 import NotFound from "../pages/NotFound";
+import CreateFood from "../pages/Foods/pages/Create";
 
-type RouteType = {
+interface RouteType {
   path: string;
   component: ReactNode;
-};
+}
 
-const { FOODS, MAIN } = ROUTE_PATHS;
+const { FOODS, MAIN, CREATE_FOOD } = ROUTE_PATHS;
 
 export const ADMIN_ROUTES: RouteType[] = [
   {
@@ -23,5 +24,9 @@ export const ADMIN_ROUTES: RouteType[] = [
   {
     path: FOODS,
     component: <Foods />,
+  },
+  {
+    path: CREATE_FOOD,
+    component: <CreateFood />,
   },
 ];
