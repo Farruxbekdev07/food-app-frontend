@@ -35,5 +35,12 @@ export const theme = createTheme({
         },
       },
     },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          borderRadius: `${pxToRem(8)} !important`,
+        },
+      },
+    },
   },
 });
