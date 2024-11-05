@@ -3,6 +3,8 @@ import { MapContainer, TileLayer, Marker, Polyline } from "react-leaflet";
 import L from "leaflet";
 import axios from "axios";
 import "leaflet/dist/leaflet.css";
+import { transportTypesRoutes } from "../../constants/map";
+import { Box, BoxProps } from "@mui/material";
 
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
@@ -12,9 +14,10 @@ L.Icon.Default.mergeOptions({
 
 type Props = {
   destination: L.LatLngTuple;
+  transport: keyof typeof transportTypesRoutes;
 };
 
-const Map: FC<Props> = ({ destination }) => {
+const Map: FC<BoxProps & Props> = ({ destination, transport, ...boxProps }) => {
   const [position, setPosition] = useState<L.LatLngTuple>([
     40.136315, 67.825148,
   ]);
@@ -37,7 +40,7 @@ const Map: FC<Props> = ({ destination }) => {
 
       try {
         const response = await axios.get(
-          `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${process.env.REACT_APP_OPEN_ROUTE_SERVICE_API_KEY}&start=${startLng},${startLat}&end=${endLng},${endLat}`
+          `https://api.openrouteservice.org/v2/directions/${transportTypesRoutes[transport]}?api_key=${process.env.REACT_APP_OPEN_ROUTE_SERVICE_API_KEY}&start=${startLng},${startLat}&end=${endLng},${endLat}`
         );
 
         if (response.data.features && response.data.features.length > 0) {
@@ -61,7 +64,7 @@ const Map: FC<Props> = ({ destination }) => {
   }, [position, destination]);
 
   return (
-    <div style={{ height: "500px", width: "100%" }}>
+    <Box {...boxProps}>
       <MapContainer
         center={position}
         zoom={14}
@@ -75,7 +78,7 @@ const Map: FC<Props> = ({ destination }) => {
         <Marker position={destination}></Marker>
         {route.length > 0 && <Polyline positions={route} color="red" />}
       </MapContainer>
-    </div>
+    </Box>
   );
 };
 
