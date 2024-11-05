@@ -1,7 +1,9 @@
 import React from "react";
 import { Provider } from "react-redux";
 import ReactDOM from "react-dom/client";
+import "react-toastify/dist/ReactToastify.css";
 import { ApolloProvider } from "@apollo/client";
+import { ToastContainer } from "react-toastify";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 
@@ -22,6 +24,7 @@ root.render(
         <ThemeProvider theme={theme}>
           <ApolloProvider client={client}>
             <App />
+            <ToastContainer />
           </ApolloProvider>
         </ThemeProvider>
       </BrowserRouter>

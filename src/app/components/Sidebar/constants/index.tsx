@@ -1,13 +1,7 @@
 import DashboardIcon from "@mui/icons-material/Dashboard";
 
-import { ChildrenType } from "../../../types";
-import ROUTE_PATHS from "../../../routes/paths";
-
-export interface SidebarLinkType {
-  path: string;
-  title: string;
-  icon: ChildrenType;
-}
+import { SidebarLinkType } from "../routes/types";
+import ROUTE_PATHS from "../../../routes/paths/paths";
 
 export const SIDEBAR_LINKS: SidebarLinkType[] = [
   {
