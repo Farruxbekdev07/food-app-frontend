@@ -13,8 +13,8 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { Controller, FieldValues, useForm } from "react-hook-form";
 
 import StyledForm from "./Form.style";
-import ROUTE_PATHS from "../../../../routes/paths";
 import PageTitle from "../../../../components/PageTitle";
+import ROUTE_PATHS from "../../../../routes/paths/paths";
 
 type UploadFileType = {
   file?: File;

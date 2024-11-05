@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 
 import Menu from "./components/Menu";
 import FoodStyles from "./Food.style";
-import ROUTE_PATHS from "../../routes/paths";
 import Categories from "./components/Categories";
 import InvoiceSidebar from "./components/Sidebar";
 import PageTitle from "../../components/PageTitle";
+import ROUTE_PATHS from "../../routes/paths/paths";
 
 const Foods = () => {
   const navigate = useNavigate();
