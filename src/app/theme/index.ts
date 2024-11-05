@@ -25,6 +25,7 @@ export const theme = createTheme({
           background: customColors.gray[50],
           border: `1px solid ${customColors.gray[100]}`,
           minWidth: "0",
+          color: customColors.primary[600],
         },
       },
     },

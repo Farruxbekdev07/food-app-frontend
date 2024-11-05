@@ -8,7 +8,6 @@ import {
 } from "./constants";
 import { pxToRem } from "../../constants";
 import { SIDEBAR_WIDTH } from "../Sidebar/constants";
-import { LAYOUT_MAX_WIDTH } from "../Layout/constants";
 
 export const HeaderStyles = styled.header`
   z-index: 10;
@@ -16,10 +15,7 @@ export const HeaderStyles = styled.header`
   grid-area: header;
   align-items: center;
   height: ${pxToRem(HEADER_HEIGHT)};
-  width: ${`calc(100vw - ${pxToRem(SIDEBAR_WIDTH)})`};
-  max-width: ${`calc(${pxToRem(LAYOUT_MAX_WIDTH)} - ${pxToRem(
-    SIDEBAR_WIDTH
-  )})`};
+  max-width: ${`calc(100vw - ${pxToRem(SIDEBAR_WIDTH)})`};
 
   .header__wrapper {
     width: 100%;

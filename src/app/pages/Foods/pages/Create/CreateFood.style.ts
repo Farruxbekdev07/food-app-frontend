@@ -5,8 +5,6 @@ import { customColors } from "../../../../theme/colors";
 
 const CreateFoodStyles = styled.div`
   width: 100%;
-  border: 1px solid;
-  max-width: ${pxToRem(1200)};
 
   .form {
     width: 100%;
