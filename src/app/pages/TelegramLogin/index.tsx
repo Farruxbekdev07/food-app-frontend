@@ -1,18 +1,32 @@
 import { useEffect } from "react";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useMutation } from "@apollo/client";
 
+import { UserRoleEnum } from "../../types/enums";
+import { CREATE_USER } from "../../graphql/Mutation/Auth";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { setUserData, User } from "../../../store/reducer/authSlice";
 
 export default function TelegramLogin() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.auth.user);
+
+  const [createUser] = useMutation(CREATE_USER);
 
   const handleTelegramAuth = (user: User) => {
+    createUser({
+      variables: {
+        user,
+      },
+    });
     dispatch(setUserData(user));
     toast.success("Sign in successfully!");
   };
 
   useEffect(() => {
+    if (user) {
+      return;
+    }
     const script = document.createElement("script");
     script.src = "https://telegram.org/js/telegram-widget.js?22";
     script.async = true;
@@ -26,22 +40,24 @@ export default function TelegramLogin() {
 
     const queryParams = new URLSearchParams(window.location.search);
 
-    const user: User = {
-      id: queryParams.get("id") || "",
-      first_name: queryParams.get("first_name") || "",
-      last_name: queryParams.get("last_name") || "",
-      username: queryParams.get("username") || "",
-      photo_url: queryParams.get("photo_url") || "",
-      auth_date: queryParams.get("auth_date") || "",
-      hash: queryParams.get("hash") || "",
+    const lastName = queryParams.get("last_name");
+    const firstName = queryParams.get("first_name");
+
+    const userData: User = {
+      // cart: "",
+      name: `${firstName} ${lastName}`,
+      // phone: "",
+      // orders: [""],
+      role: UserRoleEnum.admin,
+      telegramId: Number(queryParams.get("id")),
     };
 
-    if (user.id) {
-      handleTelegramAuth(user);
+    if (userData.telegramId) {
+      handleTelegramAuth(userData);
     } else {
       toast.error("User not found!");
     }
-  }, []);
+  }, [user, dispatch]);
 
   return <div id="telegram-login-container"></div>;
 }

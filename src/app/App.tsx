@@ -1,13 +1,17 @@
 import { Route, Routes } from "react-router-dom";
 
-import { ADMIN_ROUTES } from "./routes";
+import { ROUTES } from "./routes";
 import Layout from "./components/Layout";
+import { useAppSelector } from "./hooks/redux";
 
 function App() {
+  // const userRole = useAppSelector((state) => state.auth.user?.role);
+  const userRole = "admin";
+
   return (
     <Layout>
       <Routes>
-        {ADMIN_ROUTES.map((item) => (
+        {ROUTES[userRole || "user"].map((item) => (
           <Route path={item.path} element={item.component} />
         ))}
       </Routes>

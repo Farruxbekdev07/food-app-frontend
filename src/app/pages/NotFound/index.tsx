@@ -1,9 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import { Button, Typography } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-import ROUTE_PATHS from "../../routes/paths";
-import { useNavigate } from "react-router-dom";
 import { NotFoundStyles } from "./NotFound.style";
+import ROUTE_PATHS from "../../routes/paths/paths";
 import NotFoundImage from "../../assets/images/not-found.png";
 
 export default function NotFound() {

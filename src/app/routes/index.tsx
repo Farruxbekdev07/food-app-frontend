@@ -1,27 +1,9 @@
-import { ReactNode } from "react";
+import { USER_ROUTES } from "./roles/user";
+import { ADMIN_ROUTES } from "./roles/admin";
+import { COURIER_ROUTES } from "./roles/courier";
 
-import ROUTE_PATHS from "./paths";
-import Foods from "../pages/Foods";
-import NotFound from "../pages/NotFound";
-
-type RouteType = {
-  path: string;
-  component: ReactNode;
+export const ROUTES = {
+  user: USER_ROUTES,
+  admin: ADMIN_ROUTES,
+  courier: COURIER_ROUTES,
 };
-
-const { FOODS, MAIN } = ROUTE_PATHS;
-
-export const ADMIN_ROUTES: RouteType[] = [
-  {
-    path: "*",
-    component: <NotFound />,
-  },
-  {
-    path: MAIN,
-    component: <Foods />,
-  },
-  {
-    path: FOODS,
-    component: <Foods />,
-  },
-];

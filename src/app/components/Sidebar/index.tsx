@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux";
 import { Tooltip, Typography } from "@mui/material";
 
-import { SidebarProps } from "../../types";
 import { SidebarStyles } from "./Sidebar.style";
 import { Link, useLocation } from "react-router-dom";
 import FoodIcon from "../../assets/images/foodelic.png";
 import { FoodState } from "../../../store/reducer/foodSlice";
+import { SidebarProps } from "./routes/types";
 
 export default function Sidebar({ links }: SidebarProps) {
   const { pathname } = useLocation();
