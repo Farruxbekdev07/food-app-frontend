@@ -3,20 +3,23 @@ import { colors } from "@mui/material";
 
 import { pxToRem } from "../../constants";
 
-export const FoodStyles = styled.div`
+const FoodStyles = styled.div`
   .create__food-button {
     display: flex;
     gap: ${pxToRem(10)};
+    height: ${pxToRem(48)};
 
     .create__food-text {
       color: ${colors.grey[50]};
     }
   }
-
-  .food__wrapper {
-    width: 100%;
+  .foods-container {
     display: flex;
-    justify-content: space-between;
-    gap: 16px;
+    gap: ${pxToRem(16)};
+  }
+  .menu-container {
+    flex: 1;
   }
 `;
+
+export default FoodStyles;

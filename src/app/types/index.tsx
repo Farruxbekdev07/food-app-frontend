@@ -7,6 +7,6 @@ export type PageTitleProps = {
   children?: ChildrenType;
 };
 
-export type LayoutProps = {
+export interface LayoutProps {
   children: ChildrenType;
-};
+}
