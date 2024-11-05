@@ -12,10 +12,12 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 import MenuComponent from "./components/Menu";
 import { HeaderStyles } from "./Header.style";
+import TelegramLogin from "../../pages/TelegramLogin";
 import { useDispatch, useSelector } from "react-redux";
 import { FoodState, setSidebarOpen } from "../../../store/reducer/foodSlice";
 
 const Header = () => {
+  const user = useSelector((state: any) => state?.auth?.user);
   const [anchorElMenu, setAnchorElMenu] = useState<null | HTMLElement>(null);
   const { isOpenSidebar }: FoodState = useSelector((state: any) => state?.food);
 
@@ -23,7 +25,6 @@ const Header = () => {
   const open = Boolean(anchorElMenu);
 
   const handleToggle = () => {
-    console.log(isOpenSidebar);
     dispatch(setSidebarOpen(!isOpenSidebar));
   };
 
@@ -53,18 +54,28 @@ const Header = () => {
           </Button>
         </ButtonGroup>
 
-        <div className="user__info">
-          <Button
-            size="small"
-            variant="outlined"
-            onClick={handleOpenMenu}
-            className="user__info-button"
-          >
-            <Avatar alt="User name" className="user__info-image" />
-            <Typography className="user__info-name">User Name</Typography>
-            <KeyboardArrowDownIcon className="user__info-icon" />
-          </Button>
-        </div>
+        {user ? (
+          <div className="user__info">
+            <Button
+              size="small"
+              variant="outlined"
+              onClick={handleOpenMenu}
+              className="user__info-button"
+            >
+              <Avatar
+                alt="User name"
+                src={user?.photo_url || ""}
+                className="user__info-image"
+              />
+              <Typography className="user__info-name">
+                {user?.first_name || "User Name"} {user?.last_name || ""}
+              </Typography>
+              <KeyboardArrowDownIcon className="user__info-icon" />
+            </Button>
+          </div>
+        ) : (
+          <TelegramLogin />
+        )}
       </div>
       <MenuComponent
         open={open}
