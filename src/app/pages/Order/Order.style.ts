@@ -6,6 +6,8 @@ const OrderStyle = styled.div`
     width: 100%;
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    gap: 8px;
   }
 `;
 

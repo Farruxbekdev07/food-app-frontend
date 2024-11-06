@@ -1,46 +1,56 @@
-import React from "react";
+import { OrderType } from "../../../../types/order";
 import TableStyle from "./Table.style";
 import {
+  Box,
   Table,
   Paper,
   TableRow,
+  TableHead,
   TableBody,
   TableCell,
   Accordion,
-  TableHead,
   TableContainer,
   AccordionSummary,
   AccordionDetails,
+  Typography,
 } from "@mui/material";
-import Card from "../../../../components/Card";
-import CardComponent from "../../../../components/Card";
-interface Props {
-  index?: number;
-  price?: number;
-  img?: string;
-  tax?: number;
-  name?: string;
-}
-const OrderTable = ({ index, price, img, tax, name }: Props) => {
+
+type props = OrderType;
+
+const OrderTable = ({ totalPrice, id, status, foods }: OrderType) => {
   return (
     <TableStyle>
       <Accordion>
-        <AccordionSummary>1 - Order Foods</AccordionSummary>
+        <AccordionSummary>
+          <Box display="flex" justifyContent="space-between" width="100%">
+            <Typography> {id} - Order Foods</Typography>
+            <Typography>Status: {status}</Typography>
+            <Typography>Total Price: {totalPrice}</Typography>
+          </Box>
+        </AccordionSummary>
+
         <AccordionDetails>
           <TableContainer className="order__table-container" component={Paper}>
             <Table className="order__table" aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell> N/r</TableCell>
+                  <TableCell> N/o</TableCell>
                   <TableCell> Orders</TableCell>
-                  <TableCell> Orderer's name</TableCell>
+                  <TableCell> Name</TableCell>
                   <TableCell> Price</TableCell>
                   <TableCell> Tax</TableCell>
-                  <TableCell> Status</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                <TableRow></TableRow>
+                {foods.map(({ title, img, price, quantity, id }) => (
+                  <TableRow>
+                    <TableCell>{id}</TableCell>
+                    <TableCell>{img}</TableCell>
+                    <TableCell>{title}</TableCell>
+                    <TableCell>{price}</TableCell>
+                    <TableCell>{quantity}</TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
           </TableContainer>
