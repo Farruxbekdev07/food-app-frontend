@@ -1,25 +1,30 @@
-import { Box, Button, Grid2, Rating, Typography } from "@mui/material";
-import React from "react";
-import Card from "../../../../components/Card";
-import CategoriesStyled from "./Categories.style";
-import Menu from "../Menu";
+import { useState } from "react";
+
+import { categories } from "./constants";
 import MenuStyle from "../Menu/Menu.style";
+import CardComponent from "../../../../components/Card";
+import CardProps from "../../../../components/Card/interfaces";
 
 const Categories = () => {
+  const [activeCategory, setActiveCategory] = useState<number>(0);
+
+  const handleSelectCategory = (index: number) => {
+    setActiveCategory(index);
+  };
+
   return (
     <MenuStyle>
-      <CategoriesStyled>
-        <Typography className="categories__title">
-          Explore Categories
-        </Typography>
-        <Grid2 container spacing={1}>
-          <Grid2 size={2}>
-            <Card direction="vertical">
-              <Typography className="categories__card-title">Donuts</Typography>
-            </Card>
-          </Grid2>
-        </Grid2>
-      </CategoriesStyled>
+      <div className="chip__card-container">
+        {categories.map(({ image, name }: CardProps, index) => (
+          <CardComponent
+            name={name}
+            image={image}
+            direction="vertical"
+            onClick={() => handleSelectCategory(index)}
+            className={activeCategory === index ? "chip__card-active" : ""}
+          />
+        ))}
+      </div>
     </MenuStyle>
   );
 };

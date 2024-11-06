@@ -1,10 +1,8 @@
 const ROUTE_PATHS = {
   MAIN: "/",
   FOODS: "/foods",
-  ADMIN_PANEL: "/admin-panel",
+  CREATE_FOOD: "/foods/create-food",
   ORDER: "/order",
-  SUPPORT: "/support",
-  HISTORY: "/history",
 };
 
 export default ROUTE_PATHS;

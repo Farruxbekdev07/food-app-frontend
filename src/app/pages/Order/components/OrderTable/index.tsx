@@ -4,16 +4,16 @@ import {
   Table,
   Paper,
   TableRow,
-  TableHead,
-  TableCell,
   TableBody,
-  TableContainer,
-  Typography,
+  TableCell,
   Accordion,
+  TableHead,
+  TableContainer,
   AccordionSummary,
   AccordionDetails,
 } from "@mui/material";
 import Card from "../../../../components/Card";
+import CardComponent from "../../../../components/Card";
 interface Props {
   index?: number;
   price?: number;
@@ -40,32 +40,7 @@ const OrderTable = ({ index, price, img, tax, name }: Props) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                <TableRow>
-                  <TableCell>1</TableCell>
-                  <TableCell>
-                    <Card direction="vertical">
-                      <Typography> king </Typography>
-                    </Card>
-                  </TableCell>
-                  <TableCell>gam-burger</TableCell>
-                  <TableCell>12000</TableCell>
-                  <TableCell>2000</TableCell>
-                  <TableCell>Pending</TableCell>
-                </TableRow>
-              </TableBody>
-              <TableBody>
-                <TableRow>
-                  <TableCell>1</TableCell>
-                  <TableCell>
-                    <Card direction="vertical">
-                      <Typography> king </Typography>
-                    </Card>
-                  </TableCell>
-                  <TableCell>gam-burger</TableCell>
-                  <TableCell>12000</TableCell>
-                  <TableCell>2000</TableCell>
-                  <TableCell>Pending</TableCell>
-                </TableRow>
+                <TableRow></TableRow>
               </TableBody>
             </Table>
           </TableContainer>

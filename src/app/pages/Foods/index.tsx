@@ -1,27 +1,39 @@
-import React from "react";
-import { Box, Button, Grid2, Rating, Typography } from "@mui/material";
+import { Button } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import { useNavigate } from "react-router-dom";
 
-import { FoodStyles } from "./Food.style";
-import Card from "../../components/Card";
-import Invoice from "./components/Invoice";
-import Categories from "./components/Categories";
 import Menu from "./components/Menu";
+import FoodStyles from "./Food.style";
+import Categories from "./components/Categories";
+import InvoiceSidebar from "./components/Sidebar";
+import PageTitle from "../../components/PageTitle";
+import ROUTE_PATHS from "../../routes/paths/paths";
 
 const Foods = () => {
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate(ROUTE_PATHS.CREATE_FOOD);
+  };
+
   return (
     <FoodStyles>
-      <Box className="food__wrapper">
-        <Box
-          sx={{
-            maxWidth: "1000px",
-            width: "100%",
-          }}
+      <PageTitle title="Explore Categories">
+        <Button
+          variant="contained"
+          onClick={handleNavigate}
+          className="create__food-button"
         >
+          <AddIcon /> New Food
+        </Button>
+      </PageTitle>
+      <div className="foods-container">
+        <div className="menu-container">
           <Categories />
           <Menu />
-        </Box>
-        <Invoice />
-      </Box>
+        </div>
+        <InvoiceSidebar />
+      </div>
     </FoodStyles>
   );
 };

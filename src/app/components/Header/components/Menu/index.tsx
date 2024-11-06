@@ -1,5 +1,8 @@
-import { Menu, MenuItem } from "@mui/material";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { Menu, MenuItem } from "@mui/material";
+
+import { logOut } from "../../../../../store/reducer/authSlice";
 
 type Props = {
   open: boolean;
@@ -8,6 +11,14 @@ type Props = {
 };
 
 export default function MenuComponent({ anchorEl, onClose, open }: Props) {
+  const dispatch = useDispatch();
+
+  const handleLogOut = () => {
+    dispatch(logOut());
+    onClose();
+    console.log("log out");
+  };
+
   return (
     <Menu
       id="basic-menu"
@@ -20,7 +31,7 @@ export default function MenuComponent({ anchorEl, onClose, open }: Props) {
     >
       <MenuItem onClick={onClose}>Profile</MenuItem>
       <MenuItem onClick={onClose}>My account</MenuItem>
-      <MenuItem onClick={onClose}>Logout</MenuItem>
+      <MenuItem onClick={handleLogOut}>Logout</MenuItem>
     </Menu>
   );
 }
