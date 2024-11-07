@@ -3,17 +3,20 @@ import {
   Button,
   ButtonGroup,
   IconButton,
+  MenuItem,
   TextField,
   Typography,
 } from "@mui/material";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import MenuIcon from "@mui/icons-material/Menu";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
-import MenuComponent from "./components/Menu";
+import MenuComponent from "../Menu";
 import { HeaderStyles } from "./Header.style";
+import { useAppDispatch } from "../../hooks/redux";
 import TelegramLogin from "../../pages/TelegramLogin";
-import { useDispatch, useSelector } from "react-redux";
+import { logOut } from "../../../store/reducer/authSlice";
 import { FoodState, setSidebarOpen } from "../../../store/reducer/foodSlice";
 
 const Header = () => {
@@ -21,7 +24,7 @@ const Header = () => {
   const [anchorElMenu, setAnchorElMenu] = useState<null | HTMLElement>(null);
   const { isOpenSidebar }: FoodState = useSelector((state: any) => state?.food);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const open = Boolean(anchorElMenu);
 
   const handleToggle = () => {
@@ -34,6 +37,11 @@ const Header = () => {
 
   const handleCloseMenu = () => {
     setAnchorElMenu(null);
+  };
+
+  const handleLogOut = () => {
+    handleCloseMenu();
+    dispatch(logOut());
   };
 
   return (
@@ -81,7 +89,11 @@ const Header = () => {
         open={open}
         anchorEl={anchorElMenu}
         onClose={handleCloseMenu}
-      />
+      >
+        <MenuItem onClick={handleCloseMenu}>Profile</MenuItem>
+        <MenuItem onClick={handleCloseMenu}>My account</MenuItem>
+        <MenuItem onClick={handleLogOut}>Logout</MenuItem>
+      </MenuComponent>
     </HeaderStyles>
   );
 };

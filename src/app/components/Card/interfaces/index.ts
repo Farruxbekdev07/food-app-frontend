@@ -1,11 +1,12 @@
 import React from "react";
 
-interface CardProps {
+interface ICard {
   name?: string;
   image?: string;
   selected?: boolean;
   className?: string;
   _id?: number | string;
+  redirectPath?: string;
   rate?: number | string;
   price?: number | string;
   oldPrice?: number | string;
@@ -14,4 +15,4 @@ interface CardProps {
   onChange?: React.MouseEventHandler<HTMLInputElement | any> | any;
 }
 
-export default CardProps;
+export default ICard;

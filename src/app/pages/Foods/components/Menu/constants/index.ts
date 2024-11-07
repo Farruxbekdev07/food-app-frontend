@@ -1,7 +1,7 @@
-import CardProps from "../../../../../components/Card/interfaces";
 import DefaultFood from "../../../../../assets/images/default-food.png";
+import ICard from "../../../../../components/Card/interfaces";
 
-const FOODS: CardProps[] = [
+const FOODS: ICard[] = [
   {
     rate: 2.5,
     price: 25,

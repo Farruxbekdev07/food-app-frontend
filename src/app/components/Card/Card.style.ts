@@ -134,6 +134,15 @@ const CardStyle = styled.div`
       position: absolute;
     }
   }
+  .card-menu {
+    top: 0;
+    right: 0;
+    position: absolute;
+  }
+  .menu__item {
+    display: flex;
+    gap: ${pxToRem(8)};
+  }
 `;
 
 export default CardStyle;

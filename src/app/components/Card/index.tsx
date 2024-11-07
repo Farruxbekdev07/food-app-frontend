@@ -8,10 +8,16 @@ import {
   CardContent,
   CardActionArea,
   Checkbox,
+  MenuItem,
+  IconButton,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
+import EditIcon from "@mui/icons-material/Edit";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
+import MenuComponent from "../Menu";
 import CardStyle from "./Card.style";
 import CardProps from "./interfaces";
 import DefaultFood from "../../assets/images/default-food.png";
@@ -27,9 +33,27 @@ const CardComponent = ({
   oldPrice,
   direction,
   className,
+  redirectPath = "",
 }: CardProps) => {
+  const navigate = useNavigate();
+  const [anchorElMenu, setAnchorElMenu] = useState<null | HTMLElement>(null);
+
+  const open = Boolean(anchorElMenu);
+
+  const handleOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorElMenu(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorElMenu(null);
+  };
+
   const handleSelectFood = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange(event.target.checked);
+  };
+
+  const handleUpdate = () => {
+    navigate(redirectPath);
   };
 
   if (direction === "horizontal") {
@@ -43,6 +67,13 @@ const CardComponent = ({
               onChange={handleSelectFood}
               inputProps={{ "aria-label": "controlled" }}
             />
+            <IconButton
+              aria-label="options"
+              className="card-menu"
+              onClick={handleOpenMenu}
+            >
+              <MoreVertIcon />
+            </IconButton>
             <CardMedia
               component="img"
               alt={name || "food"}
@@ -81,6 +112,16 @@ const CardComponent = ({
             <Button variant="contained">Order Now</Button>
           </CardActions>
         </Card>
+        <MenuComponent
+          open={open}
+          anchorEl={anchorElMenu}
+          onClose={handleCloseMenu}
+        >
+          <MenuItem onClick={handleUpdate} className="menu__item">
+            <EditIcon />
+            <Typography>Update</Typography>
+          </MenuItem>
+        </MenuComponent>
       </CardStyle>
     );
   } else if (direction === "vertical") {
