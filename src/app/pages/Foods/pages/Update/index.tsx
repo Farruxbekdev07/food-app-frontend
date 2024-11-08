@@ -13,18 +13,18 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useForm, Controller, FieldValues } from "react-hook-form";
 
 import { useMutation } from "@apollo/client";
-import CreateFoodStyles from "./CreateFood.style";
 import PageTitle from "../../../../components/PageTitle";
 import ROUTE_PATHS from "../../../../routes/paths/paths";
-import { CREATE_FOODS } from "../../../../graphql/Mutation/Foods";
+import CreateFoodStyles from "../Create/CreateFood.style";
+import { UPDATE_FOODS } from "../../../../graphql/Mutation/Foods";
 
-function CreateFood() {
+function UpdateFood() {
   const navigate = useNavigate();
   const fieldsRef = useRef<HTMLDivElement>(null);
   const [fieldsHeight, setFieldsHeight] = useState(0);
   const [uploadFileUrl, setUploadFileUrl] = useState("");
 
-  const [createFoods, { data, loading }] = useMutation(CREATE_FOODS);
+  const [createFoods, { data }] = useMutation(UPDATE_FOODS);
 
   const {
     reset,
@@ -43,7 +43,6 @@ function CreateFood() {
       const url = URL.createObjectURL(files[0]);
       // field.onChange(files[0]);
       setUploadFileUrl(url);
-      console.log(process.env.REACT_APP_BACKEND_URL);
     }
   };
 
@@ -77,26 +76,26 @@ function CreateFood() {
 
   return (
     <CreateFoodStyles>
-      <PageTitle title="Create Food" />
+      <PageTitle title="Update Food" />
       <div className="form">
         <div className="image-upload" style={{ maxHeight: fieldsHeight }}>
           <CardActionArea className="upload__focusable-area">
             <Tooltip title={"Upload Image"} arrow placement="right">
               <Box className="upload-file" component="label">
                 {/* <Controller
-                  name="image"
-                  control={control}
-                  render={({ field }) => (
-                    <FormControl>
-                      <input
-                        hidden
-                        type="file"
-                        accept="image/*"
-                        onChange={(event: any) => handleUpload(event, field)}
-                      />
-                    </FormControl>
-                  )}
-                /> */}
+                    name="image"
+                    control={control}
+                    render={({ field }) => (
+                      <FormControl>
+                        <input
+                          hidden
+                          type="file"
+                          accept="image/*"
+                          onChange={(event: any) => handleUpload(event, field)}
+                        />
+                      </FormControl>
+                    )}
+                  /> */}
                 <input
                   hidden
                   type="file"
@@ -226,7 +225,7 @@ function CreateFood() {
               variant="contained"
               onClick={handleSubmit(handleCreateFood)}
             >
-              Create
+              Update
             </Button>
           </div>
         </div>
@@ -235,4 +234,4 @@ function CreateFood() {
   );
 }
 
-export default CreateFood;
+export default UpdateFood;
