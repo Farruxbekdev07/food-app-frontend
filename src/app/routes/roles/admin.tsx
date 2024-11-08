@@ -2,8 +2,9 @@ import RouteType from "../types";
 import Foods from "../../pages/Foods";
 import ROUTE_PATHS from "../paths/paths";
 import NotFound from "../../pages/NotFound";
+import AdminOrder from "../../pages/AdminOrder";
 
-const { FOODS, MAIN } = ROUTE_PATHS;
+const { FOODS, MAIN, ADMINORDER } = ROUTE_PATHS;
 
 export const ADMIN_ROUTES: RouteType[] = [
   {
@@ -17,5 +18,9 @@ export const ADMIN_ROUTES: RouteType[] = [
   {
     path: FOODS,
     component: <Foods />,
+  },
+  {
+    path: ADMINORDER,
+    component: <AdminOrder />,
   },
 ];

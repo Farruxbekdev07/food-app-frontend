@@ -6,12 +6,12 @@ import { useAppSelector } from "./hooks/redux";
 
 function App() {
   // const userRole = useAppSelector((state) => state.auth.user?.role);
-  const userRole = "user";
+  const userRole = "admin";
 
   return (
     <Layout>
       <Routes>
-        {ROUTES[userRole || "user"].map((item) => (
+        {ROUTES[userRole || "admin"].map((item) => (
           <Route path={item.path} element={item.component} />
         ))}
       </Routes>

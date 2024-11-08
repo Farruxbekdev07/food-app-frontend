@@ -5,7 +5,7 @@ import { LayoutStyles } from "./Layout.style";
 import SIDEBAR_ROUTES from "../Sidebar/routes";
 
 export default function Layout({ children }: LayoutProps) {
-  const userRole = "user";
+  const userRole = "admin";
 
   return (
     <LayoutStyles>
