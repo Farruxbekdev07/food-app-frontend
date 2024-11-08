@@ -1,4 +1,4 @@
-import RouteType from "../types";
+import { RouteType } from "../types";
 import Foods from "../../pages/Foods";
 import ROUTE_PATHS from "../paths/paths";
 import NotFound from "../../pages/NotFound";

@@ -14,13 +14,13 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 import MenuComponent from "../Menu";
 import { HeaderStyles } from "./Header.style";
-import { useAppDispatch } from "../../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import TelegramLogin from "../../pages/TelegramLogin";
 import { logOut } from "../../../store/reducer/authSlice";
 import { FoodState, setSidebarOpen } from "../../../store/reducer/foodSlice";
 
 const Header = () => {
-  const user = useSelector((state: any) => state?.auth?.user);
+  const user = useAppSelector((state) => state?.auth?.user);
   const [anchorElMenu, setAnchorElMenu] = useState<null | HTMLElement>(null);
   const { isOpenSidebar }: FoodState = useSelector((state: any) => state?.food);
 
