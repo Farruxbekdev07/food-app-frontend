@@ -1,32 +1,38 @@
 import { useEffect } from "react";
 import { toast } from "react-toastify";
-import { useMutation } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 
-import { UserRoleEnum } from "../../types/enums";
-import { CREATE_USER } from "../../graphql/Mutation/Auth";
+import {
+  setToken,
+  setAuthRole,
+  setUserData,
+} from "../../../store/reducer/authSlice";
+import { ITelegramUser } from "../../types/User";
+import { LOGIN } from "../../graphql/Mutation/Auth";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { setUserData, User } from "../../../store/reducer/authSlice";
 
 export default function TelegramLogin() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
 
-  const [createUser] = useMutation(CREATE_USER);
+  const [login, { data, loading }] = useLazyQuery(LOGIN);
 
-  const handleTelegramAuth = (user: User) => {
-    createUser({
-      variables: {
-        user,
-      },
-    });
-    dispatch(setUserData(user));
-    toast.success("Sign in successfully!");
+  const handleTelegramAuth = (auth: ITelegramUser) => {
+    login({ variables: { auth } });
+
+    if (data) {
+      dispatch(setUserData(auth));
+      dispatch(setToken(data?.login?.token));
+      dispatch(setAuthRole(data?.login?.user?.role));
+      toast.success("Sign in successfully!");
+    }
   };
 
   useEffect(() => {
     if (user) {
       return;
     }
+
     const script = document.createElement("script");
     script.src = "https://telegram.org/js/telegram-widget.js?22";
     script.async = true;
@@ -40,24 +46,22 @@ export default function TelegramLogin() {
 
     const queryParams = new URLSearchParams(window.location.search);
 
-    const lastName = queryParams.get("last_name");
-    const firstName = queryParams.get("first_name");
-
-    const userData: User = {
-      // cart: "",
-      name: `${firstName} ${lastName}`,
-      // phone: "",
-      // orders: [""],
-      role: UserRoleEnum.admin,
-      telegramId: Number(queryParams.get("id")),
+    const authData: ITelegramUser = {
+      id: Number(queryParams.get("id")),
+      first_name: queryParams.get("first_name") || "",
+      last_name: queryParams.get("last_name") || "",
+      username: queryParams.get("username") || "",
+      photo_url: queryParams.get("photo_url") || "",
+      auth_date: Number(queryParams.get("auth_date")),
+      hash: queryParams.get("hash") || "",
     };
 
-    if (userData.telegramId) {
-      handleTelegramAuth(userData);
+    if (authData.id) {
+      handleTelegramAuth(authData);
     } else {
       toast.error("User not found!");
     }
-  }, [user, dispatch]);
+  }, [user, dispatch, loading]);
 
   return <div id="telegram-login-container"></div>;
 }
