@@ -3,9 +3,16 @@ import Sidebar from "../Sidebar";
 import { LayoutProps } from "../../types";
 import { LayoutStyles } from "./Layout.style";
 import SIDEBAR_ROUTES from "../Sidebar/routes";
+import { useAppSelector } from "../../hooks/redux";
 
 export default function Layout({ children }: LayoutProps) {
-  const userRole = "admin";
+  const userRole = useAppSelector((state) => state.auth?.role) as
+    | UserRole
+    | "user";
+
+  const routes = userRole
+    ? SIDEBAR_ROUTES[userRole || "user"]
+    : SIDEBAR_ROUTES["user"];
 
   return (
     <LayoutStyles>

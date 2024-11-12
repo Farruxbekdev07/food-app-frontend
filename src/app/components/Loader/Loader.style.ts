@@ -1,15 +1,13 @@
-import { colors } from "@mui/material";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 const StyledLoader = styled.div`
-  position: fixed;
+  top: 0;
   left: 0;
   right: 0;
-  top: 0;
   bottom: 0;
-  z-index: 10000;
-  background: ${colors.blue[700]};
   display: flex;
+  z-index: 10000;
+  position: fixed;
   align-items: center;
   justify-content: center;
 `;

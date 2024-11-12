@@ -12,19 +12,27 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useForm, Controller, FieldValues } from "react-hook-form";
 
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import PageTitle from "../../../../components/PageTitle";
 import ROUTE_PATHS from "../../../../routes/paths/paths";
 import CreateFoodStyles from "../Create/CreateFood.style";
 import { UPDATE_FOODS } from "../../../../graphql/Mutation/Foods";
+import { useAppSelector } from "../../../../hooks/redux";
+import { GET_FOOD } from "../../../../graphql/Query/Foods";
 
 function UpdateFood() {
   const navigate = useNavigate();
   const fieldsRef = useRef<HTMLDivElement>(null);
   const [fieldsHeight, setFieldsHeight] = useState(0);
   const [uploadFileUrl, setUploadFileUrl] = useState("");
+  const foodId = useAppSelector((state) => state.food?.foodId);
 
-  const [createFoods, { data }] = useMutation(UPDATE_FOODS);
+  const [updateFood] = useMutation(UPDATE_FOODS);
+  const { data: foodData } = useQuery(GET_FOOD, {
+    variables: {
+      foodId,
+    },
+  });
 
   const {
     reset,
@@ -46,11 +54,12 @@ function UpdateFood() {
     }
   };
 
-  const handleCreateFood = useCallback(
+  const handleUpdateFood = useCallback(
     (values: FieldValues) => {
       console.log("Form values:", values);
-      createFoods({
+      updateFood({
         variables: {
+          _id: foodId,
           food: {
             ...values,
             price: Number(values?.price),
@@ -58,9 +67,8 @@ function UpdateFood() {
           },
         },
       });
-      console.log(data);
     },
-    [createFoods]
+    [updateFood]
   );
 
   const handleCancel = () => {
@@ -72,7 +80,9 @@ function UpdateFood() {
     if (fieldsRef.current) {
       setFieldsHeight(fieldsRef?.current?.offsetHeight);
     }
-  }, [uploadFileUrl]);
+    console.log(foodData);
+    // reset({ ...foodData?.payload });
+  }, [uploadFileUrl, foodId]);
 
   return (
     <CreateFoodStyles>
@@ -138,7 +148,7 @@ function UpdateFood() {
             )}
           />
           <Controller
-            name="shortName"
+            name="title"
             rules={{
               required: true,
             }}
@@ -148,10 +158,10 @@ function UpdateFood() {
                 <TextField
                   {...field}
                   required
-                  label={"Short Name"}
+                  label={"Title"}
                   error={!!errors[field.name]}
                   helperText={
-                    !!errors[field.name] && "Please input food short name!"
+                    !!errors[field.name] && "Please input food title!"
                   }
                 />
               </FormControl>
@@ -223,7 +233,7 @@ function UpdateFood() {
             </Button>
             <Button
               variant="contained"
-              onClick={handleSubmit(handleCreateFood)}
+              onClick={handleSubmit(handleUpdateFood)}
             >
               Update
             </Button>

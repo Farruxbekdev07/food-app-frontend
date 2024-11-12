@@ -1,5 +1,5 @@
 export interface ITelegramUser {
-  id: number;
+  id: string;
   hash: string;
   username: string;
   last_name: string;

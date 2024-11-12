@@ -2,12 +2,12 @@ import React from "react";
 
 interface CardProps {
   name?: string;
+  _id?: string[];
   image?: string;
-  selected?: boolean;
   className?: string;
-  _id?: number | string;
-  rate?: number | string;
+  redirectPath?: string;
   price?: number | string;
+  quantity?: number | string;
   oldPrice?: number | string;
   direction?: "vertical" | "horizontal" | "payment";
   onClick?: React.MouseEventHandler<HTMLDivElement | any>;

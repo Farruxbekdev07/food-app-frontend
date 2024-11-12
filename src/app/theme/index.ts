@@ -42,5 +42,21 @@ export const theme = createTheme({
         },
       },
     },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          display: "flex",
+          gap: `${pxToRem(8)}`,
+        },
+      },
+    },
+    MuiDialog: {
+      styleOverrides: {
+        root: {
+          opacity: 0.4,
+          backgroundColor: customColors.gray[500],
+        },
+      },
+    },
   },
 });

@@ -1,11 +1,12 @@
-import ROUTE_PATHS from "../../../../routes/paths/paths";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+
 import { SidebarLinkType } from "../types";
-import { Moped } from "dazzle-icons";
-const { ORDER } = ROUTE_PATHS;
+import ROUTE_PATHS from "../../../../routes/paths/paths";
+
 export const SIDEBAR_USER_ROUTES: SidebarLinkType[] = [
   {
-    path: ORDER,
-    title: "Order",
-    icon: <Moped fontSize={25} />,
+    title: "Foods",
+    path: ROUTE_PATHS.FOODS,
+    icon: <DashboardIcon />,
   },
 ];

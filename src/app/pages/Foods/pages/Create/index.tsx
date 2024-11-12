@@ -12,11 +12,12 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useForm, Controller, FieldValues } from "react-hook-form";
 
-import { useMutation } from "@apollo/client";
+import { ApolloError, useMutation } from "@apollo/client";
 import CreateFoodStyles from "./CreateFood.style";
 import PageTitle from "../../../../components/PageTitle";
 import ROUTE_PATHS from "../../../../routes/paths/paths";
 import { CREATE_FOODS } from "../../../../graphql/Mutation/Foods";
+import { toast } from "react-toastify";
 
 type UploadFileType = {
   file?: File;
@@ -68,10 +69,16 @@ function CreateFood() {
             discount: Number(values?.discount),
           },
         },
-      });
-      console.log(data);
+      })
+        .then(() => {
+          toast.success("Create food successfully!");
+          navigate(ROUTE_PATHS.FOODS);
+        })
+        .catch((error: ApolloError) => {
+          toast.error(error?.message);
+        });
     },
-    [createFoods]
+    [createFoods, data, loading]
   );
 
   const handleCancel = () => {
