@@ -19,16 +19,6 @@ import ROUTE_PATHS from "../../../../routes/paths/paths";
 import { CREATE_FOODS } from "../../../../graphql/Mutation/Foods";
 import { toast } from "react-toastify";
 
-type UploadFileType = {
-  file?: File;
-  path?: string;
-  name?: string;
-  size?: number;
-  type?: string;
-  lastModified?: number;
-  lastModifiedDate?: Date;
-};
-
 function CreateFood() {
   const navigate = useNavigate();
   const fieldsRef = useRef<HTMLDivElement>(null);

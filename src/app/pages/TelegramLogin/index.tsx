@@ -5,21 +5,20 @@ import { useNavigate } from "react-router-dom";
 
 import {
   setToken,
-  setAuthRole,
   setUserData,
+  setUserRole,
 } from "../../../store/reducer/authSlice";
 import { ITelegramUser } from "../../types/User";
 import ROUTE_PATHS from "../../routes/paths/paths";
 import { LOGIN } from "../../graphql/Mutation/Auth";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { setUserData, User } from "../../../store/reducer/authSlice";
 
 export default function TelegramLogin() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
 
-  const [login, { data }] = useLazyQuery(LOGIN);
+  const [login, { data, loading }] = useLazyQuery(LOGIN);
 
   const handleTelegramAuth = (auth: ITelegramUser) => {
     login({ variables: { auth } });
@@ -49,6 +48,14 @@ export default function TelegramLogin() {
 
     const queryParams = new URLSearchParams(window.location.search);
 
+    // id: null
+    // username: null
+    // last_name: null
+    // first_name: null
+    // auth_date: null
+    // photo_url: null
+    // hash: null
+
     const authData: ITelegramUser = {
       id: queryParams.get("id")?.toString() || "",
       first_name: queryParams.get("first_name") || "",
@@ -61,7 +68,7 @@ export default function TelegramLogin() {
 
     if (authData.id) {
       handleTelegramAuth(authData);
-      dispatch(setUserData(authData));
+      // dispatch(setUserData(authData));
     } else {
       toast.error("User not found!");
     }
@@ -69,8 +76,9 @@ export default function TelegramLogin() {
 
   useEffect(() => {
     if (data) {
+      console.log(data);
       dispatch(setToken(data?.login?.token));
-      dispatch(setAuthRole(data?.login?.user?.role));
+      // dispatch(setUserRole(data?.login?.role));
       toast.success("Sign in successfully!");
       navigate(ROUTE_PATHS.MAIN);
     }

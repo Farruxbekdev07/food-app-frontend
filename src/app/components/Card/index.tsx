@@ -66,7 +66,7 @@ const CardComponent = ({
   };
 
   const handleUpdate = () => {
-    navigate(redirectPath);
+    // navigate(redirectPath);
     dispatch(setFoodId(_id));
   };
 
