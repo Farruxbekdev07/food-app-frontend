@@ -20,7 +20,6 @@ import React, { useCallback, useState } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { ApolloError, useMutation } from "@apollo/client";
 
-import MenuComponent from "../Menu";
 import CardStyle from "./Card.style";
 import CardProps from "./interfaces";
 import { UserRole } from "../../types/enums";
@@ -30,6 +29,7 @@ import { CREATE_CART_ITEM, DELETE_FOOD } from "../../graphql/Mutation/Foods";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import ROUTE_PATHS from "../../routes/paths/paths";
 import ConfirmModal from "../ConfirmModal";
+import MenuComponent from "../Menu";
 
 const CardComponent = ({
   _id,
@@ -41,7 +41,7 @@ const CardComponent = ({
   quantity,
   direction,
   className,
-  redirectPath = "",
+  redirectPath,
 }: CardProps) => {
   const userRole = useAppSelector((state) => state.auth?.role) as
     | UserRole

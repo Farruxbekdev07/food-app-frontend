@@ -3,5 +3,3 @@ export enum UserRoleEnum {
   admin = "admin",
   user = "user",
 }
-
-export type UserRole = "user" | "admin" | "courier";

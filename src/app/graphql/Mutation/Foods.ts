@@ -37,12 +37,13 @@ export const CREATE_CART_ITEM = gql`
 `;
 
 export const UPDATE_FOODS = gql`
-  mutation updateFoodById($food: FoodUpdateInput!) {
-    updateFoodById(food: $food) {
+  mutation updateFoodById($foodId: ID!, $food: FoodUpdateInput!) {
+    updateFoodById(foodId: $foodId, food: $food) {
       payload {
         _id
         shortName
         name
+        image
         description
         price
         discount

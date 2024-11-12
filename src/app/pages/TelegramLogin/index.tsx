@@ -12,13 +12,14 @@ import { ITelegramUser } from "../../types/User";
 import ROUTE_PATHS from "../../routes/paths/paths";
 import { LOGIN } from "../../graphql/Mutation/Auth";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { setUserData, User } from "../../../store/reducer/authSlice";
 
 export default function TelegramLogin() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
 
-  const [login, { data, loading }] = useLazyQuery(LOGIN);
+  const [login, { data }] = useLazyQuery(LOGIN);
 
   const handleTelegramAuth = (auth: ITelegramUser) => {
     login({ variables: { auth } });

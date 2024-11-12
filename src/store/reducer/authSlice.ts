@@ -1,31 +1,35 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { ITelegramUser } from "../../app/types/User";
+import { UserRoleEnum } from "../../app/types/enums";
+
+export type User = {
+  name?: string;
+  cart?: string;
+  phone?: string;
+  orders?: string[];
+  role?: UserRoleEnum;
+  telegramId?: number;
+};
 
 export interface AuthState {
-  role: string;
+  user: User | null;
   token: string;
-  user: ITelegramUser | null;
 }
 
 const initialState: AuthState = {
   user: null,
   token: "",
-  role: "",
 };
 
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setUserData: (state: AuthState, action: PayloadAction<ITelegramUser>) => {
+    setUserData: (state: AuthState, action: PayloadAction<User>) => {
       state.user = action.payload;
     },
     setToken: (state: AuthState, action) => {
-      state.token = action.payload;
-    },
-    setAuthRole: (state: AuthState, action) => {
-      state.role = action.payload;
+      state.token = action.payload?.token;
     },
     logOut: (state: AuthState) => {
       state.user = null;
@@ -34,6 +38,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setUserData, setToken, logOut, setAuthRole } = authSlice.actions;
+export const { setUserData, setToken, logOut } = authSlice.actions;
 
 export default authSlice.reducer;

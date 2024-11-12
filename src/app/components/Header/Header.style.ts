@@ -9,6 +9,7 @@ import {
 import { pxToRem } from "../../constants";
 import { customColors } from "../../theme/colors";
 import { SIDEBAR_WIDTH } from "../Sidebar/constants";
+import { LAYOUT_MAX_WIDTH } from "../Layout/constants";
 
 export const HeaderStyles = styled.header`
   z-index: 10;
@@ -16,7 +17,8 @@ export const HeaderStyles = styled.header`
   grid-area: header;
   align-items: center;
   height: ${pxToRem(HEADER_HEIGHT)};
-  max-width: ${`calc(100vw - ${pxToRem(SIDEBAR_WIDTH)})`};
+  width: ${`calc(100vw - ${pxToRem(SIDEBAR_WIDTH)})`};
+  max-width: 100%;
 
   .header__wrapper {
     width: 100%;

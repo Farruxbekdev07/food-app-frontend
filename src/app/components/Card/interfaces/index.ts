@@ -1,6 +1,6 @@
 import React from "react";
 
-interface ICard {
+interface CardProps {
   name?: string;
   _id?: string[];
   image?: string;
@@ -14,4 +14,4 @@ interface ICard {
   onChange?: React.MouseEventHandler<HTMLInputElement | any> | any;
 }
 
-export default ICard;
+export default CardProps;

@@ -1,15 +1,26 @@
 import { gql } from "@apollo/client";
 
-export const LOGIN = gql`
-  query login($auth: AuthInput) {
-    login(auth: $auth) {
-      token
-      user {
+export const CREATE_USER = gql`
+  mutation createUser($user: UserInput!) {
+    createUser(user: $user) {
+      payload {
         _id
+        telegramId
         name
         role
         phone
-        telegramId
+        cart {
+          _id
+          user
+          foods {
+            _id
+            title
+            name
+            description
+            price
+            discount
+          }
+        }
       }
     }
   }
