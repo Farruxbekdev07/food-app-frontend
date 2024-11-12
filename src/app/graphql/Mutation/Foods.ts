@@ -14,3 +14,19 @@ export const CREATE_FOODS = gql`
     }
   }
 `;
+
+export const UPDATE_FOODS = gql`
+  mutation updateFoodById($foodId: ID!, $food: FoodUpdateInput!) {
+    updateFoodById(foodId: $foodId, food: $food) {
+      payload {
+        _id
+        shortName
+        name
+        image
+        description
+        price
+        discount
+      }
+    }
+  }
+`;
