@@ -3,6 +3,7 @@ import Sidebar from "../Sidebar";
 import { LayoutProps } from "../../types";
 import { LayoutStyles } from "./Layout.style";
 import SIDEBAR_ROUTES from "../Sidebar/routes";
+import { UserRole } from "../../types/enums";
 import { useAppSelector } from "../../hooks/redux";
 
 export default function Layout({ children }: LayoutProps) {
@@ -16,7 +17,7 @@ export default function Layout({ children }: LayoutProps) {
 
   return (
     <LayoutStyles>
-      <Sidebar links={SIDEBAR_ROUTES[userRole]} />
+      <Sidebar links={routes} />
       <Header />
       <div className="main">{children}</div>
     </LayoutStyles>

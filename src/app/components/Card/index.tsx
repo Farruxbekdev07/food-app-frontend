@@ -22,7 +22,7 @@ import { ApolloError, useMutation } from "@apollo/client";
 
 import CardStyle from "./Card.style";
 import CardProps from "./interfaces";
-import { UserRoleEnum } from "../../types/enums";
+import { UserRole } from "../../types/enums";
 import DefaultFood from "../../assets/images/burger.png";
 import { setFoodId, setOpenDialog } from "../../../store/reducer/foodSlice";
 import { CREATE_CART_ITEM, DELETE_FOOD } from "../../graphql/Mutation/Foods";
@@ -43,8 +43,8 @@ const CardComponent = ({
   className,
   redirectPath,
 }: CardProps) => {
-  const userRole = useAppSelector((state) => state.auth?.user?.role) as
-    | UserRoleEnum
+  const userRole = useAppSelector((state) => state.auth?.role) as
+    | UserRole
     | "user";
   const token = useAppSelector((state) => state.auth.token);
   const [anchorElMenu, setAnchorElMenu] = useState<null | HTMLElement>(null);
