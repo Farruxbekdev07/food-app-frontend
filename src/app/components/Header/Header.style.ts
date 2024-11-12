@@ -7,6 +7,7 @@ import {
   SEARCH_INPUT_HEIGHT,
 } from "./constants";
 import { pxToRem } from "../../constants";
+import { customColors } from "../../theme/colors";
 import { SIDEBAR_WIDTH } from "../Sidebar/constants";
 
 export const HeaderStyles = styled.header`
@@ -34,6 +35,15 @@ export const HeaderStyles = styled.header`
   .search_button {
     height: ${pxToRem(SEARCH_INPUT_HEIGHT)};
   }
+  .user__wrapper {
+    display: flex;
+    gap: ${pxToRem(16)};
+    align-items: center;
+  }
+  .shopping__cart-icon {
+    font-size: ${pxToRem(32)};
+    color: ${customColors.primary[600]};
+  }
   .user__info-button {
     display: flex;
     gap: ${pxToRem(4)};
@@ -59,6 +69,7 @@ export const HeaderStyles = styled.header`
   @media screen and (max-width: ${pxToRem(900)}) {
     left: 0;
     width: 100%;
+    max-width: 100vw;
 
     .toggle__sidebar {
       display: block;

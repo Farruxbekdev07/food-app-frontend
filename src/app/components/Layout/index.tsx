@@ -11,7 +11,9 @@ export default function Layout({ children }: LayoutProps) {
     | UserRole
     | "user";
 
-  const routes = userRole ? SIDEBAR_ROUTES[userRole || "user"] : [];
+  const routes = userRole
+    ? SIDEBAR_ROUTES[userRole || "user"]
+    : SIDEBAR_ROUTES["user"];
 
   return (
     <LayoutStyles>

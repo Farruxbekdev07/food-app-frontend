@@ -2,13 +2,12 @@ import React from "react";
 
 interface ICard {
   name?: string;
+  _id?: string[];
   image?: string;
-  selected?: boolean;
   className?: string;
-  _id?: number | string;
   redirectPath?: string;
-  rate?: number | string;
   price?: number | string;
+  quantity?: number | string;
   oldPrice?: number | string;
   direction?: "vertical" | "horizontal" | "payment";
   onClick?: React.MouseEventHandler<HTMLDivElement | any>;

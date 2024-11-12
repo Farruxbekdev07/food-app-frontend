@@ -3,19 +3,34 @@ import { colors } from "@mui/material";
 
 import { pxToRem } from "../../../../constants";
 import { customColors } from "../../../../theme/colors";
+import { HEADER_HEIGHT } from "../../../../components/Header/constants";
 
-const SidebarStyles = styled.div`
+interface SidebarProps {
+  isOpenSidebar: boolean;
+}
+
+const SidebarStyles = styled.div<SidebarProps>`
   display: flex;
+  position: fixed;
+  transition: 0.5s;
   gap: ${pxToRem(16)};
   height: fit-content;
-  width: ${pxToRem(300)};
+  width: ${pxToRem(400)};
   flex-direction: column;
   padding: ${pxToRem(16)};
-  min-height: ${pxToRem(300)};
   border-radius: ${pxToRem(16)};
   background-color: ${colors.grey[50]};
+  top: ${`calc(${pxToRem(HEADER_HEIGHT + 80)})`};
+  min-height: ${`calc(100vh - ${pxToRem(HEADER_HEIGHT + 96)})`};
+  max-height: ${`calc(100vh - ${pxToRem(HEADER_HEIGHT + 96)})`};
+  right: ${(props) => (props.isOpenSidebar ? pxToRem(0) : pxToRem(-400))};
 
   .sidebar__title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .sidebar__title-text {
     font-weight: 600;
     font-size: ${pxToRem(20)};
   }
@@ -24,7 +39,7 @@ const SidebarStyles = styled.div`
     gap: ${pxToRem(8)};
     overflow-y: scroll;
     flex-direction: column;
-    max-height: ${pxToRem(300)};
+    min-height: ${pxToRem(500)};
   }
   .payment {
     padding: ${pxToRem(16)};
@@ -44,15 +59,6 @@ const SidebarStyles = styled.div`
   }
   .total__payment {
     font-weight: 600;
-  }
-  .payment__method {
-    margin-top: ${pxToRem(16)};
-    margin-bottom: ${pxToRem(8)};
-  }
-  .payment__method-cards {
-    display: grid;
-    gap: ${pxToRem(8)};
-    grid-template-columns: 50% 50%;
   }
 `;
 

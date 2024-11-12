@@ -1,3 +1,12 @@
-import { SidebarLinkType } from "../types";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 
-export const SIDEBAR_USER_ROUTES: SidebarLinkType[] = [];
+import { SidebarLinkType } from "../types";
+import ROUTE_PATHS from "../../../../routes/paths/paths";
+
+export const SIDEBAR_USER_ROUTES: SidebarLinkType[] = [
+  {
+    title: "Foods",
+    path: ROUTE_PATHS.FOODS,
+    icon: <DashboardIcon />,
+  },
+];

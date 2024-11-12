@@ -1,60 +1,62 @@
-import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { Button, Divider, Typography } from "@mui/material";
+import { useQuery } from "@apollo/client";
+import CloseIcon from "@mui/icons-material/Close";
+import { Button, Divider, IconButton, Typography } from "@mui/material";
 
-import { FOODS } from "../Menu/constants";
-import { paymentCards } from "./constants";
 import SidebarStyles from "./Sidebar.style";
+import Loader from "../../../../components/Loader";
 import CardComponent from "../../../../components/Card";
-import CardProps from "../../../../components/Card/interfaces";
+import { CartItemsTypes } from "../../../../types/Foods";
+import { GET_CART_ITEMS } from "../../../../graphql/Query/Foods";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
+import { setOpenInvoiceSidebar } from "../../../../../store/reducer/foodSlice";
 
 function InvoiceSidebar() {
-  const [foods, setFoods] = useState<CardProps[]>([]);
-  const { selectedFoods } = useSelector((state: any) => state.food);
+  const isOpenSidebar = useAppSelector(
+    (state) => state.food.isOpenInvoiceSidebar
+  );
+  const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    for (let index = 0; index < selectedFoods?.length; index++) {
-      console.log("selected foods:", selectedFoods[index]);
-      FOODS.filter((food: CardProps) => {
-        if (selectedFoods[index] === food._id) {
-          console.log(food);
-          setFoods([...foods, food]);
-        }
-      });
-    }
-  }, [selectedFoods]);
+  const { data, loading } = useQuery(GET_CART_ITEMS);
+
+  const handleCloseSidebar = () => {
+    dispatch(setOpenInvoiceSidebar(!isOpenSidebar));
+  };
+
+  const cartItems = data?.getCartItemsByUserId?.payload || [];
 
   return (
-    <SidebarStyles>
-      <Typography className="sidebar__title">Invoice</Typography>
+    <SidebarStyles isOpenSidebar={isOpenSidebar}>
+      <div className="sidebar__title">
+        <Typography className="sidebar__title-text">Invoice</Typography>
+        <IconButton onClick={handleCloseSidebar}>
+          <CloseIcon />
+        </IconButton>
+      </div>
       <div className="selected__foods-container">
-        {foods.map(({ name, price }: CardProps) => (
-          <>
-            <CardComponent name={name} price={price} direction="vertical" />
-            <Divider />
-          </>
-        ))}
+        {loading && <Loader isInner />}
+        {cartItems?.map(
+          ({ _id, price, quantity, food: { name } }: CartItemsTypes) => (
+            <>
+              <CardComponent
+                _id={_id}
+                name={name}
+                price={price}
+                direction="vertical"
+                quantity={quantity}
+              />
+              <Divider />
+            </>
+          )
+        )}
       </div>
       <div className="payment">
-        <Typography className="payment__title">Payment Summary</Typography>
         <div className="food__price-container">
-          <Typography className="food__price">Sub Total</Typography>
+          <Typography className="food__price">Total price</Typography>
           <Typography className="food__price">$85</Typography>
         </div>
         <div className="food__price-container">
-          <Typography className="food__price">Tax</Typography>
+          <Typography className="food__price">Discount</Typography>
           <Typography className="food__price">-$6</Typography>
-        </div>
-        <Divider className="divider" />
-        <div className="food__price-container">
-          <Typography className="total__payment">Total Payment</Typography>
-          <Typography className="total__payment">$79</Typography>
-        </div>
-        <Typography className="payment__method">Payment Method</Typography>
-        <div className="payment__method-cards">
-          {paymentCards.map(({ icon }) => (
-            <CardComponent direction="payment" image={icon} />
-          ))}
         </div>
       </div>
       <Button variant="contained" fullWidth className="payment__button">

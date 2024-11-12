@@ -1,29 +1,29 @@
-import CardProps from "../../../../../components/Card/interfaces";
-import DefaultFood from "../../../../../assets/images/default-food.png";
+import CardProps from "../../../components/Card/interfaces";
+import DefaultFood from "../../../assets/images/burger.png";
 
 const categories: CardProps[] = [
   {
-    name: "Food 1",
+    name: "Burger",
     image: DefaultFood,
   },
   {
-    name: "Food 2",
+    name: "Sandwich",
     image: DefaultFood,
   },
   {
-    name: "Food 3",
+    name: "Xot-dog",
     image: DefaultFood,
   },
   {
-    name: "Food 4",
+    name: "Burger",
     image: DefaultFood,
   },
   {
-    name: "Food 5",
+    name: "Sandwich",
     image: DefaultFood,
   },
   {
-    name: "Food 6",
+    name: "Xot-dog",
     image: DefaultFood,
   },
 ];

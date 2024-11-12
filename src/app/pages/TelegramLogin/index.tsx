@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { useLazyQuery } from "@apollo/client";
+import { useNavigate } from "react-router-dom";
 
 import {
   setToken,
@@ -8,10 +9,12 @@ import {
   setUserData,
 } from "../../../store/reducer/authSlice";
 import { ITelegramUser } from "../../types/User";
+import ROUTE_PATHS from "../../routes/paths/paths";
 import { LOGIN } from "../../graphql/Mutation/Auth";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 
 export default function TelegramLogin() {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
 
@@ -19,18 +22,17 @@ export default function TelegramLogin() {
 
   const handleTelegramAuth = (auth: ITelegramUser) => {
     login({ variables: { auth } });
-
-    if (data) {
-      dispatch(setUserData(auth));
-      dispatch(setToken(data?.login?.token));
-      dispatch(setAuthRole(data?.login?.user?.role));
-      toast.success("Sign in successfully!");
-    }
   };
 
   useEffect(() => {
     if (user) {
       return;
+    }
+
+    // Remove previous Telegram widget if it exists
+    const container = document.getElementById("telegram-login-container");
+    if (container) {
+      container.innerHTML = ""; // Clear previous widget if any
     }
 
     const script = document.createElement("script");
@@ -42,12 +44,12 @@ export default function TelegramLogin() {
     script.setAttribute("data-auth-url", `${window.location.origin}/foods`);
     script.setAttribute("data-request-access", "write");
 
-    document.getElementById("telegram-login-container")?.appendChild(script);
+    container?.appendChild(script);
 
     const queryParams = new URLSearchParams(window.location.search);
 
     const authData: ITelegramUser = {
-      id: Number(queryParams.get("id")),
+      id: queryParams.get("id")?.toString() || "",
       first_name: queryParams.get("first_name") || "",
       last_name: queryParams.get("last_name") || "",
       username: queryParams.get("username") || "",
@@ -58,10 +60,20 @@ export default function TelegramLogin() {
 
     if (authData.id) {
       handleTelegramAuth(authData);
+      dispatch(setUserData(authData));
     } else {
       toast.error("User not found!");
     }
-  }, [user, dispatch, loading]);
+  }, [user, dispatch]);
+
+  useEffect(() => {
+    if (data) {
+      dispatch(setToken(data?.login?.token));
+      dispatch(setAuthRole(data?.login?.user?.role));
+      toast.success("Sign in successfully!");
+      navigate(ROUTE_PATHS.MAIN);
+    }
+  }, [loading]);
 
   return <div id="telegram-login-container"></div>;
 }

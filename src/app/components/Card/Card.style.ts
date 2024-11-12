@@ -10,6 +10,7 @@ const CardStyle = styled.div`
   /* chip card styles */
   .chip__card {
     display: flex;
+    cursor: pointer;
     box-shadow: none;
     gap: ${pxToRem(16)};
     align-items: center;
@@ -34,8 +35,11 @@ const CardStyle = styled.div`
   }
   .chip__card__content {
     flex: 1;
-    padding: 0;
-    padding-bottom: 0;
+    display: flex;
+    align-items: center;
+    padding: 0 !important;
+    justify-content: space-between;
+    gap: ${pxToRem(8)};
   }
   .chip__card__title {
     font-weight: 600;
@@ -46,17 +50,19 @@ const CardStyle = styled.div`
     font-size: ${pxToRem(14)};
     color: ${customColors.primary[700]};
   }
+  .chip__card__quantity {
+    display: flex;
+    gap: ${pxToRem(8)};
+    align-items: center;
+
+    button {
+      flex: 1;
+      height: ${pxToRem(30)};
+    }
+  }
   .chip__card-active {
     background-color: ${customColors.primary[50]};
     border: 1px solid ${customColors.primary[700]};
-  }
-  .payment__card {
-    height: ${pxToRem(80)};
-    min-width: ${pxToRem(80)};
-  }
-  .payment__media {
-    width: 100%;
-    height: 100%;
   }
 
   /* card styles  */
@@ -64,16 +70,18 @@ const CardStyle = styled.div`
     box-shadow: none;
     padding: ${pxToRem(24)};
     min-width: ${pxToRem(300)};
-    max-height: ${pxToRem(350)};
+    max-height: ${pxToRem(400)};
     border-radius: ${pxToRem(12)};
     background-color: ${colors.grey[50]};
   }
   .card__media {
     width: 100%;
     height: auto;
-    object-fit: contain;
-    max-height: ${pxToRem(150)};
-    border-radius: ${pxToRem(12)};
+    object-fit: cover;
+    object-position: center;
+    max-height: ${pxToRem(170)};
+    min-height: ${pxToRem(150)};
+    border-radius: ${pxToRem(16)};
     background-color: ${customColors.gray[50]};
   }
   .card__content {
@@ -93,10 +101,6 @@ const CardStyle = styled.div`
     align-items: end;
     gap: ${pxToRem(4)};
   }
-  .card__rate {
-    display: flex;
-    gap: ${pxToRem(4)};
-  }
   .card__new__price {
     font-weight: 600;
     font-size: ${pxToRem(24)};
@@ -107,11 +111,11 @@ const CardStyle = styled.div`
     font-size: ${pxToRem(12)};
     text-decoration: line-through;
   }
-  .card__rate-icon {
+  .card__quantity-icon {
     font-size: ${pxToRem(16)};
     color: ${colors.yellow[700]};
   }
-  .card__rate-value {
+  .card__quantity-value {
     font-size: ${pxToRem(12)};
   }
   .card__actions {
@@ -124,24 +128,13 @@ const CardStyle = styled.div`
       flex: 1;
     }
   }
-  .card-active {
-    border: 1px solid ${customColors.primary[700]};
-  }
   .selected__card-container {
     position: relative;
-
-    .checkbox {
-      position: absolute;
-    }
   }
   .card-menu {
     top: 0;
     right: 0;
     position: absolute;
-  }
-  .menu__item {
-    display: flex;
-    gap: ${pxToRem(8)};
   }
 `;
 

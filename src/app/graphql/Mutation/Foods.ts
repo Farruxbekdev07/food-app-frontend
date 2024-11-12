@@ -5,27 +5,56 @@ export const CREATE_FOODS = gql`
     createFood(food: $food) {
       payload {
         _id
+        shortName
         name
-        title
+        description
         price
         discount
-        description
+      }
+    }
+  }
+`;
+
+export const CREATE_CART_ITEM = gql`
+  mutation createCartItem($food: ID) {
+    createCartItem(food: $food) {
+      payload {
+        _id
+        quantity
+        price
+        user
+        food {
+          _id
+          shortName
+          name
+          description
+          price
+          discount
+        }
       }
     }
   }
 `;
 
 export const UPDATE_FOODS = gql`
-  mutation updateFood($food: FoodInput!) {
-    updateFood(food: $food) {
+  mutation updateFoodById($food: FoodUpdateInput!) {
+    updateFoodById(food: $food) {
       payload {
         _id
+        shortName
         name
-        title
+        description
         price
         discount
-        description
       }
+    }
+  }
+`;
+
+export const DELETE_FOOD = gql`
+  mutation deleteFoodById($foodId: ID!) {
+    deleteFoodById(foodId: null) {
+      payload
     }
   }
 `;
