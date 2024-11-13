@@ -4,9 +4,18 @@ import { customColors } from "../../../../theme/colors";
 export const OrderCardstyle = styled.div`
   .card__wrapper {
     max-width: 100%;
-    gap: 8px;
     border-radius: 8px;
     padding: 16px;
+  }
+
+  .card__content {
+    position: relative;
+  }
+
+  .card__xMark {
+    position: absolute;
+    right: 0;
+    font-size: 25px;
   }
 
   .card_id {
@@ -23,7 +32,7 @@ export const OrderCardstyle = styled.div`
   }
 
   .card__food-name {
-    padding: 0 0 20px 0;
+    padding: 0 0 8px 0;
     font-size: 16px;
     font-weight: 500;
     color: ${customColors.textColor[900]};

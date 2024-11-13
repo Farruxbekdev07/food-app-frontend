@@ -3,61 +3,49 @@ import { OrderCardstyle } from "./Card.style";
 import {
   Box,
   Card,
-  CardContent,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
   Typography,
+  CardContent,
+  ToggleButton,
+  ToggleButtonGroup,
 } from "@mui/material";
+import { AdminOrderType } from "../../../../types/adminOrder";
+import { Xmark } from "dazzle-icons";
 
-type Props = {
-  id: number;
-  name: string;
-  quantity: number;
-};
+const AdminOrderCard = ({ id, foods }: AdminOrderType) => {
+  const [alignment, setAlignment] = React.useState("web");
 
-const AdminOrderCard = ({ name, quantity, id }: Props) => {
-  const [status, setStatus] = React.useState("");
-  console.log(status);
-
-  const handleChangeStatus = (event: SelectChangeEvent) => {
-    setStatus(event.target.value as string);
+  const handleChange = (
+    event: React.MouseEvent<HTMLElement>,
+    newAlignment: string
+  ) => {
+    setAlignment(newAlignment);
   };
+
+  console.log(alignment);
 
   return (
     <OrderCardstyle>
       <Card className="card__wrapper">
-        <CardContent>
+        <CardContent className="card__content">
+          <Xmark className="card__xMark" />
           <Typography className="card_id">#{id}</Typography>
-          <Box className="card__food-wrapper">
-            <Typography className="card__food-name">{name}</Typography>
-            <Typography className="card__food-count">{quantity}x</Typography>
-          </Box>
-          <FormControl fullWidth>
-            <InputLabel id="status-simple-select-lebel">Status</InputLabel>
-            <Select
-              labelId="status-simple-select-lebel"
-              id="status-select-label"
-              value={status}
-              label="status"
-              onChange={handleChangeStatus}
-            >
-              <MenuItem className="card__select-name" value="pending">
-                pending
-              </MenuItem>
-              <MenuItem className="card__select-name" value="cooking">
-                cooking
-              </MenuItem>
-              <MenuItem className="card__select-name" value="delivering">
-                delivering
-              </MenuItem>
-              <MenuItem className="card__select-name" value="received">
-                received
-              </MenuItem>
-            </Select>
-          </FormControl>
+          {foods.map(({ name, quantity }) => (
+            <Box className="card__food-wrapper">
+              <Typography className="card__food-name">{name}</Typography>
+              <Typography className="card__food-count">{quantity}x</Typography>
+            </Box>
+          ))}
+          <ToggleButtonGroup
+            color="primary"
+            value={alignment}
+            exclusive
+            onChange={handleChange}
+            aria-label="Platform"
+            fullWidth
+          >
+            <ToggleButton value="pending">Pending</ToggleButton>
+            <ToggleButton value="cooking">Cooking</ToggleButton>
+          </ToggleButtonGroup>
         </CardContent>
       </Card>
     </OrderCardstyle>
