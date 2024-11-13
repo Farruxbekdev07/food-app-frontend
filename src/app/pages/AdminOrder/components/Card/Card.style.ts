@@ -10,6 +10,12 @@ export const OrderCardstyle = styled.div`
 
   .card__content {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    gap: 20px;
+    padding: 0;
   }
 
   .card__xMark {
