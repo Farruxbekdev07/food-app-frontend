@@ -5,26 +5,32 @@ const categories: CardProps[] = [
   {
     name: "Burger",
     image: DefaultFood,
+    type: "food",
   },
   {
     name: "Sandwich",
     image: DefaultFood,
+    type: "food",
   },
   {
     name: "Xot-dog",
     image: DefaultFood,
+    type: "food",
   },
   {
     name: "Burger",
     image: DefaultFood,
+    type: "food",
   },
   {
     name: "Sandwich",
     image: DefaultFood,
+    type: "food",
   },
   {
     name: "Xot-dog",
     image: DefaultFood,
+    type: "food",
   },
 ];
 
