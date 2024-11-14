@@ -50,13 +50,5 @@ export const theme = createTheme({
         },
       },
     },
-    MuiDialog: {
-      styleOverrides: {
-        root: {
-          opacity: 0.4,
-          backgroundColor: customColors.gray[500],
-        },
-      },
-    },
   },
 });

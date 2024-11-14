@@ -34,20 +34,17 @@ function InvoiceSidebar() {
       </div>
       <div className="selected__foods-container">
         {loading && <Loader isInner />}
-        {cartItems?.map(
-          ({ _id, price, quantity, food: { name } }: CartItemsTypes) => (
-            <>
-              <CardComponent
-                _id={_id}
-                name={name}
-                price={price}
-                direction="vertical"
-                quantity={quantity}
-              />
-              <Divider />
-            </>
-          )
-        )}
+        {cartItems?.map(({ _id, price, food: { name } }: CartItemsTypes) => (
+          <div>
+            <CardComponent
+              _id={_id}
+              type="food"
+              price={price}
+              name={name || ""}
+            />
+            <Divider />
+          </div>
+        ))}
       </div>
       <div className="payment">
         <div className="food__price-container">

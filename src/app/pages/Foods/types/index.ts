@@ -1,10 +1,10 @@
 interface IFoods {
+  id?: string;
   name?: string;
-  _id?: string[];
   price?: number;
+  image?: string;
   discount?: number;
   shortName?: string;
-  description?: string;
 }
 
 export default IFoods;

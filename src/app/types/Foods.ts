@@ -9,7 +9,7 @@ export interface FoodDataTypes {
 }
 
 export interface CartItemsTypes {
-  _id: string[];
+  _id: string;
   price: number;
   user: string[];
   quantity: number;

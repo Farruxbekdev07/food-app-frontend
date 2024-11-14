@@ -5,7 +5,7 @@ export const LOGIN = gql`
     login(auth: $auth) {
       token
       user {
-        # _id
+        _id
         telegramId
         name
         role

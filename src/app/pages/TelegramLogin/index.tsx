@@ -21,6 +21,7 @@ export default function TelegramLogin() {
   const [login, { data, loading }] = useLazyQuery(LOGIN);
 
   const handleTelegramAuth = (auth: ITelegramUser) => {
+    console.log("auth:", auth);
     login({ variables: { auth } });
   };
 
@@ -75,14 +76,15 @@ export default function TelegramLogin() {
   }, [user, dispatch]);
 
   useEffect(() => {
+    console.log("user data:", data);
     if (data) {
-      console.log(data);
+      console.log("user data ============:", data);
       dispatch(setToken(data?.login?.token));
       // dispatch(setUserRole(data?.login?.role));
       toast.success("Sign in successfully!");
       navigate(ROUTE_PATHS.MAIN);
     }
-  }, [loading]);
+  }, [login, data, loading]);
 
   return <div id="telegram-login-container"></div>;
 }
