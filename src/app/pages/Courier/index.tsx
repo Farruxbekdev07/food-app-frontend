@@ -1,13 +1,12 @@
-import React from "react";
 import { CourierStyle } from "./Courier.style";
-import CourierCard from "./components/Card";
+import FullFeaturedCrudGrid from "./components/DataGrid";
 
-type Props = {};
-
-const Courier = (props: Props) => {
+const Courier = () => {
   return (
     <CourierStyle>
-      <CourierCard />
+      <div className="couriers-container">
+        <FullFeaturedCrudGrid />
+      </div>
     </CourierStyle>
   );
 };
