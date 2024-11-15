@@ -13,7 +13,6 @@ export const OrderCardstyle = styled.div`
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-
     gap: 20px;
     padding: 0;
   }
