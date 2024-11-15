@@ -1,17 +1,14 @@
-import React from "react";
+import { IOrder } from "../components/Order/types";
 
 interface CardProps {
+  _id?: string;
   name?: string;
-  _id?: string[];
   image?: string;
-  className?: string;
-  redirectPath?: string;
-  price?: number | string;
-  quantity?: number | string;
-  oldPrice?: number | string;
-  direction?: "vertical" | "horizontal" | "payment";
-  onClick?: React.MouseEventHandler<HTMLDivElement | any>;
-  onChange?: React.MouseEventHandler<HTMLInputElement | any> | any;
+  price?: number;
+  discount?: number;
+  userName?: string;
+  userOrders?: IOrder[];
+  type: "food" | "order"; // Card type
 }
 
 export default CardProps;

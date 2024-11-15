@@ -34,17 +34,18 @@ export const GET_CART_ITEMS = gql`
   query getCartItemsByUserId {
     getCartItemsByUserId {
       payload {
-        _id
-        quantity
-        price
-        user
-        food {
-          _id
-          shortName
-          name
-          description
+        items {
+          quantity
           price
-          discount
+          user
+          food {
+            _id
+            shortName
+            name
+            description
+            price
+            discount
+          }
         }
       }
     }

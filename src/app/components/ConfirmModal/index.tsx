@@ -1,19 +1,12 @@
-import { Dialog, useTheme, DialogTitle, useMediaQuery } from "@mui/material";
+import { Dialog, DialogTitle } from "@mui/material";
 
 import { IConfirmModal } from "./types";
-import { useAppSelector } from "../../hooks/redux";
 
-function ConfirmModal({ children, title, handleClose }: IConfirmModal) {
-  const openDialog = useAppSelector((state) => state.food.isOpenDialog);
-
-  // const theme = useTheme();
-  // const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
-
+function ConfirmModal({ open, children, title, handleClose }: IConfirmModal) {
   return (
     <Dialog
-      open={openDialog}
+      open={open}
       onClose={handleClose}
-      // fullScreen={fullScreen}
       aria-labelledby="responsive-dialog-title"
       aria-describedby="responsive-dialog-description"
     >

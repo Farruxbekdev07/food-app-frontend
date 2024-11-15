@@ -3,3 +3,10 @@ export enum UserRole {
   admin = "admin",
   courier = "courier",
 }
+
+export enum StatusEnum {
+  pending = "pending",
+  cooking = "cooking",
+  received = "received",
+  delivering = "delivering",
+}
