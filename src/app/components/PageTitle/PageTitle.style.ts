@@ -6,6 +6,7 @@ export const PageTitleStyles = styled.div`
   align-items: start;
   height: ${pxToRem(64)};
   justify-content: space-between;
+  width: 100%;
 
   .page__title {
     font-size: 24px;

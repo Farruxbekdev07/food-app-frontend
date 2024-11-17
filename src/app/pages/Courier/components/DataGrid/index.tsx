@@ -7,9 +7,7 @@ import {
   GridEventListener,
   GridRowEditStopReasons,
 } from "@mui/x-data-grid";
-import { randomArrayItem } from "@mui/x-data-grid-generator";
 
-import EditToolbar from "../EditToolbar";
 import { DataGridStyles } from "./DataGrid";
 import { getColumns, InitialRows } from "./columns";
 import { useCrudGrid } from "../../../../hooks/DataGrid";
@@ -73,9 +71,6 @@ export default function FullFeaturedCrudGrid() {
         onRowEditStop={handleRowEditStop}
         processRowUpdate={processRowUpdate}
         onRowModesModelChange={handleRowModesModelChange}
-        slots={{
-          toolbar: EditToolbar as GridSlots["toolbar"],
-        }}
         slotProps={{
           toolbar: { setRows, setRowModesModel },
         }}
