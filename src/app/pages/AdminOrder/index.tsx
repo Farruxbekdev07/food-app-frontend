@@ -1,133 +1,88 @@
 import { AdminOrderStyle } from "./adminOrder.style";
 import { Box } from "@mui/material";
 import AdminOrderCard from "./components/Card";
+import { AdminOrderType } from "../../types/adminOrder";
 
-type ADMIN_CARD_TYPE = {
-  id: number;
-  name: string;
-  quantity: number;
-};
-
-const AdminOrderFood = [
+const AdminOrderFood: AdminOrderType[] = [
   {
     id: 1,
-    name: "olmali pierok",
-    quantity: 10,
+    foods: [
+      {
+        name: "fast food",
+        quantity: 5,
+      },
+    ],
   },
   {
-    id: 2,
-    name: "shaftolili pierok",
-    quantity: 125,
+    id: 1,
+    foods: [
+      {
+        name: "fast food",
+        quantity: 5,
+      },
+    ],
   },
   {
-    id: 3,
-    name: "nok pierok",
-    quantity: 65,
+    id: 1,
+    foods: [
+      {
+        name: "fast food",
+        quantity: 5,
+      },
+    ],
   },
   {
-    id: 4,
-    name: "gilos pierok",
-    quantity: 23,
+    id: 1,
+    foods: [
+      {
+        name: "fast food",
+        quantity: 5,
+      },
+    ],
   },
   {
-    id: 4,
-    name: "gilos pierok",
-    quantity: 23,
+    id: 1,
+    foods: [
+      {
+        name: "fast food",
+        quantity: 5,
+      },
+    ],
   },
   {
-    id: 4,
-    name: "gilos pierok",
-    quantity: 23,
+    id: 1,
+    foods: [
+      {
+        name: "fast food",
+        quantity: 5,
+      },
+    ],
   },
   {
-    id: 4,
-    name: "gilos pierok",
-    quantity: 23,
+    id: 1,
+    foods: [
+      {
+        name: "fast food",
+        quantity: 5,
+      },
+    ],
   },
   {
-    id: 4,
-    name: "gilos pierok",
-    quantity: 23,
-  },
-  {
-    id: 4,
-    name: "gilos pierok",
-    quantity: 23,
-  },
-  {
-    id: 4,
-    name: "gilos pierok",
-    quantity: 23,
-  },
-  {
-    id: 4,
-    name: "gilos pierok",
-    quantity: 23,
-  },
-  {
-    id: 4,
-    name: "gilos pierok",
-    quantity: 23,
-  },
-  {
-    id: 4,
-    name: "gilos pierok",
-    quantity: 23,
-  },
-  {
-    id: 4,
-    name: "gilos pierok",
-    quantity: 23,
-  },
-  {
-    id: 4,
-    name: "gilos pierok",
-    quantity: 23,
-  },
-  {
-    id: 4,
-    name: "gilos pierok",
-    quantity: 23,
-  },
-  {
-    id: 4,
-    name: "gilos pierok",
-    quantity: 23,
-  },
-  {
-    id: 4,
-    name: "gilos pierok",
-    quantity: 23,
-  },
-  {
-    id: 4,
-    name: "gilos pierok",
-    quantity: 23,
-  },
-  {
-    id: 4,
-    name: "gilos pierok",
-    quantity: 23,
-  },
-  {
-    id: 4,
-    name: "gilos pierok",
-    quantity: 23,
-  },
-  {
-    id: 4,
-    name: "gilos pierok",
-    quantity: 23,
-  },
-  {
-    id: 4,
-    name: "gilos pierok",
-    quantity: 23,
-  },
-  {
-    id: 4,
-    name: "gilos pierok",
-    quantity: 23,
+    id: 1,
+    foods: [
+      {
+        name: "fast food",
+        quantity: 5,
+      },
+      {
+        name: "fast food",
+        quantity: 5,
+      },
+      {
+        name: "fast food",
+        quantity: 5,
+      },
+    ],
   },
 ];
 
@@ -135,8 +90,8 @@ const AdminOrder = () => {
   return (
     <AdminOrderStyle>
       <Box className="admin__order-wrapper">
-        {AdminOrderFood.map(({ name, quantity, id }) => (
-          <AdminOrderCard name={name} quantity={quantity} id={id} />
+        {AdminOrderFood.map((order) => (
+          <AdminOrderCard {...order} />
         ))}
       </Box>
     </AdminOrderStyle>

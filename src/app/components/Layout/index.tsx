@@ -9,11 +9,11 @@ import { useAppSelector } from "../../hooks/redux";
 export default function Layout({ children }: LayoutProps) {
   const userRole = useAppSelector((state) => state.auth?.role) as
     | UserRole
-    | "user";
+    | "admin";
 
   const routes = userRole
-    ? SIDEBAR_ROUTES[userRole || "user"]
-    : SIDEBAR_ROUTES["user"];
+    ? SIDEBAR_ROUTES[userRole || "admin"]
+    : SIDEBAR_ROUTES["admin"];
 
   return (
     <LayoutStyles>

@@ -1,3 +1,7 @@
+declare module "axios";
+declare module "leaflet";
+declare module "react-leaflet";
+
 declare module ".png" {
   const value: string;
   export default value;
@@ -13,4 +17,8 @@ declare module ".svg" {
 declare module "*.mp4" {
   const value: any;
   export default value;
+}
+
+declare module "leaflet" {
+  type LatLngTuple = [number, number];
 }
