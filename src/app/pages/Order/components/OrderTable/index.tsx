@@ -15,14 +15,17 @@ import {
   Typography,
 } from "@mui/material";
 
-type props = OrderType;
-
 const OrderTable = ({ totalPrice, id, status, foods }: OrderType) => {
   return (
     <TableStyle>
       <Accordion>
         <AccordionSummary>
-          <Box display="flex" justifyContent="space-between" width="100%">
+          <Box
+            className="table__accordion"
+            display="flex"
+            justifyContent="space-between"
+            width="100%"
+          >
             <Typography> {id} - Order Foods</Typography>
             <Typography>Status: {status}</Typography>
             <Typography>Total Price: {totalPrice}</Typography>

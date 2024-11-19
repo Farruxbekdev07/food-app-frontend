@@ -4,7 +4,7 @@ export const AdminOrderStyle = styled.div`
   .admin__order-wrapper {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    gap: 8px;
+    gap: 6px;
   }
 
   @media only screen and (max-width: 1500px) {
