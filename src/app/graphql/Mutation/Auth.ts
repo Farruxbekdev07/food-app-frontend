@@ -1,16 +1,16 @@
 import { gql } from "@apollo/client";
 
 export const LOGIN = gql`
-  query login($auth: AuthInput!) {
-    login(auth: $auth) {
+  query telegramUserLogin($auth: TelegramUserInput!) {
+    telegramUserLogin(auth: $auth) {
       token
       user {
         _id
-        telegramId
         name
-        role
         phone
+        role
         photo
+        telegramId
       }
     }
   }
