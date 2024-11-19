@@ -7,8 +7,9 @@ interface CardProps {
   price?: number;
   discount?: number;
   userName?: string;
+  quantity?: number;
   userOrders?: IOrder[];
-  type: "food" | "order"; // Card type
+  type: "food" | "order" | "cartItem";
 }
 
 export default CardProps;

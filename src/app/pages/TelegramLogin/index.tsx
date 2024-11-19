@@ -21,6 +21,11 @@ export default function TelegramLogin() {
   const [login, { data, loading }] = useLazyQuery(LOGIN);
 
   const handleTelegramAuth = (auth: ITelegramUser) => {
+    if (!auth || !auth.id) {
+      toast.error("Authentication error!");
+      return;
+    }
+
     console.log("auth:", auth);
     login({ variables: { auth } });
   };

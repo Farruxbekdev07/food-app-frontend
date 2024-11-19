@@ -50,5 +50,15 @@ export const theme = createTheme({
         },
       },
     },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          overflow: "hidden",
+          whiteSpace: "nowrap",
+          wordBreak: "break-word",
+          textOverflow: "ellipsis",
+        },
+      },
+    },
   },
 });

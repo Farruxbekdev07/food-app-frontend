@@ -36,8 +36,8 @@ const SidebarStyles = styled.div<SidebarProps>`
   }
   .selected__foods-container {
     display: flex;
+    overflow-y: auto;
     gap: ${pxToRem(8)};
-    overflow-y: scroll;
     flex-direction: column;
     min-height: ${pxToRem(500)};
   }
