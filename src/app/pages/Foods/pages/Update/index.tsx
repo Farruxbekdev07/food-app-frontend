@@ -16,9 +16,9 @@ import { useMutation, useQuery } from "@apollo/client";
 import PageTitle from "../../../../components/PageTitle";
 import ROUTE_PATHS from "../../../../routes/paths/paths";
 import CreateFoodStyles from "../Create/CreateFood.style";
-import { UPDATE_FOODS } from "../../../../graphql/Mutation/Foods";
+import { UPDATE_FOOD_BY_ID } from "../../../../graphql/Mutation/Foods";
 import { useAppSelector } from "../../../../hooks/redux";
-import { GET_FOOD } from "../../../../graphql/Query/Foods";
+import { GET_FOOD_BY_ID } from "../../../../graphql/Query/Foods";
 
 function UpdateFood() {
   const navigate = useNavigate();
@@ -27,8 +27,8 @@ function UpdateFood() {
   const [uploadFileUrl, setUploadFileUrl] = useState("");
   const foodId = useAppSelector((state) => state.food?.foodId);
 
-  const [updateFood] = useMutation(UPDATE_FOODS);
-  const { data: foodData } = useQuery(GET_FOOD, {
+  const [updateFood] = useMutation(UPDATE_FOOD_BY_ID);
+  const { data: foodData } = useQuery(GET_FOOD_BY_ID, {
     variables: {
       foodId,
     },

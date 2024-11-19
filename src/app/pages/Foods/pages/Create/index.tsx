@@ -16,7 +16,7 @@ import { ApolloError, useMutation } from "@apollo/client";
 import CreateFoodStyles from "./CreateFood.style";
 import PageTitle from "../../../../components/PageTitle";
 import ROUTE_PATHS from "../../../../routes/paths/paths";
-import { CREATE_FOODS } from "../../../../graphql/Mutation/Foods";
+import { CREATE_FOOD } from "../../../../graphql/Mutation/Foods";
 import { toast } from "react-toastify";
 
 function CreateFood() {
@@ -25,7 +25,7 @@ function CreateFood() {
   const [fieldsHeight, setFieldsHeight] = useState(0);
   const [uploadFileUrl, setUploadFileUrl] = useState("");
 
-  const [createFoods, { data, loading }] = useMutation(CREATE_FOODS);
+  const [createFoods, { data, loading }] = useMutation(CREATE_FOOD);
 
   const {
     reset,
