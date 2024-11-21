@@ -1,43 +1,119 @@
-import { GridRowsProp } from "@mui/x-data-grid";
-import { randomArrayItem, randomTraderName } from "@mui/x-data-grid-generator";
+import EditIcon from "@mui/icons-material/Edit";
+import SaveIcon from "@mui/icons-material/Save";
+import CancelIcon from "@mui/icons-material/Close";
+import DeleteIcon from "@mui/icons-material/DeleteOutlined";
+import {
+  GridColDef,
+  GridActionsCellItem,
+  GridRowsProp,
+} from "@mui/x-data-grid";
+import {
+  randomArrayItem,
+  randomId,
+  randomTraderName,
+} from "@mui/x-data-grid-generator";
 
-const status = ["Pending", "Cooking", "Delivering", "Received"];
+export const getColumns = ({
+  rowModesModel,
+  handleEditClick,
+  handleSaveClick,
+  handleDeleteClick,
+  handleCancelClick,
+}: any): GridColDef[] => [
+  { field: "name", headerName: "Name", width: 250, editable: true },
+  {
+    width: 250,
+    align: "left",
+    type: "number",
+    field: "phone",
+    editable: true,
+    headerName: "Phone",
+    headerAlign: "left",
+  },
+  { field: "status", headerName: "Status", width: 250, editable: true },
+  {
+    width: 250,
+    type: "actions",
+    field: "actions",
+    headerName: "Actions",
+    getActions: ({ id }) => {
+      const isInEditMode = rowModesModel[id]?.mode === "edit";
 
-const randomStatus = () => {
-  return randomArrayItem(status);
-};
+      if (isInEditMode) {
+        return [
+          <GridActionsCellItem
+            key="save"
+            icon={<SaveIcon />}
+            label="Save"
+            onClick={handleSaveClick(id)}
+          />,
+          <GridActionsCellItem
+            key="cancel"
+            icon={<CancelIcon />}
+            label="Cancel"
+            onClick={handleCancelClick(id)}
+          />,
+        ];
+      }
 
-const initialRows: GridRowsProp = [
-  {
-    id: 1,
-    phone: 25,
-    status: randomStatus(),
-    name: randomTraderName(),
-  },
-  {
-    id: 2,
-    phone: 36,
-    status: randomStatus(),
-    name: randomTraderName(),
-  },
-  {
-    id: 3,
-    phone: 19,
-    status: randomStatus(),
-    name: randomTraderName(),
-  },
-  {
-    id: 4,
-    phone: 28,
-    status: randomStatus(),
-    name: randomTraderName(),
-  },
-  {
-    id: 5,
-    phone: 23,
-    status: randomStatus(),
-    name: randomTraderName(),
+      return [
+        <GridActionsCellItem
+          key="edit"
+          icon={<EditIcon />}
+          label="Edit"
+          onClick={handleEditClick(id)}
+        />,
+        <GridActionsCellItem
+          key="delete"
+          icon={<DeleteIcon />}
+          label="Delete"
+          onClick={handleDeleteClick(id)}
+        />,
+      ];
+    },
   },
 ];
 
-export default initialRows;
+const roles = ["Market", "Finance", "Development"];
+
+const randomRole = () => {
+  return randomArrayItem(roles);
+};
+
+export const InitialRows: GridRowsProp = [
+  {
+    id: randomId(),
+    status: "pending",
+    orders: randomRole(),
+    name: randomTraderName(),
+    phone: "+998 (93)-222-80-66",
+  },
+  {
+    id: randomId(),
+    status: "pending",
+    orders: randomRole(),
+    name: randomTraderName(),
+    phone: "+998 (93)-222-80-66",
+  },
+  {
+    id: randomId(),
+    status: "pending",
+    orders: randomRole(),
+    name: randomTraderName(),
+    phone: "+998 (93)-222-80-66",
+  },
+  {
+    id: randomId(),
+    status: "pending",
+    orders: randomRole(),
+    name: randomTraderName(),
+    phone: "+998 (93)-222-80-66",
+  },
+  {
+    id: randomId(),
+    status: "pending",
+    orders: randomRole(),
+    name: randomTraderName(),
+    phone: "+998 (93)-222-80-66",
+  },
+];
