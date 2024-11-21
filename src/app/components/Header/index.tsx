@@ -8,7 +8,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Logout } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
@@ -25,8 +25,16 @@ import MenuComponent from "../Menu";
 import { HeaderStyles } from "./Header.style";
 import ROUTE_PATHS from "../../routes/paths/paths";
 import TelegramLogin from "../../pages/TelegramLogin";
-import { logOut } from "../../../store/reducer/authSlice";
+import {
+  logOut,
+  setToken,
+  setUserData,
+  setUserRole,
+} from "../../../store/reducer/authSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { LOGIN } from "../../graphql/Mutation/Auth";
+import { useLazyQuery } from "@apollo/client";
+import { toast } from "react-toastify";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -37,6 +45,8 @@ const Header = () => {
   );
   const [anchorElMenu, setAnchorElMenu] = useState<null | HTMLElement>(null);
   const { isOpenSidebar }: FoodState = useSelector((state: any) => state?.food);
+
+  const [telegramUserLogin, { data, loading }] = useLazyQuery(LOGIN);
 
   const dispatch = useAppDispatch();
   const open = Boolean(anchorElMenu);
@@ -60,9 +70,39 @@ const Header = () => {
   };
 
   const handleToggleInvoiceSidebar = () => {
-    console.log(isOpenInvoiceSidebar);
     dispatch(setOpenInvoiceSidebar(!isOpenInvoiceSidebar));
   };
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+
+    if (queryParams.get("hash")) {
+      const authData = {
+        id: queryParams.get("id")?.toString() || "",
+        first_name: queryParams.get("first_name") || "",
+        last_name: queryParams.get("last_name") || "",
+        username: queryParams.get("username") || "",
+        photo_url: queryParams.get("photo_url") || "",
+        auth_date: Number(queryParams.get("auth_date")) || 0,
+        hash: queryParams.get("hash") || "",
+      };
+
+      telegramUserLogin({ variables: { auth: authData } });
+
+      if (authData.id) {
+        dispatch(setUserData(authData));
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (data) {
+      dispatch(setUserRole(data?.telegramUserLogin?.user?.role));
+      dispatch(setToken(data?.telegramUserLogin?.token));
+      toast.success("Sign in successfully!");
+      navigate(ROUTE_PATHS.MAIN);
+    }
+  }, [data, loading]);
 
   return (
     <HeaderStyles>
@@ -89,7 +129,7 @@ const Header = () => {
           >
             <ShoppingCartIcon className="shopping__cart-icon" />
           </IconButton>
-          {user ? (
+          {user && token ? (
             <div className="user__info">
               <Button
                 size="small"

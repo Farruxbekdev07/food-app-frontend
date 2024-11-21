@@ -10,7 +10,7 @@ export interface AuthState {
 }
 
 const initialState: AuthState = {
-  role: "",
+  role: "user",
   token: "",
   user: null,
 };
@@ -23,7 +23,7 @@ export const authSlice = createSlice({
       state.user = action.payload;
     },
     setToken: (state: AuthState, action) => {
-      state.token = action.payload?.token;
+      state.token = action.payload;
     },
     setUserRole: (state: AuthState, action: PayloadAction<string>) => {
       state.role = action.payload;
@@ -31,6 +31,7 @@ export const authSlice = createSlice({
     logOut: (state: AuthState) => {
       state.user = null;
       state.token = "";
+      state.role = "user";
     },
   },
 });

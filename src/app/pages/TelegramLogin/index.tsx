@@ -1,46 +1,24 @@
 import { useEffect } from "react";
 import { toast } from "react-toastify";
-import { useLazyQuery } from "@apollo/client";
-import { useNavigate } from "react-router-dom";
 
-import {
-  setToken,
-  setUserData,
-  setUserRole,
-} from "../../../store/reducer/authSlice";
 import { ITelegramUser } from "../../types/User";
-import ROUTE_PATHS from "../../routes/paths/paths";
-import { LOGIN } from "../../graphql/Mutation/Auth";
+import { setUserData } from "../../../store/reducer/authSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 
 export default function TelegramLogin() {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
 
-  const [login, { data, loading }] = useLazyQuery(LOGIN);
-
-  const handleTelegramAuth = (auth: ITelegramUser) => {
-    if (!auth || !auth.id) {
-      toast.error("Authentication error!");
-      return;
-    }
-
-    console.log("auth:", auth);
-    login({ variables: { auth } });
-  };
-
   useEffect(() => {
-    if (user) {
-      return;
-    }
+    // Check if user is already logged in
+    if (user) return;
 
-    // Remove previous Telegram widget if it exists
     const container = document.getElementById("telegram-login-container");
     if (container) {
-      container.innerHTML = ""; // Clear previous widget if any
+      container.innerHTML = "";
     }
 
+    // Append Telegram widget script to the page
     const script = document.createElement("script");
     script.src = "https://telegram.org/js/telegram-widget.js?22";
     script.async = true;
@@ -52,44 +30,25 @@ export default function TelegramLogin() {
 
     container?.appendChild(script);
 
-    const queryParams = new URLSearchParams(window.location.search);
+    // Extract query parameters
+    // const queryParams = new URLSearchParams(window.location.search);
 
-    // id: null
-    // username: null
-    // last_name: null
-    // first_name: null
-    // auth_date: null
-    // photo_url: null
-    // hash: null
+    // const authData: ITelegramUser = {
+    //   id: queryParams.get("id")?.toString() || "",
+    //   first_name: queryParams.get("first_name") || "",
+    //   last_name: queryParams.get("last_name") || "",
+    //   username: queryParams.get("username") || "",
+    //   photo_url: queryParams.get("photo_url") || "",
+    //   auth_date: Number(queryParams.get("auth_date")) || 0,
+    //   hash: queryParams.get("hash") || "",
+    // };
 
-    const authData: ITelegramUser = {
-      id: queryParams.get("id")?.toString() || "",
-      first_name: queryParams.get("first_name") || "",
-      last_name: queryParams.get("last_name") || "",
-      username: queryParams.get("username") || "",
-      photo_url: queryParams.get("photo_url") || "",
-      auth_date: Number(queryParams.get("auth_date")),
-      hash: queryParams.get("hash") || "",
-    };
-
-    if (authData.id) {
-      handleTelegramAuth(authData);
-      // dispatch(setUserData(authData));
-    } else {
-      toast.error("User not found!");
-    }
+    // if (authData.id) {
+    //   dispatch(setUserData(authData));
+    // } else {
+    //   toast.error("User not found!");
+    // }
   }, [user, dispatch]);
-
-  useEffect(() => {
-    console.log("user data:", data);
-    if (data) {
-      console.log("user data ============:", data);
-      dispatch(setToken(data?.login?.token));
-      // dispatch(setUserRole(data?.login?.role));
-      toast.success("Sign in successfully!");
-      navigate(ROUTE_PATHS.MAIN);
-    }
-  }, [login, data, loading]);
 
   return <div id="telegram-login-container"></div>;
 }
