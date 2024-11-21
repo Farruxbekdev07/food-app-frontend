@@ -49,10 +49,6 @@ const orders: OrderType[] = [
 ];
 
 const Order = () => {
-  const { loading, error, data } = useQuery(GET_ORDER_BY_ID, {
-    variables: { GET_ORDER_BY_ID },
-  });
-
   return (
     <OrderStyle>
       <Box className="order__wrapper">
