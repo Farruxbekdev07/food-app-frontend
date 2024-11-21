@@ -2,8 +2,6 @@ import { Box } from "@mui/material";
 import OrderStyle from "./Order.style";
 import OrderTable from "./components/OrderTable";
 import { OrderType } from "../../types/order";
-import { useQuery } from "@apollo/client";
-import { GET_ORDER_BY_ID } from "../../graphql/Query/Orders";
 
 const orders: OrderType[] = [
   {
@@ -49,10 +47,6 @@ const orders: OrderType[] = [
     ],
   },
 ];
-
-const { loading, error, data } = useQuery(GET_ORDER_BY_ID, {
-  variables: { GET_ORDER_BY_ID },
-});
 
 const Order = () => {
   return (
