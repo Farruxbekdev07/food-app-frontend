@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 import IFoods from "./types";
 import FoodStyles from "./Food.style";
-import { categories } from "./constants";
+import NoData from "../../components/NoData";
 import Loader from "../../components/Loader";
 import { UserRole } from "../../types/enums";
 import InvoiceSidebar from "./components/Sidebar";
@@ -17,20 +17,20 @@ import ROUTE_PATHS from "../../routes/paths/paths";
 import { useAppSelector } from "../../hooks/redux";
 import ICard from "../../components/Card/interfaces";
 import { GET_ALL_FOODS } from "../../graphql/Query/Foods";
+import { GET_ALL_CATEGORIES } from "../../graphql/Query/Category";
 
 const Foods = () => {
-  const userRole = useAppSelector((state) => state.auth?.role) as
-    | UserRole
-    | "user";
   const [activeCategory, setActiveCategory] = useState<number>(0);
+  const userRole = useAppSelector((state) => state.auth?.role) as UserRole;
 
   const navigate = useNavigate();
 
   const { data, loading } = useQuery(GET_ALL_FOODS);
+  const { data: getCategoryData, loading: getCategoryLoading } =
+    useQuery(GET_ALL_CATEGORIES);
 
   const handleSelectCategory = (index: number) => {
     setActiveCategory(index);
-    console.log("index:", index);
   };
 
   const handleNavigate = () => {
@@ -38,11 +38,12 @@ const Foods = () => {
   };
 
   const foods = data?.getAllFoods?.payload || [];
+  const categoriesList = getCategoryData?.getAllCategories?.payload || [];
 
   return (
     <FoodStyles>
       <PageTitle title="Explore Categories">
-        {userRole !== "admin" && (
+        {userRole !== "user" && (
           <Button
             variant="contained"
             startIcon={<AddIcon />}
@@ -54,22 +55,29 @@ const Foods = () => {
       </PageTitle>
       <div className="foods-container">
         <div className="menu-container">
-          <div className="chip__card-container">
-            {categories.map(({ image, name }: ICard, index) => (
-              <ChipComponent
-                name={name}
-                image={image}
-                onClick={() => handleSelectCategory(index)}
-                className={activeCategory === index ? "chip__card-active" : ""}
-              />
-            ))}
-          </div>
+          {getCategoryLoading && <Loader isInner />}
+          {categoriesList?.length !== 0 ? (
+            <div className="chip__card-container">
+              {categoriesList.map(({ image, name }: ICard, index: number) => (
+                <ChipComponent
+                  name={name}
+                  image={image}
+                  onClick={() => handleSelectCategory(index)}
+                  className={
+                    activeCategory === index ? "chip__card-active" : ""
+                  }
+                />
+              ))}
+            </div>
+          ) : (
+            <NoData />
+          )}
           <div>
             <PageTitle title="Menu" />
-            <div className="card-container">
-              {loading && <Loader isInner />}
-              {foods.map(
-                ({ name, price, id, discount, image, shortName }: IFoods) => (
+            {foods?.length !== 0 ? (
+              <div className="card-container">
+                {loading && <Loader isInner />}
+                {foods.map(({ name, price, id, discount, image }: IFoods) => (
                   <CardComponent
                     _id={id}
                     type="food"
@@ -78,10 +86,11 @@ const Foods = () => {
                     name={name || ""}
                     discount={discount}
                   />
-                )
-              )}
-              <CardComponent _id="2" type="order" userName="John Doe" />
-            </div>
+                ))}
+              </div>
+            ) : (
+              <NoData />
+            )}
           </div>
         </div>
         {userRole === "user" && <InvoiceSidebar />}

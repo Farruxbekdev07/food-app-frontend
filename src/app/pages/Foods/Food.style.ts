@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { colors } from "@mui/material";
 
 import { pxToRem } from "../../constants";
 
