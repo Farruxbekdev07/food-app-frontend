@@ -60,5 +60,13 @@ export const theme = createTheme({
         },
       },
     },
+    MuiAutocomplete: {
+      styleOverrides: {
+        root: {
+          width: "100%",
+          maxHeight: `${pxToRem(40)}`,
+        },
+      },
+    },
   },
 });

@@ -15,9 +15,7 @@ interface EditToolbarProps {
   ) => void;
 }
 
-function EditToolbar(props: EditToolbarProps) {
-  const { setRows, setRowModesModel } = props;
-
+function EditToolbar({ setRows, setRowModesModel }: EditToolbarProps) {
   const handleClick = () => {
     const id = randomId();
     setRows((oldRows) => [

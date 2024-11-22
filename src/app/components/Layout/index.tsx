@@ -7,7 +7,8 @@ import SIDEBAR_ROUTES from "../Sidebar/routes";
 import { useAppSelector } from "../../hooks/redux";
 
 export default function Layout({ children }: LayoutProps) {
-  const userRole = useAppSelector((state) => state.auth?.role) as UserRole;
+  // const userRole = useAppSelector((state) => state.auth?.role) as UserRole;
+  const userRole = "admin";
 
   const routes = userRole ? SIDEBAR_ROUTES[userRole] : SIDEBAR_ROUTES["user"];
 
