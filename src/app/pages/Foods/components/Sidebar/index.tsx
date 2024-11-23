@@ -41,7 +41,7 @@ function InvoiceSidebar() {
     console.log("Create Order Data:", CreateOrderData);
   }, [CreateOrderError]);
 
-  const cartItems = data?.getCartItemsByUserId?.payload || [];
+  const cartItems = data?.getCartItemsByUserId?.payload?.items || [];
 
   const totalPrice =
     cartItems.reduce(

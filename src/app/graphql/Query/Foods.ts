@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_ALL_FOODS = gql`
-  query getAllFoods($name: String, $category: String) {
-    getAllFoods(name: $name, category: $category) {
+  query getAllFoods($name: String, $categories: [ID]) {
+    getAllFoods(name: $name, categories: $categories) {
       payload {
         _id
         shortName
@@ -11,7 +11,9 @@ export const GET_ALL_FOODS = gql`
         description
         price
         discount
-        category
+        category {
+          name
+        }
         likes
       }
     }
@@ -29,7 +31,9 @@ export const GET_FOOD_BY_ID = gql`
         description
         price
         discount
-        category
+        category {
+          name
+        }
         likes
       }
     }
@@ -55,7 +59,9 @@ export const GET_CART_ITEMS = gql`
             description
             price
             discount
-            category
+            category {
+              name
+            }
             likes
           }
         }
@@ -75,7 +81,9 @@ export const GET_FOODS_BY_CATEGORY = gql`
         description
         price
         discount
-        category
+        category {
+          name
+        }
         likes
       }
     }
@@ -93,7 +101,9 @@ export const GET_FAVORITE_FOODS = gql`
         description
         price
         discount
-        category
+        category {
+          name
+        }
         likes
       }
     }

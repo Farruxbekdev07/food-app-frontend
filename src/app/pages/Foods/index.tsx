@@ -22,6 +22,7 @@ import { GET_ALL_CATEGORIES } from "../../graphql/Query/Category";
 const Foods = () => {
   const [activeCategory, setActiveCategory] = useState<number>(0);
   const userRole = useAppSelector((state) => state.auth?.role) as UserRole;
+  console.log(userRole);
 
   const navigate = useNavigate();
 
@@ -43,7 +44,7 @@ const Foods = () => {
   return (
     <FoodStyles>
       <PageTitle title="Explore Categories">
-        {userRole !== "user" && (
+        {userRole === "admin" && (
           <Button
             variant="contained"
             startIcon={<AddIcon />}
