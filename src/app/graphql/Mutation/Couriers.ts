@@ -49,3 +49,18 @@ export const CREATE_COURIER = gql`
     }
   }
 `;
+
+export const DELETE_COURIER = gql`
+  mutation deleteCourierById($userId: ID!) {
+    deleteCourierById(userId: $userId) {
+      payload {
+        _id
+        name
+        phone
+        role
+        photo
+        telegramId
+      }
+    }
+  }
+`;

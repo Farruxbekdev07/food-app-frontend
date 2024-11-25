@@ -24,6 +24,8 @@ import { useMutation, useQuery } from "@apollo/client";
 import { GET_ALL_USERS } from "../../../../graphql/Query/Users";
 import { CREATE_COURIER } from "../../../../graphql/Mutation/Couriers";
 import { GET_ALL_COURIERS } from "../../../../graphql/Query/Couriers";
+import { toast } from "react-toastify";
+import { GraphQLError } from "graphql";
 
 export default function FullFeaturedCrudGrid() {
   const [rows, setRows] = useState(initialRows);
@@ -106,6 +108,7 @@ export default function FullFeaturedCrudGrid() {
       }
 
       try {
+        console.log();
         createCourier({ variables: { userId } });
         setRows((prevRows) =>
           prevRows.map((row) =>
@@ -114,7 +117,8 @@ export default function FullFeaturedCrudGrid() {
         );
         console.log("Processed row:", newRow);
         return newRow;
-      } catch (error) {
+      } catch (error: GraphQLError | any) {
+        toast.error(error.message);
         console.log("Error while creating courier:", error);
         return newRow;
       }
@@ -203,8 +207,8 @@ export default function FullFeaturedCrudGrid() {
         if (isInEditMode) {
           return [
             <GridActionsCellItem
-              icon={<SaveIcon />}
               label="Save"
+              icon={<SaveIcon />}
               sx={{
                 color: "primary.main",
               }}
@@ -249,12 +253,12 @@ export default function FullFeaturedCrudGrid() {
     <DataGridStyles>
       <DataGrid
         rows={rows}
-        columns={columns}
         editMode="row"
+        columns={columns}
         rowModesModel={rowModesModel}
-        onRowModesModelChange={handleRowModesModelChange}
         onRowEditStop={handleRowEditStop}
         processRowUpdate={processRowUpdate}
+        onRowModesModelChange={handleRowModesModelChange}
         slots={{
           toolbar: EditToolbar as GridSlots["toolbar"],
         }}
