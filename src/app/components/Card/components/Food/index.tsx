@@ -6,15 +6,18 @@ import {
   IconButton,
   Typography,
   CardContent,
+  CardActions,
   DialogContent,
   DialogActions,
   DialogContentText,
-  CardActions,
 } from "@mui/material";
 import { useState } from "react";
+import { toast } from "react-toastify";
+import { ApolloError } from "apollo-server";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useMutation, useQuery } from "@apollo/client";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 import CardStyle from "../../Card.style";
@@ -25,19 +28,23 @@ import IFoods from "../../../../pages/Foods/types";
 import ROUTE_PATHS from "../../../../routes/paths/paths";
 import DefaultFood from "../../../../assets/images/burger.png";
 import { setFoodId } from "../../../../../store/reducer/foodSlice";
+import { CREATE_CART_ITEM } from "../../../../graphql/Mutation/Foods";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
+import { GET_CART_ITEMS_BY_USER_ID } from "../../../../graphql/Query/Foods";
 
-const FoodCard = ({ discount, id, image, name, price, shortName }: IFoods) => {
+const FoodCard = ({ discount, _id, image, name, price }: IFoods) => {
   const userRole = useAppSelector((state) => state.auth?.role) as
     | UserRole
     | "user";
-  const token = useAppSelector((state) => state.auth.token);
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
   const [anchorElMenu, setAnchorElMenu] = useState<null | HTMLElement>(null);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const open = Boolean(anchorElMenu);
+
+  const [createCartItem] = useMutation(CREATE_CART_ITEM);
+  const { data: cartItemsData } = useQuery(GET_CART_ITEMS_BY_USER_ID);
 
   const handleOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorElMenu(event.currentTarget);
@@ -48,8 +55,8 @@ const FoodCard = ({ discount, id, image, name, price, shortName }: IFoods) => {
   };
 
   const handleUpdate = () => {
-    navigate(ROUTE_PATHS.CREATE_FOOD);
-    dispatch(setFoodId(id));
+    dispatch(setFoodId(_id));
+    navigate(ROUTE_PATHS.UPDATE_FOOD);
   };
 
   const handleOpenDialog = () => {
@@ -62,11 +69,28 @@ const FoodCard = ({ discount, id, image, name, price, shortName }: IFoods) => {
   };
 
   const handleDeleteFood = () => {
-    console.log("delete food id:", id);
     handleCloseDialog();
   };
 
-  const handleOrder = () => {};
+  const handleOrder = () => {
+    createCartItem({
+      variables: {
+        data: { food: _id, quantity: 1 },
+      },
+    })
+      .then(() => {
+        toast.success("Category created successfully!");
+        handleCloseDialog();
+      })
+      .catch((error: ApolloError) => {
+        toast.error(error.message);
+      });
+    console.log("order food _id:", _id);
+    console.log(
+      "cart items data:",
+      cartItemsData?.getCartItemsByUserId?.payload
+    );
+  };
 
   return (
     <CardStyle>
@@ -108,7 +132,7 @@ const FoodCard = ({ discount, id, image, name, price, shortName }: IFoods) => {
             </div>
           </div>
         </CardContent>
-        {token && userRole === "user" ? (
+        {userRole === "user" ? (
           <CardActions className="card__actions">
             <Button variant="contained" onClick={handleOrder}>
               Order Now

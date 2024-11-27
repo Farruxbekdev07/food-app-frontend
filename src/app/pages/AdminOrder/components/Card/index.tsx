@@ -21,8 +21,6 @@ const AdminOrderCard = ({ id, foods }: AdminOrderType) => {
     setAlignment(newAlignment);
   };
 
-  console.log(alignment);
-
   return (
     <OrderCardstyle>
       <Card className="card__wrapper">

@@ -6,8 +6,7 @@ import { UserRole } from "./types/enums";
 import { useAppSelector } from "./hooks/redux";
 
 function App() {
-  // const userRole = useAppSelector((state) => state.auth?.role) as UserRole;
-  const userRole = "admin";
+  const userRole = useAppSelector((state) => state.auth?.role) as UserRole;
 
   return (
     <Layout>

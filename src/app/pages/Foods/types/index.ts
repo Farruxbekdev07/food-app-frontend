@@ -1,5 +1,5 @@
 interface IFoods {
-  id?: string;
+  _id?: string;
   name?: string;
   price?: number;
   image?: string;

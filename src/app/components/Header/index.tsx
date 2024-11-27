@@ -1,16 +1,16 @@
 import {
   Avatar,
   Button,
-  ButtonGroup,
-  IconButton,
-  ListItemIcon,
   MenuItem,
-  TextField,
+  IconButton,
   Typography,
+  ListItemIcon,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import { Logout } from "@mui/icons-material";
+import { useLazyQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -21,25 +21,25 @@ import {
   setOpenSidebar,
   setOpenInvoiceSidebar,
 } from "../../../store/reducer/foodSlice";
-import MenuComponent from "../Menu";
-import { HeaderStyles } from "./Header.style";
-import ROUTE_PATHS from "../../routes/paths/paths";
-import TelegramLogin from "../../pages/TelegramLogin";
 import {
   logOut,
   setToken,
   setUserData,
   setUserRole,
 } from "../../../store/reducer/authSlice";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import MenuComponent from "../Menu";
+import { UserRole } from "../../types/enums";
+import { HeaderStyles } from "./Header.style";
+import ROUTE_PATHS from "../../routes/paths/paths";
 import { LOGIN } from "../../graphql/Mutation/Auth";
-import { useLazyQuery } from "@apollo/client";
-import { toast } from "react-toastify";
+import TelegramLogin from "../../pages/TelegramLogin";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 
 const Header = () => {
   const navigate = useNavigate();
   const user = useAppSelector((state) => state?.auth?.user);
   const token = useAppSelector((state) => state?.auth?.token);
+  const userRole = useAppSelector((state) => state?.auth?.role) as UserRole;
   const isOpenInvoiceSidebar = useAppSelector(
     (state) => state.food.isOpenInvoiceSidebar
   );
@@ -110,25 +110,16 @@ const Header = () => {
         <IconButton className="toggle__sidebar" onClick={handleToggle}>
           <MenuIcon />
         </IconButton>
-        <ButtonGroup className="button_group">
-          <TextField
-            size="small"
-            variant="outlined"
-            className="search__input"
-            placeholder="Search food"
-          />
-          <Button size="small" variant="contained" className="search_button">
-            Search
-          </Button>
-        </ButtonGroup>
 
         <div className="user__wrapper">
-          <IconButton
-            className="shopping__cart-button"
-            onClick={handleToggleInvoiceSidebar}
-          >
-            <ShoppingCartIcon className="shopping__cart-icon" />
-          </IconButton>
+          {userRole === "user" && (
+            <IconButton
+              className="shopping__cart-button"
+              onClick={handleToggleInvoiceSidebar}
+            >
+              <ShoppingCartIcon className="shopping__cart-icon" />
+            </IconButton>
+          )}
           {user && token ? (
             <div className="user__info">
               <Button
