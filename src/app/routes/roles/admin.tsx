@@ -1,11 +1,14 @@
 import RouteType from "../types";
 import Foods from "../../pages/Foods";
 import ROUTE_PATHS from "../paths/paths";
+import Courier from "../../pages/Courier";
 import NotFound from "../../pages/NotFound";
 import AdminOrder from "../../pages/AdminOrder";
-import Courier from "../../pages/Courier";
+import CreateFood from "../../pages/Foods/pages/Create";
+import UpdateFood from "../../pages/Foods/pages/Update";
 
-const { FOODS, MAIN, ADMINORDER, COURIER } = ROUTE_PATHS;
+const { FOODS, MAIN, ADMINORDER, COURIER, CREATE_FOOD, UPDATE_FOOD } =
+  ROUTE_PATHS;
 
 export const ADMIN_ROUTES: RouteType[] = [
   {
@@ -19,6 +22,14 @@ export const ADMIN_ROUTES: RouteType[] = [
   {
     path: FOODS,
     component: <Foods />,
+  },
+  {
+    path: CREATE_FOOD,
+    component: <CreateFood />,
+  },
+  {
+    path: UPDATE_FOOD,
+    component: <UpdateFood />,
   },
   {
     path: ADMINORDER,

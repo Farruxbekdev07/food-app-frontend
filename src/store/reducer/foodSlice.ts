@@ -1,17 +1,21 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import CardProps from "../../app/components/Card/interfaces";
+export interface ICategory {
+  _id?: string;
+  name?: string;
+  image?: string;
+}
 
 export interface FoodState {
   foodId: string[];
   isOpenSidebar: boolean;
-  selectedFoods: CardProps[];
+  categories: ICategory[];
   isOpenInvoiceSidebar: boolean;
 }
 
 const initialState: FoodState = {
   foodId: [],
-  selectedFoods: [],
+  categories: [],
   isOpenSidebar: false,
   isOpenInvoiceSidebar: false,
 };
@@ -23,8 +27,8 @@ export const foodSlice = createSlice({
     setOpenSidebar: (state, action: PayloadAction<boolean>) => {
       state.isOpenSidebar = action.payload;
     },
-    setSelectedFoods: (state, action: PayloadAction<CardProps[]>) => {
-      state.selectedFoods = action.payload;
+    setCategories: (state, action: PayloadAction<ICategory[]>) => {
+      state.categories = action.payload;
     },
     setFoodId: (state, action) => {
       state.foodId = action.payload;
@@ -37,8 +41,8 @@ export const foodSlice = createSlice({
 
 export const {
   setFoodId,
+  setCategories,
   setOpenSidebar,
-  setSelectedFoods,
   setOpenInvoiceSidebar,
 } = foodSlice.actions;
 

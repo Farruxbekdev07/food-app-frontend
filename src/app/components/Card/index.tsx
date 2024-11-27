@@ -18,7 +18,7 @@ const CardComponent = ({
   if (type === "food") {
     return (
       <FoodCard
-        id={_id}
+        _id={_id}
         name={name}
         image={image}
         price={price}

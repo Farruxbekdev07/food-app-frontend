@@ -1,8 +1,13 @@
 import styled from "@emotion/styled";
 
 import { pxToRem } from "../../constants";
+import { customColors } from "../../theme/colors";
 
 const FoodStyles = styled.div`
+  .dialog-content {
+    background-color: red;
+    /* width: 100px; */
+  }
   .foods-container {
     display: flex;
     gap: ${pxToRem(16)};
