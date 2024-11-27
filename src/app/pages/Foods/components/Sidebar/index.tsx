@@ -7,9 +7,9 @@ import SidebarStyles from "./Sidebar.style";
 import Loader from "../../../../components/Loader";
 import NoData from "../../../../components/NoData";
 import CardComponent from "../../../../components/Card";
-import { GET_CART_ITEMS } from "../../../../graphql/Query/Foods";
 import { CREATE_ORDER } from "../../../../graphql/Subscription/Orders";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
+import { GET_CART_ITEMS_BY_USER_ID } from "../../../../graphql/Query/Foods";
 import { setOpenInvoiceSidebar } from "../../../../../store/reducer/foodSlice";
 
 function InvoiceSidebar() {
@@ -19,7 +19,7 @@ function InvoiceSidebar() {
   );
   const dispatch = useAppDispatch();
 
-  const { data, loading } = useQuery(GET_CART_ITEMS);
+  const { data, loading } = useQuery(GET_CART_ITEMS_BY_USER_ID);
   const { data: CreateOrderData, error: CreateOrderError } = useSubscription(
     CREATE_ORDER,
     {

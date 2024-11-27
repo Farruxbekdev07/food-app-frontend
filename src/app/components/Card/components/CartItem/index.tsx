@@ -8,20 +8,20 @@ import {
   DialogActions,
   DialogContentText,
 } from "@mui/material";
-import { GraphQLError } from "graphql";
+import { ApolloError } from "apollo-server";
 import { useMutation } from "@apollo/client";
 import AddIcon from "@mui/icons-material/Add";
 import { useCallback, useState } from "react";
 import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-import ConfirmModal from "../../../ConfirmModal";
-import { CartItemStyles } from "./CartItem.style";
-import Burger from "../../../../assets/images/burger.png";
 import {
   DELETE_CART_ITEM,
   UPDATE_CART_FOOD_QUANTITY,
 } from "../../../../graphql/Mutation/Foods";
+import ConfirmModal from "../../../ConfirmModal";
+import { CartItemStyles } from "./CartItem.style";
+import Burger from "../../../../assets/images/burger.png";
 
 interface Props {
   id: string;
@@ -51,7 +51,7 @@ const CartItem = ({ image, title, price, quantity = 1, id }: Props) => {
         food: id,
         quantity: quantity + 1,
       },
-    }).catch((e: GraphQLError) => {
+    }).catch((e: ApolloError) => {
       console.error(e.message);
     });
   }, [updateCartFoodQuantity]);
@@ -62,7 +62,7 @@ const CartItem = ({ image, title, price, quantity = 1, id }: Props) => {
         food: id,
         quantity: quantity - 1,
       },
-    }).catch((e: GraphQLError) => {
+    }).catch((e: ApolloError) => {
       console.error(e.message);
     });
   }, [updateCartFoodQuantity]);
@@ -72,7 +72,7 @@ const CartItem = ({ image, title, price, quantity = 1, id }: Props) => {
       variables: {
         food: id,
       },
-    }).catch((e: GraphQLError) => {
+    }).catch((e: ApolloError) => {
       console.error(e.message);
     });
     handleCloseDialog();

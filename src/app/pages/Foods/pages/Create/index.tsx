@@ -7,24 +7,34 @@ import {
   FormControl,
   CardActionArea,
 } from "@mui/material";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useForm, Controller, FieldValues } from "react-hook-form";
+import {
+  useForm,
+  Controller,
+  FieldValues,
+  ControllerRenderProps,
+} from "react-hook-form";
+import { ApolloError, useMutation, useQuery } from "@apollo/client";
 
-import { ApolloError, useMutation } from "@apollo/client";
 import CreateFoodStyles from "./CreateFood.style";
+import Select from "../../../../components/Select";
 import PageTitle from "../../../../components/PageTitle";
 import ROUTE_PATHS from "../../../../routes/paths/paths";
+import formatDataForSelect from "../../../../helpers/select";
 import { CREATE_FOOD } from "../../../../graphql/Mutation/Foods";
-import { toast } from "react-toastify";
+import { GET_ALL_CATEGORIES } from "../../../../graphql/Query/Category";
 
 function CreateFood() {
   const navigate = useNavigate();
+  const [blob, setBlob] = useState("");
   const fieldsRef = useRef<HTMLDivElement>(null);
   const [fieldsHeight, setFieldsHeight] = useState(0);
-  const [uploadFileUrl, setUploadFileUrl] = useState("");
+  const [uploadFileUrl, setUploadFileUrl] = useState<string | null>(null);
 
+  const { data: categoriesData } = useQuery(GET_ALL_CATEGORIES);
   const [createFoods, { data, loading }] = useMutation(CREATE_FOOD);
 
   const {
@@ -34,30 +44,37 @@ function CreateFood() {
     formState: { errors },
   } = useForm();
 
-  const handleUpload = (
-    event: React.ChangeEvent<HTMLInputElement> | null
-    // field: ControllerRenderProps<FieldValues, "image">
+  const handleUpload = async (
+    event: React.ChangeEvent<HTMLInputElement> | null,
+    field: ControllerRenderProps<FieldValues, "image">
   ) => {
     const files = event?.target.files;
 
     if (files && files.length > 0) {
-      const url = URL.createObjectURL(files[0]);
-      // field.onChange(files[0]);
+      const file = files[0];
+      const blob = await new Blob([file], { type: file.type }).text();
+      setBlob(blob);
+      const url = URL.createObjectURL(file);
+      field.onChange(file);
       setUploadFileUrl(url);
-      console.log(process.env.REACT_APP_BACKEND_URL);
     }
   };
 
   const handleCreateFood = useCallback(
     (values: FieldValues) => {
-      console.log("Form values:", values);
+      const { name, price, discount, shortName, category, description } =
+        values || {};
       createFoods({
         variables: {
           food: {
-            ...values,
-            price: Number(values?.price),
-            discount: Number(values?.discount),
+            name,
+            category,
+            shortName,
+            description,
+            price: Number(price),
+            discount: Number(discount),
           },
+          image: blob,
         },
       })
         .then(() => {
@@ -76,6 +93,14 @@ function CreateFood() {
     navigate(ROUTE_PATHS.FOODS);
   };
 
+  const categories = categoriesData?.getAllCategories?.payload;
+
+  const categoryOptions = formatDataForSelect({
+    value: "_id",
+    label: "name",
+    data: categories,
+  });
+
   useEffect(() => {
     if (fieldsRef.current) {
       setFieldsHeight(fieldsRef?.current?.offsetHeight);
@@ -90,7 +115,7 @@ function CreateFood() {
           <CardActionArea className="upload__focusable-area">
             <Tooltip title={"Upload Image"} arrow placement="right">
               <Box className="upload-file" component="label">
-                {/* <Controller
+                <Controller
                   name="image"
                   control={control}
                   render={({ field }) => (
@@ -103,12 +128,6 @@ function CreateFood() {
                       />
                     </FormControl>
                   )}
-                /> */}
-                <input
-                  hidden
-                  type="file"
-                  accept="image/*"
-                  onChange={(event: any) => handleUpload(event)}
                 />
                 {uploadFileUrl ? (
                   <img
@@ -119,7 +138,7 @@ function CreateFood() {
                 ) : (
                   <>
                     <CloudUploadIcon className="upload-icon" />
-                    <Typography>Maximum File Size: 4 MB</Typography>
+                    <Typography>Maximum File Size: 1 MB</Typography>
                   </>
                 )}
               </Box>
@@ -224,6 +243,16 @@ function CreateFood() {
                 />
               </FormControl>
             )}
+          />
+          <Select
+            required
+            size="medium"
+            errors={errors}
+            name="category"
+            control={control}
+            label="Category"
+            options={categoryOptions}
+            errorMessage="Please select category!"
           />
           <div className="form__actions">
             <Button variant="outlined" onClick={handleCancel}>

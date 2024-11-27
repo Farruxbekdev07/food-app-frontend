@@ -38,9 +38,11 @@ export const HeaderStyles = styled.header`
     height: ${pxToRem(SEARCH_INPUT_HEIGHT)};
   }
   .user__wrapper {
+    flex: 1;
     display: flex;
     gap: ${pxToRem(16)};
     align-items: center;
+    justify-content: end;
   }
   .shopping__cart-icon {
     font-size: ${pxToRem(32)};

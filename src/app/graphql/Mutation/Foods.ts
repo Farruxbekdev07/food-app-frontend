@@ -1,44 +1,30 @@
 import { gql } from "@apollo/client";
 
 export const CREATE_FOOD = gql`
-  mutation createFood($food: FoodInput!) {
-    createFood(food: $food) {
+  mutation createFood($food: FoodInput!, $image: Upload) {
+    createFood(food: $food, image: $image) {
       payload {
         _id
         shortName
         name
+        image
         description
         price
         discount
-      }
-    }
-  }
-`;
-
-export const CREATE_CART_ITEM = gql`
-  mutation createCartItem($food: ID) {
-    createCartItem(food: $food) {
-      payload {
-        _id
-        quantity
-        price
-        user
-        food {
+        likes
+        category {
           _id
-          shortName
           name
-          description
-          price
-          discount
+          image
         }
       }
     }
   }
 `;
 
-export const UPDATE_CART_FOOD_QUANTITY = gql`
-  mutation UpdateCartFoodQuantity($food: ID, $quantity: Int) {
-    updateCartFoodQuantity(food: $food, quantity: $quantity) {
+export const CREATE_CART_ITEM = gql`
+  mutation CreateCartItem($data: CartItemInput) {
+    createCartItem(data: $data) {
       payload {
         _id
         quantity
@@ -53,8 +39,37 @@ export const UPDATE_CART_FOOD_QUANTITY = gql`
           description
           price
           discount
-          category
           likes
+          category {
+            _id
+            name
+            image
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const UPDATE_CART_FOOD_QUANTITY = gql`
+  mutation UpdateCartFoodQuantity($food: ID, $quantity: Int) {
+    updateCartFoodQuantity(food: $food, quantity: $quantity) {
+      payload {
+        _id
+        user
+        price
+        quantity
+        discount
+        food {
+          _id
+          name
+          image
+          price
+          likes
+          category
+          discount
+          shortName
+          description
         }
       }
     }
@@ -91,12 +106,11 @@ export const UPDATE_FOOD_BY_ID = gql`
     updateFoodById(foodId: $foodId, food: $food) {
       payload {
         _id
-        shortName
         name
-        image
-        description
         price
         discount
+        shortName
+        description
       }
     }
   }

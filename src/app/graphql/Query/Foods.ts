@@ -1,8 +1,22 @@
 import { gql } from "@apollo/client";
 
 export const GET_ALL_FOODS = gql`
-  query getAllFoods($name: String, $categories: [ID]) {
-    getAllFoods(name: $name, categories: $categories) {
+  query getAllFoods($name: String, $categories: [ID], $page: Int, $limit: Int) {
+    getAllFoods(
+      name: $name
+      page: $page
+      limit: $limit
+      categories: $categories
+    ) {
+      totalDocs
+      limit
+      totalPages
+      page
+      pagingCounter
+      hasPrevPage
+      hasNextPage
+      prevPage
+      nextPage
       payload {
         _id
         shortName
@@ -11,9 +25,6 @@ export const GET_ALL_FOODS = gql`
         description
         price
         discount
-        category {
-          name
-        }
         likes
       }
     }
@@ -40,7 +51,7 @@ export const GET_FOOD_BY_ID = gql`
   }
 `;
 
-export const GET_CART_ITEMS = gql`
+export const GET_CART_ITEMS_BY_USER_ID = gql`
   query getCartItemsByUserId {
     getCartItemsByUserId {
       payload {
@@ -59,32 +70,14 @@ export const GET_CART_ITEMS = gql`
             description
             price
             discount
-            category {
-              name
-            }
             likes
+            category {
+              _id
+              name
+              image
+            }
           }
         }
-      }
-    }
-  }
-`;
-
-export const GET_FOODS_BY_CATEGORY = gql`
-  query getFoodsByCategory($categoryId: ID!) {
-    getFoodsByCategory(categoryId: $categoryId) {
-      payload {
-        _id
-        shortName
-        name
-        image
-        description
-        price
-        discount
-        category {
-          name
-        }
-        likes
       }
     }
   }
@@ -105,6 +98,18 @@ export const GET_FAVORITE_FOODS = gql`
           name
         }
         likes
+      }
+    }
+  }
+`;
+
+export const GET_CATEGORY_BY_ID = gql`
+  query getCategoryById($categoryId: ID!) {
+    getCategoryById(categoryId: $categoryId) {
+      payload {
+        _id
+        name
+        image
       }
     }
   }

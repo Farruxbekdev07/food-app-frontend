@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+
 import { pxToRem } from "../../constants";
 
 export const PageTitleStyles = styled.div`
@@ -10,5 +11,9 @@ export const PageTitleStyles = styled.div`
   .page__title {
     font-size: 24px;
     font-weight: 600;
+  }
+  .button__group {
+    display: flex;
+    gap: ${pxToRem(16)};
   }
 `;

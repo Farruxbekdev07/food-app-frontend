@@ -16,7 +16,6 @@ export default function MenuComponent({ anchorEl, onClose, open }: Props) {
   const handleLogOut = () => {
     dispatch(logOut());
     onClose();
-    console.log("log out");
   };
 
   return (
