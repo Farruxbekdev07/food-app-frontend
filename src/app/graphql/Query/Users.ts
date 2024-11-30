@@ -1,15 +1,17 @@
 import { gql } from "@apollo/client";
 
 export const GET_ALL_USERS = gql`
-  query getAllUsers {
-    getAllUsers {
+  query getUsers($phone: String) {
+    getUsers(filter: { phone: $phone }) {
       payload {
         _id
         name
-        role
         phone
+        role
         photo
         telegramId
+        createdAt
+        updatedAt
       }
     }
   }

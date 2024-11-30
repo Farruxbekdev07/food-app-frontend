@@ -19,7 +19,7 @@ export default function TelegramLogin() {
     script.async = true;
     script.setAttribute(
       "data-telegram-login",
-      process.env.TELEGRAM_BOT_USERNAME || "Koronavirus_status_07_bot"
+      process.env.REACT_APP_TELEGRAM_BOT_USERNAME || "sfoods_jizzakh_bot"
     );
     script.setAttribute("data-size", "large");
     script.setAttribute("data-radius", "8");
