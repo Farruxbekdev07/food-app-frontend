@@ -1,9 +1,5 @@
 import { GridRowsProp } from "@mui/x-data-grid";
-import {
-  randomId,
-  randomArrayItem,
-  randomTraderName,
-} from "@mui/x-data-grid-generator";
+import { randomArrayItem, randomTraderName } from "@mui/x-data-grid-generator";
 
 const status = ["Pending", "Cooking", "Delivering", "Received"];
 

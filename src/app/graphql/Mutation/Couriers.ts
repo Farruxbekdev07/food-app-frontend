@@ -5,16 +5,19 @@ export const CREATE_COURIER = gql`
     createCourier(userId: $userId) {
       payload {
         _id
-        name
-        phone
-        password
+        user {
+          _id
+          name
+          phone
+        }
         orders {
           _id
           totalPrice
-          createdAt
           status
-          to
-          foods {
+          address
+          createdAt
+          updatedAt
+          orderItems {
             _id
             quantity
             price
@@ -43,6 +46,8 @@ export const CREATE_COURIER = gql`
             role
             photo
             telegramId
+            createdAt
+            updatedAt
           }
         }
       }
@@ -51,15 +56,17 @@ export const CREATE_COURIER = gql`
 `;
 
 export const DELETE_COURIER = gql`
-  mutation deleteCourierById($userId: ID!) {
-    deleteCourierById(userId: $userId) {
+  mutation deleteCourierById($courierId: ID!) {
+    deleteCourierById(courierId: $courierId) {
       payload {
         _id
+        # user {
         name
         phone
         role
         photo
         telegramId
+        # }
       }
     }
   }

@@ -1,16 +1,15 @@
 import {
+  NextLink,
+  HttpLink,
+  Operation,
+  ApolloLink,
   ApolloClient,
   InMemoryCache,
-  HttpLink,
-  ApolloLink,
-  Operation,
-  NextLink,
 } from "@apollo/client";
+import { toast } from "react-toastify";
 import { onError } from "@apollo/client/link/error";
 
 import { store } from "../../store";
-import { GraphQLError } from "graphql";
-import { toast } from "react-toastify";
 
 const httpLink = new HttpLink({
   uri: process.env.REACT_APP_BACKEND_URL || "http://localhost:8000",
@@ -48,9 +47,12 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 const client = new ApolloClient({
   cache: new InMemoryCache({
     typePolicies: {
+      Courier: {
+        keyFields: ["_id"],
+      },
       QueryBuilder: {
         fields: {
-          items: {
+          getCouriers: {
             merge(existing, incoming) {
               return incoming;
             },
