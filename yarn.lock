@@ -2083,6 +2083,21 @@
     prop-types "^15.8.1"
     reselect "^5.1.1"
 
+"@mui/x-data-grid-pro@^7.23.0":
+  version "7.23.0"
+  resolved "https://registry.yarnpkg.com/@mui/x-data-grid-pro/-/x-data-grid-pro-7.23.0.tgz#b0f9942b1bf6f2f08f93da0b07cfebddacabbca3"
+  integrity sha512-vun3EdjUPJp+Jwds9QBjJ6AYjlOK9Up+xgB22yucpivzh91ChENp3gxmXtDzMDDBMR6w8h6eVtco60/t2N1Svg==
+  dependencies:
+    "@babel/runtime" "^7.25.7"
+    "@mui/utils" "^5.16.6 || ^6.0.0"
+    "@mui/x-data-grid" "7.23.0"
+    "@mui/x-internals" "7.23.0"
+    "@mui/x-license" "7.23.0"
+    "@types/format-util" "^1.0.4"
+    clsx "^2.1.1"
+    prop-types "^15.8.1"
+    reselect "^5.1.1"
+
 "@mui/x-data-grid@7.22.2", "@mui/x-data-grid@^7.22.2":
   version "7.22.2"
   resolved "https://registry.yarnpkg.com/@mui/x-data-grid/-/x-data-grid-7.22.2.tgz#2c7fce281b25785cde1af07698c4e555028d46d9"
@@ -2095,6 +2110,18 @@
     prop-types "^15.8.1"
     reselect "^5.1.1"
 
+"@mui/x-data-grid@7.23.0":
+  version "7.23.0"
+  resolved "https://registry.yarnpkg.com/@mui/x-data-grid/-/x-data-grid-7.23.0.tgz#5dba59386d186f20ee4cd338e25bcac9e70f558e"
+  integrity sha512-nypSz/7j0HPvW7tRPcZAlQADOiRAE4jTIcxwwJUPLtU17EPJOiw1iB29SRYtUThw4f3aXETPAeT4fzgagpuiKg==
+  dependencies:
+    "@babel/runtime" "^7.25.7"
+    "@mui/utils" "^5.16.6 || ^6.0.0"
+    "@mui/x-internals" "7.23.0"
+    clsx "^2.1.1"
+    prop-types "^15.8.1"
+    reselect "^5.1.1"
+
 "@mui/x-internals@7.21.0":
   version "7.21.0"
   resolved "https://registry.yarnpkg.com/@mui/x-internals/-/x-internals-7.21.0.tgz#daca984059015b27efdb47bb44dc7ff4a6816673"
@@ -2103,10 +2130,26 @@
     "@babel/runtime" "^7.25.7"
     "@mui/utils" "^5.16.6 || ^6.0.0"
 
+"@mui/x-internals@7.23.0":
+  version "7.23.0"
+  resolved "https://registry.yarnpkg.com/@mui/x-internals/-/x-internals-7.23.0.tgz#3b1d0e47f1504cbd74c60b6a514eb18c108cc6dd"
+  integrity sha512-bPclKpqUiJYIHqmTxSzMVZi6MH51cQsn5U+8jskaTlo3J4QiMeCYJn/gn7YbeR9GOZFp8hetyHjoQoVHKRXCig==
+  dependencies:
+    "@babel/runtime" "^7.25.7"
+    "@mui/utils" "^5.16.6 || ^6.0.0"
+
 "@mui/x-license@7.21.0":
   version "7.21.0"
   resolved "https://registry.yarnpkg.com/@mui/x-license/-/x-license-7.21.0.tgz#cb79eb1f9d1cf4ee30eed4c483bb7e062bd3dc31"
   integrity sha512-w48L2XQxlSdvld4E5s6pjZ5HPjtqERNun21FQtQJlodLB0JUt8pigseyC8N3X40j+Mw0Atg7UKNhf6OK/MbQ1A==
+  dependencies:
+    "@babel/runtime" "^7.25.7"
+    "@mui/utils" "^5.16.6 || ^6.0.0"
+
+"@mui/x-license@7.23.0":
+  version "7.23.0"
+  resolved "https://registry.yarnpkg.com/@mui/x-license/-/x-license-7.23.0.tgz#2fe9b7e109400d5c4c9b7da126e56d509e335ec9"
+  integrity sha512-fIWODBg7qZDKD9R/gmZNywa7O4amyt4fczeLul9G37ahj3zOvdJ6B/RPaMlv9ZzFsuxKYRKMbhkz1+9Gks56QQ==
   dependencies:
     "@babel/runtime" "^7.25.7"
     "@mui/utils" "^5.16.6 || ^6.0.0"
@@ -3683,6 +3726,15 @@ axe-core@^4.10.0:
   version "4.10.0"
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.10.0.tgz#d9e56ab0147278272739a000880196cdfe113b59"
   integrity sha512-Mr2ZakwQ7XUAjp7pAwQWRhhK8mQQ6JAaNWSjmjxil0R8BPioMtQsTLOolGYkji1rcL++3dCqZA3zWqpT+9Ew6g==
+
+axios@^1.7.8:
+  version "1.7.8"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.7.8.tgz#1997b1496b394c21953e68c14aaa51b7b5de3d6e"
+  integrity sha512-Uu0wb7KNqK2t5K+YQyVCLM76prD5sRFjKHbJYCP1J7JFGEQ6nN7HWn9+04LAeiJ3ji54lgS/gZCH1oxyrf1SPw==
+  dependencies:
+    follow-redirects "^1.15.6"
+    form-data "^4.0.0"
+    proxy-from-env "^1.1.0"
 
 axobject-query@^4.1.0:
   version "4.1.0"
@@ -5802,7 +5854,7 @@ flatted@^3.2.9:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.3.1.tgz#21db470729a6734d4997002f439cb308987f567a"
   integrity sha512-X8cqMLLie7KsNUDSdzeN8FYK9rEt4Dt67OsG/DNGnYTSDBG4uFAJFBnUeiV+zCVAvwFy56IjM9sH51jVaEhNxw==
 
-follow-redirects@^1.0.0:
+follow-redirects@^1.0.0, follow-redirects@^1.15.6:
   version "1.15.9"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.9.tgz#a604fa10e443bf98ca94228d9eebcc2e8a2c8ee1"
   integrity sha512-gew4GsXizNgdoRyqmyfMHyAmXsZDk6mHkSxZFCzW9gwlbtOW44CDtYavM+y+72qD/Vq2l550kMF52DT8fOLJqQ==
@@ -5845,6 +5897,15 @@ form-data@^3.0.0:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/form-data/-/form-data-3.0.2.tgz#83ad9ced7c03feaad97e293d6f6091011e1659c8"
   integrity sha512-sJe+TQb2vIaIyO783qN6BlMYWMw3WBOHA1Ay2qxsnjuafEOQFJ2JakedOQirT6D5XPRxDvS7AHYyem9fTpb4LQ==
+  dependencies:
+    asynckit "^0.4.0"
+    combined-stream "^1.0.8"
+    mime-types "^2.1.12"
+
+form-data@^4.0.0:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/form-data/-/form-data-4.0.1.tgz#ba1076daaaa5bfd7e99c1a6cb02aa0a5cff90d48"
+  integrity sha512-tzN8e4TX8+kkxGPK8D5u0FNmjPUjw3lwC9lSLxxoB/+GtsJG91CO8bSWy73APlgAZzZbXEYZJuxjkHH2w+Ezhw==
   dependencies:
     asynckit "^0.4.0"
     combined-stream "^1.0.8"
@@ -9041,6 +9102,11 @@ proxy-addr@~2.0.7:
   dependencies:
     forwarded "0.2.0"
     ipaddr.js "1.9.1"
+
+proxy-from-env@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/proxy-from-env/-/proxy-from-env-1.1.0.tgz#e102f16ca355424865755d2c9e8ea4f24d58c3e2"
+  integrity sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==
 
 psl@^1.1.33:
   version "1.9.0"

@@ -28,7 +28,7 @@ const CardComponent = ({
   }
 
   if (type === "order") {
-    return <OrderCard userName={userName || ""} orders={userOrders || []} />;
+    return <OrderCard />;
   }
 
   if (type === "cartItem") {

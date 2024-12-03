@@ -6,6 +6,7 @@ const ROUTE_PATHS = {
   ORDER: "/order",
   ADMINORDER: "/admin/order",
   COURIER: "/admin/courier",
+  USER_ORDER_MAP: "/order/map",
 };
 
 export default ROUTE_PATHS;

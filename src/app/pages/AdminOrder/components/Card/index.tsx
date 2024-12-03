@@ -25,18 +25,18 @@ const AdminOrderCard = ({ id, foods }: AdminOrderType) => {
     <OrderCardstyle>
       <Card className="card__wrapper">
         <CardContent className="card__content">
-          <Box>
+          <div>
             <Xmark className="card__xMark" />
             <Typography className="card_id">#{id}</Typography>
             {foods.map(({ name, quantity }) => (
-              <Box className="card__food-wrapper">
+              <div className="card__food-wrapper">
                 <Typography className="card__food-name">{name}</Typography>
                 <Typography className="card__food-count">
                   {quantity}x
                 </Typography>
-              </Box>
+              </div>
             ))}
-          </Box>
+          </div>
           <ToggleButtonGroup
             color="primary"
             value={alignment}

@@ -5,6 +5,10 @@ import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 export default function TelegramLogin() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
+  console.log(
+    "telegram bot username:",
+    process.env.REACT_APP_TELEGRAM_BOT_USERNAME
+  );
 
   useEffect(() => {
     if (user) return;
