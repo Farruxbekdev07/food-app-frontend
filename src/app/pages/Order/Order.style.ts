@@ -1,13 +1,12 @@
 import styled from "@emotion/styled";
+
 import { pxToRem } from "../../constants";
 
 const OrderStyle = styled.div`
-  .order__wrapper {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    gap: 8px;
+  .card-container {
+    display: grid;
+    gap: ${pxToRem(16)};
+    grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
   }
 `;
 

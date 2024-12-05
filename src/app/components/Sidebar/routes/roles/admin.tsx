@@ -1,8 +1,9 @@
+import MopedIcon from "@mui/icons-material/Moped";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 
-import ROUTE_PATHS from "../../../../routes/paths/paths";
 import { SidebarLinkType } from "../types";
-import { Moped, Truck } from "dazzle-icons";
+import ROUTE_PATHS from "../../../../routes/paths/paths";
 
 export const SIDEBAR_ADMIN_ROUTES: SidebarLinkType[] = [
   {
@@ -11,13 +12,13 @@ export const SIDEBAR_ADMIN_ROUTES: SidebarLinkType[] = [
     icon: <DashboardIcon />,
   },
   {
-    title: "Admin-Order",
-    path: ROUTE_PATHS.ADMINORDER,
-    icon: <Moped fontSize={25} />,
+    title: "Orders",
+    path: ROUTE_PATHS.ORDER,
+    icon: <MopedIcon />,
   },
   {
-    title: "Courier",
+    title: "Couriers",
     path: ROUTE_PATHS.COURIER,
-    icon: <Truck fontSize={25} />,
+    icon: <LocalShippingIcon />,
   },
 ];

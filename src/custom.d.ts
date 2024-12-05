@@ -20,5 +20,9 @@ declare module "*.mp4" {
 }
 
 declare module "leaflet" {
+  type LatLng = any;
   type LatLngTuple = [number, number];
+  // Qo'shimcha turlarni aniqlash
+  class FeatureGroup extends L.LayerGroup<L.Layer> {}
+  class Map extends L.Map {}
 }

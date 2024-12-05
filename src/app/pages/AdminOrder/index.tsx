@@ -89,11 +89,11 @@ const AdminOrderFood: AdminOrderType[] = [
 const AdminOrder = () => {
   return (
     <AdminOrderStyle>
-      <Box className="admin__order-wrapper">
+      <div className="admin__order-wrapper">
         {AdminOrderFood.map((order) => (
           <AdminOrderCard {...order} />
         ))}
-      </Box>
+      </div>
     </AdminOrderStyle>
   );
 };
