@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { GraphQLError } from "graphql";
 import { useMutation, useQuery } from "@apollo/client";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 
@@ -40,8 +39,7 @@ export default function CouriersTable() {
           setOpenConfirmModal(false);
           toast.success("Courier deleted successfully!");
         })
-        .catch((error: GraphQLError) => {
-          toast.error(error.message);
+        .catch(() => {
           setOpenConfirmModal(false);
         });
     } else {
