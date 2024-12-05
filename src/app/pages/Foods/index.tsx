@@ -18,6 +18,7 @@ import {
   ControllerRenderProps,
 } from "react-hook-form";
 import { toast } from "react-toastify";
+import { Pagination } from "@mui/material";
 import { ApolloError } from "apollo-server";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
@@ -55,6 +56,7 @@ const Transition = React.forwardRef(function Transition(
 });
 
 const Foods = () => {
+  const [page, setPage] = useState(1);
   const [blob, setBlob] = useState("");
   const [uploadFileUrl, setUploadFileUrl] = useState("");
   const [openDialog, setOpenDialog] = useState<boolean>(false);
@@ -82,13 +84,21 @@ const Foods = () => {
     refetch: refetchFoods,
   } = useQuery(GET_ALL_FOODS, {
     variables: {
-      page: 0,
-      limit: 10,
-      categories:
-        categories && categories.map((category: ICategory) => category._id),
+      page: page,
+      limit: 2,
+      categories: categories
+        ? categories.map((category: ICategory) => category._id)
+        : "all",
     },
   });
   const [createCategory] = useMutation(CREATE_CATEGORY);
+
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setPage(value);
+  };
 
   const handleSelectCategory = (category: ICategory) => {
     if (category) {
@@ -145,16 +155,12 @@ const Foods = () => {
           name: values.name,
         },
       },
-    })
-      .then(() => {
-        toast.success("Category created successfully!");
-        handleCloseDialog();
-        refetchCategory();
-        reset();
-      })
-      .catch((error: ApolloError) => {
-        toast.error(error.message);
-      });
+    }).then(() => {
+      toast.success("Category created successfully!");
+      handleCloseDialog();
+      refetchCategory();
+      reset();
+    });
   };
 
   useEffect(() => {
@@ -163,6 +169,7 @@ const Foods = () => {
 
   const foods = foodData?.getAllFoods?.payload || [];
   const categoriesList = categoryData?.getAllCategories?.payload || [];
+  const totalPages = foodData?.getAllFoods?.totalPages || 1;
 
   return (
     <FoodStyles>
@@ -235,6 +242,12 @@ const Foods = () => {
         {userRole === "user" && <InvoiceSidebar />}
         <InvoiceSidebar />
       </div>
+      <Pagination
+        page={page}
+        color="primary"
+        count={totalPages}
+        onChange={handlePageChange}
+      />
       <Dialog
         keepMounted
         open={openDialog}

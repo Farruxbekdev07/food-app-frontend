@@ -115,15 +115,11 @@ function ChipComponent({
       variables: {
         categoryId: id,
       },
-    })
-      .then(() => {
-        toast.success("Category deleted successfully!");
-        handleCloseDialog();
-        refetchCategory();
-      })
-      .catch((error: ApolloError) => {
-        toast.error(error.message);
-      });
+    }).then(() => {
+      toast.success("Category deleted successfully!");
+      handleCloseDialog();
+      refetchCategory();
+    });
   };
 
   const handleUpdateCategory = (values: FieldValues) => {
@@ -134,15 +130,11 @@ function ChipComponent({
           name: values.name,
         },
       },
-    })
-      .then(() => {
-        toast.success("Category updated successfully!");
-        handleCloseDialog();
-        refetchCategory();
-      })
-      .catch((error: ApolloError) => {
-        toast.error(error.message);
-      });
+    }).then(() => {
+      toast.success("Category updated successfully!");
+      handleCloseDialog();
+      refetchCategory();
+    });
   };
 
   const handleOpenDialog = (mode: "delete" | "update") => {

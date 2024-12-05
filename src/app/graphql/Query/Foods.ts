@@ -8,24 +8,24 @@ export const GET_ALL_FOODS = gql`
       limit: $limit
       categories: $categories
     ) {
-      totalDocs
-      limit
-      totalPages
       page
-      pagingCounter
-      hasPrevPage
-      hasNextPage
+      limit
       prevPage
       nextPage
+      totalDocs
+      totalPages
+      hasPrevPage
+      hasNextPage
+      pagingCounter
       payload {
         _id
-        shortName
         name
         image
-        description
         price
-        discount
         likes
+        discount
+        shortName
+        description
       }
     }
   }

@@ -86,14 +86,10 @@ function UpdateFood() {
           },
           image: blob,
         },
-      })
-        .then(() => {
-          toast.success("Update food successfully!");
-          navigate(ROUTE_PATHS.FOODS);
-        })
-        .catch((error: ApolloError) => {
-          toast.error(error?.message);
-        });
+      }).then(() => {
+        toast.success("Update food successfully!");
+        navigate(ROUTE_PATHS.FOODS);
+      });
     },
     [updateFood]
   );
