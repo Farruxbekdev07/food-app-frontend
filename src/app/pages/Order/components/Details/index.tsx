@@ -1,26 +1,22 @@
 import {
   Box,
   Card,
+  Chip,
   Avatar,
   Button,
-  colors,
   Typography,
   CardActionArea,
-  Chip,
 } from "@mui/material";
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import SendIcon from "@mui/icons-material/Send";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
-import { pxToRem } from "../../../../constants";
-import { customColors } from "../../../../theme/colors";
+import { getChipColor } from "../DataGrid/helpers";
+import { OrderDetailStyles } from "./Details.style";
 import { useAppSelector } from "../../../../hooks/redux";
 import PageTitle from "../../../../components/PageTitle";
 import { GET_ORDER_BY_ID } from "../../../../graphql/Query/Orders";
-import { getChipColor } from "../DataGrid/helpers";
-import { formatPhoneNumber } from "../../../../helpers";
-import { OrderDetailStyles } from "./Details.style";
 
 interface Props {
   toggleDrawer: (value: boolean) => void;

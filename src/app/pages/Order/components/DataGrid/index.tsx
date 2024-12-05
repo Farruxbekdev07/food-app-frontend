@@ -1,9 +1,14 @@
 import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
-import { Box, Chip, Drawer, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { Chip, Drawer, Typography } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { DataGrid, GridColDef, GridActionsCellItem } from "@mui/x-data-grid";
 
+import {
+  GET_ALL_ORDERS,
+  GET_ORDERS_BY_USER_ID,
+} from "../../../../graphql/Query/Orders";
 import {
   setOrderId,
   setOrderNumber,
@@ -11,13 +16,8 @@ import {
 import OrderDetails from "../Details";
 import { getChipColor } from "./helpers";
 import { DataGridStyles } from "./DataGrid.style";
-import {
-  GET_ALL_ORDERS,
-  GET_ORDERS_BY_USER_ID,
-} from "../../../../graphql/Query/Orders";
-import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
-import { useNavigate } from "react-router-dom";
 import ROUTE_PATHS from "../../../../routes/paths/paths";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
 
 const adminRows = [
   { _id: 1, orderNumber: "1", totalPrice: "50 000", status: "cooking" },
