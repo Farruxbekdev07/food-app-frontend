@@ -98,10 +98,6 @@ function OrderDetails({ toggleDrawer }: Props) {
       price: food?.price,
     })) || [];
 
-  useEffect(() => {
-    console.log("order data:", orderData);
-  }, [orderId]);
-
   return (
     <OrderDetailStyles>
       <div className="detail__container" role="presentation">

@@ -97,8 +97,6 @@ const DataGridWithAccordion = () => {
             icon={<InfoOutlinedIcon />}
             onClick={() => {
               toggleDrawer(true);
-              console.log("order id:", id);
-              console.log("order row:", row);
               dispatch(setOrderId(id?.toString()));
               dispatch(setOrderNumber(row?.orderNumber || 0));
             }}
@@ -167,11 +165,6 @@ const DataGridWithAccordion = () => {
           price: food?.price,
         }))
     ) || userRows;
-
-  useEffect(() => {
-    console.log("orders data:", ordersData);
-    console.log("orders data by user id:", getOrderByUserId);
-  }, [open]);
 
   return (
     <DataGridStyles>
