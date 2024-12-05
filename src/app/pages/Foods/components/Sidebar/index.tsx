@@ -38,7 +38,6 @@ function InvoiceSidebar() {
 
   const handleOrder = useCallback(() => {
     setStartSubscription(true);
-    console.log("Create Order Data:", CreateOrderData);
   }, [CreateOrderError]);
 
   const cartItems = data?.getCartItemsByUserId?.payload?.items || [];
