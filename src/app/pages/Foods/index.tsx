@@ -242,12 +242,14 @@ const Foods = () => {
         {userRole === "user" && <InvoiceSidebar />}
         <InvoiceSidebar />
       </div>
-      <Pagination
-        page={page}
-        color="primary"
-        count={totalPages}
-        onChange={handlePageChange}
-      />
+      {foods?.length > 0 && (
+        <Pagination
+          page={page}
+          color="primary"
+          count={totalPages}
+          onChange={handlePageChange}
+        />
+      )}
       <Dialog
         keepMounted
         open={openDialog}
