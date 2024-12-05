@@ -76,14 +76,10 @@ function CreateFood() {
           },
           image: blob,
         },
-      })
-        .then(() => {
-          toast.success("Create food successfully!");
-          navigate(ROUTE_PATHS.FOODS);
-        })
-        .catch((error: ApolloError) => {
-          toast.error(error?.message);
-        });
+      }).then(() => {
+        toast.success("Create food successfully!");
+        navigate(ROUTE_PATHS.FOODS);
+      });
     },
     [createFoods, data, loading]
   );

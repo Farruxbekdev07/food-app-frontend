@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { ApolloError } from "apollo-server";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -77,19 +76,10 @@ const FoodCard = ({ discount, _id, image, name, price }: IFoods) => {
       variables: {
         data: { food: _id, quantity: 1 },
       },
-    })
-      .then(() => {
-        toast.success("Category created successfully!");
-        handleCloseDialog();
-      })
-      .catch((error: ApolloError) => {
-        toast.error(error.message);
-      });
-    console.log("order food _id:", _id);
-    console.log(
-      "cart items data:",
-      cartItemsData?.getCartItemsByUserId?.payload
-    );
+    }).then(() => {
+      toast.success("Category created successfully!");
+      handleCloseDialog();
+    });
   };
 
   return (
