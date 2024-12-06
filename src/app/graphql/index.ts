@@ -19,13 +19,12 @@ const httpLink = new HttpLink({
 
 const authMiddleware = new ApolloLink(
   (operation: Operation, forward: NextLink) => {
-    const token = store.getState().auth?.token;
-
     operation.setContext(({ headers = {} }) => {
+      const token = store.getState().auth?.token;
       return {
         headers: {
           ...headers,
-          authorization: token ? `Bearer ${token}` : null,
+          authorization: token ? `Bearer ${token}` : "",
         },
       };
     });
@@ -43,16 +42,17 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
       ({ extensions }) => extensions?.code === "UNAUTHENTICATED"
     );
 
-    // Agar "UNAUTHENTICATED" bo'lsa, `logOut` faqat bir marta chaqiriladi
     if (hasUnauthenticatedError && !isLoggingOut) {
       isLoggingOut = true;
       store.dispatch(logOut());
+      client.clearStore().finally(() => {
+        isLoggingOut = false;
+      });
     }
 
     graphQLErrors.forEach(({ message, extensions }) => {
       const uniqueErrorKey = `${extensions?.code}-${message}`;
 
-      // Xato faqat bir marta ko'rsatiladi
       if (!processedErrors.has(uniqueErrorKey)) {
         processedErrors.add(uniqueErrorKey);
         toast.error(message);
@@ -63,24 +63,22 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (networkError) {
     const uniqueNetworkErrorKey = `NetworkError-${networkError.message}`;
 
-    // Network xatolari faqat bir marta ko'rsatiladi
     if (!processedErrors.has(uniqueNetworkErrorKey)) {
       processedErrors.add(uniqueNetworkErrorKey);
       toast.error(networkError.message);
     }
   }
 
-  // 5 soniyadan so'ng `processedErrors` tozalanadi
   setTimeout(() => {
     processedErrors.clear();
     isLoggingOut = false;
-  }, 5000);
+  }, 10000);
 });
 
 const retryLink = new RetryLink({
   attempts: {
-    max: 1, // Maksimum qayta urinib ko‘rish soni
-    retryIf: (error) => !!error, // Faqat xatolik bo‘lsa qayta urinish
+    max: 1,
+    retryIf: (error) => !!error,
   },
 });
 
