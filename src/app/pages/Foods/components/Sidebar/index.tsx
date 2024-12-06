@@ -1,6 +1,6 @@
-import { useCallback, useState } from "react";
 import ForwardIcon from "@mui/icons-material/Forward";
-import { useQuery, useSubscription } from "@apollo/client";
+import { useCallback, useEffect, useState } from "react";
+import { useLazyQuery, useSubscription } from "@apollo/client";
 import { Button, Divider, IconButton, Typography } from "@mui/material";
 
 import SidebarStyles from "./Sidebar.style";
@@ -17,9 +17,13 @@ function InvoiceSidebar() {
   const isOpenSidebar = useAppSelector(
     (state) => state.food.isOpenInvoiceSidebar
   );
+  const token = useAppSelector((state) => state.auth.token);
+
   const dispatch = useAppDispatch();
 
-  const { data, loading } = useQuery(GET_CART_ITEMS_BY_USER_ID);
+  const [getCartItems, { data, loading, refetch }] = useLazyQuery(
+    GET_CART_ITEMS_BY_USER_ID
+  );
   const { data: CreateOrderData, error: CreateOrderError } = useSubscription(
     CREATE_ORDER,
     {
@@ -39,6 +43,13 @@ function InvoiceSidebar() {
   const handleOrder = useCallback(() => {
     setStartSubscription(true);
   }, [CreateOrderError]);
+
+  useEffect(() => {
+    if (token) {
+      refetch();
+      getCartItems();
+    }
+  }, [token, getCartItems]);
 
   const cartItems = data?.getCartItemsByUserId?.payload?.items || [];
 
