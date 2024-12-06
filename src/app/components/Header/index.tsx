@@ -27,6 +27,7 @@ import {
   setUserData,
   setUserRole,
 } from "../../../store/reducer/authSlice";
+import client from "../../graphql";
 import MenuComponent from "../Menu";
 import { UserRole } from "../../types/enums";
 import { HeaderStyles } from "./Header.style";
@@ -96,9 +97,11 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    if (data) {
+    if (data && !loading) {
       dispatch(setUserRole(data?.telegramUserLogin?.user?.role));
       dispatch(setToken(data?.telegramUserLogin?.token));
+      client.clearStore();
+      client.refetchQueries({ include: "active" });
       toast.success("Sign in successfully!");
       navigate(ROUTE_PATHS.MAIN);
     }

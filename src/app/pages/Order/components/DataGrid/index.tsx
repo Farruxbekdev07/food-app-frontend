@@ -1,5 +1,5 @@
+import { useState } from "react";
 import { useQuery } from "@apollo/client";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Chip, Drawer, Typography } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
@@ -19,21 +19,7 @@ import { DataGridStyles } from "./DataGrid.style";
 import ROUTE_PATHS from "../../../../routes/paths/paths";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
 
-const adminRows = [
-  { _id: 1, orderNumber: "1", totalPrice: "50 000", status: "cooking" },
-  { _id: 2, orderNumber: "2", totalPrice: "50 000", status: "delivering" },
-  { _id: 3, orderNumber: "3", totalPrice: "50 000", status: "pending" },
-  { _id: 4, orderNumber: "4", totalPrice: "50 000", status: "received" },
-];
-
-const userRows = [
-  { _id: 1, name: "Burger", price: "50 000", status: "cooking" },
-  { _id: 2, name: "Sandwich", price: "50 000", status: "delivering" },
-  { _id: 3, name: "Cheese burger", price: "50 000", status: "pending" },
-  { _id: 4, name: "Xot-dog", price: "50 000", status: "received" },
-];
-
-const DataGridWithAccordion = () => {
+const TableOfOrder = () => {
   const [open, setOpen] = useState(false);
   const userRole = useAppSelector((state) => state.auth.role);
 
@@ -154,7 +140,7 @@ const DataGridWithAccordion = () => {
     ordersData?.getOrders?.payload?.map((order: any, orderNumber: number) => ({
       ...order,
       orderNumber: orderNumber + 1,
-    })) || adminRows;
+    })) || [];
 
   const userOrders =
     getOrderByUserId?.getOrderByUserId?.payload?.flatMap(
@@ -164,7 +150,7 @@ const DataGridWithAccordion = () => {
           name: food?.name,
           price: food?.price,
         }))
-    ) || userRows;
+    ) || [];
 
   return (
     <DataGridStyles>
@@ -181,4 +167,4 @@ const DataGridWithAccordion = () => {
   );
 };
 
-export default DataGridWithAccordion;
+export default TableOfOrder;
