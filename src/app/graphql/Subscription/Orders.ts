@@ -1,15 +1,16 @@
 import { gql } from "@apollo/client";
 
 export const CREATE_ORDER = gql`
-  subscription CreateOrder($order: OrderInput!) {
-    createOrder(order: $order) {
+  subscription createOrder($address: [Float!]!) {
+    createOrder(order: { address: $address }) {
       payload {
         _id
         totalPrice
-        createdAt
         status
-        to
-        foods {
+        address
+        createdAt
+        updatedAt
+        orderItems {
           _id
           quantity
           price
@@ -23,8 +24,12 @@ export const CREATE_ORDER = gql`
             description
             price
             discount
-            category
             likes
+            category {
+              _id
+              name
+              image
+            }
           }
         }
         createdBy {
@@ -34,6 +39,8 @@ export const CREATE_ORDER = gql`
           role
           photo
           telegramId
+          createdAt
+          updatedAt
         }
       }
     }

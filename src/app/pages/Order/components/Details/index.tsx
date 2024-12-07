@@ -7,7 +7,6 @@ import {
   Typography,
   CardActionArea,
 } from "@mui/material";
-import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import SendIcon from "@mui/icons-material/Send";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
