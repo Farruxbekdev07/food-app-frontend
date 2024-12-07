@@ -118,8 +118,22 @@ export const UPDATE_FOOD_BY_ID = gql`
 
 export const DELETE_FOOD_BY_ID = gql`
   mutation deleteFoodById($foodId: ID!) {
-    deleteFoodById(foodId: null) {
-      payload
+    deleteFoodById(foodId: $foodId) {
+      payload {
+        _id
+        name
+        image
+        price
+        likes
+        discount
+        shortName
+        description
+        category {
+          _id
+          name
+          image
+        }
+      }
     }
   }
 `;

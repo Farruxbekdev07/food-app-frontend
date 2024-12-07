@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useQuery } from "@apollo/client";
+import { useEffect, useState } from "react";
+import { useLazyQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { Chip, Drawer, Typography } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
@@ -21,19 +21,21 @@ import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
 
 const TableOfOrder = () => {
   const [open, setOpen] = useState(false);
+  const token = useAppSelector((state) => state.auth.token);
   const userRole = useAppSelector((state) => state.auth.role);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { data: ordersData } = useQuery(GET_ALL_ORDERS, {
+  const [getAllOrders, { data: ordersData }] = useLazyQuery(GET_ALL_ORDERS, {
     variables: {
       page: 1,
       limit: 10,
     },
   });
 
-  const { data: getOrderByUserId } = useQuery(GET_ORDERS_BY_USER_ID);
+  const [getOrdersByUserId, { data: getOrderByUserIdData, refetch }] =
+    useLazyQuery(GET_ORDERS_BY_USER_ID);
 
   const toggleDrawer = (newOpen: boolean) => {
     setOpen(newOpen);
@@ -136,6 +138,17 @@ const TableOfOrder = () => {
     },
   ];
 
+  useEffect(() => {
+    console.log("user role:", userRole);
+    if (token && userRole === "user") {
+      getOrdersByUserId();
+    }
+    if (token && userRole === "admin") {
+      refetch();
+      getAllOrders();
+    }
+  }, [token, userRole, getOrdersByUserId, getAllOrders]);
+
   const orders =
     ordersData?.getOrders?.payload?.map((order: any, orderNumber: number) => ({
       ...order,
@@ -143,7 +156,7 @@ const TableOfOrder = () => {
     })) || [];
 
   const userOrders =
-    getOrderByUserId?.getOrderByUserId?.payload?.flatMap(
+    getOrderByUserIdData?.getOrderByUserId?.payload?.flatMap(
       ({ status, orderItems }: any) =>
         orderItems?.map(({ food }: any) => ({
           status,

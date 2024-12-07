@@ -85,7 +85,7 @@ const Foods = () => {
   } = useQuery(GET_ALL_FOODS, {
     variables: {
       page: page,
-      limit: 2,
+      limit: 10,
       categories: categories
         ? categories.map((category: ICategory) => category._id)
         : "all",

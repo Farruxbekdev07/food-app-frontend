@@ -27,9 +27,13 @@ import IFoods from "../../../../pages/Foods/types";
 import ROUTE_PATHS from "../../../../routes/paths/paths";
 import DefaultFood from "../../../../assets/images/burger.png";
 import { setFoodId } from "../../../../../store/reducer/foodSlice";
-import { CREATE_CART_ITEM } from "../../../../graphql/Mutation/Foods";
+import {
+  CREATE_CART_ITEM,
+  DELETE_FOOD_BY_ID,
+} from "../../../../graphql/Mutation/Foods";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
 import { GET_CART_ITEMS_BY_USER_ID } from "../../../../graphql/Query/Foods";
+import { GraphQLError } from "graphql";
 
 const FoodCard = ({ discount, _id, image, name, price }: IFoods) => {
   const userRole = useAppSelector((state) => state.auth?.role) as
@@ -43,6 +47,7 @@ const FoodCard = ({ discount, _id, image, name, price }: IFoods) => {
   const open = Boolean(anchorElMenu);
 
   const [createCartItem] = useMutation(CREATE_CART_ITEM);
+  const [deleteFood] = useMutation(DELETE_FOOD_BY_ID);
   const { data: cartItemsData } = useQuery(GET_CART_ITEMS_BY_USER_ID);
 
   const handleOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -69,6 +74,17 @@ const FoodCard = ({ discount, _id, image, name, price }: IFoods) => {
 
   const handleDeleteFood = () => {
     handleCloseDialog();
+    deleteFood({
+      variables: {
+        foodId: _id,
+      },
+    })
+      .then(() => {
+        toast.success("Deleted food successfully!");
+      })
+      .catch((error: GraphQLError) => {
+        toast.error(error.message);
+      });
   };
 
   const handleOrder = () => {
@@ -114,10 +130,10 @@ const FoodCard = ({ discount, _id, image, name, price }: IFoods) => {
           <div className="card__price-container">
             <div className="card__price">
               <Typography className="card__new__price">
-                ${price || 0}
+                {price || 0} UZS
               </Typography>
               <Typography className="card__old__price">
-                ${discount || 0}
+                {discount || 0} UZS
               </Typography>
             </div>
           </div>
