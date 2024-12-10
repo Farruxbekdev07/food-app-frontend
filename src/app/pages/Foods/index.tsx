@@ -155,12 +155,14 @@ const Foods = () => {
           name: values.name,
         },
       },
-    }).then(() => {
-      toast.success("Category created successfully!");
-      handleCloseDialog();
-      refetchCategory();
-      reset();
-    });
+    })
+      .then(() => {
+        toast.success("Category created successfully!");
+        handleCloseDialog();
+        refetchCategory();
+        reset();
+      })
+      .catch((e) => console.log("Category created error:", e?.message));
   };
 
   useEffect(() => {
@@ -168,8 +170,8 @@ const Foods = () => {
   }, [foodData, categories]);
 
   const foods = foodData?.getAllFoods?.payload || [];
-  const categoriesList = categoryData?.getAllCategories?.payload || [];
   const totalPages = foodData?.getAllFoods?.totalPages || 1;
+  const categoriesList = categoryData?.getAllCategories?.payload || [];
 
   return (
     <FoodStyles>

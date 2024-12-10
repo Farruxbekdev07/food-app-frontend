@@ -13,12 +13,17 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { GraphQLError } from "graphql";
+import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useMutation, useQuery } from "@apollo/client";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
+import {
+  CREATE_CART_ITEM,
+  DELETE_FOOD_BY_ID,
+} from "../../../../graphql/Mutation/Foods";
 import CardStyle from "../../Card.style";
 import MenuComponent from "../../../Menu";
 import ConfirmModal from "../../../ConfirmModal";
@@ -27,28 +32,23 @@ import IFoods from "../../../../pages/Foods/types";
 import ROUTE_PATHS from "../../../../routes/paths/paths";
 import DefaultFood from "../../../../assets/images/burger.png";
 import { setFoodId } from "../../../../../store/reducer/foodSlice";
-import {
-  CREATE_CART_ITEM,
-  DELETE_FOOD_BY_ID,
-} from "../../../../graphql/Mutation/Foods";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
 import { GET_CART_ITEMS_BY_USER_ID } from "../../../../graphql/Query/Foods";
-import { GraphQLError } from "graphql";
 
 const FoodCard = ({ discount, _id, image, name, price }: IFoods) => {
-  const userRole = useAppSelector((state) => state.auth?.role) as
-    | UserRole
-    | "user";
+  const token = useAppSelector((state) => state.auth.token);
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
+  const userRole = useAppSelector((state) => state.auth?.role) as UserRole;
   const [anchorElMenu, setAnchorElMenu] = useState<null | HTMLElement>(null);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const open = Boolean(anchorElMenu);
 
-  const [createCartItem] = useMutation(CREATE_CART_ITEM);
   const [deleteFood] = useMutation(DELETE_FOOD_BY_ID);
-  const { data: cartItemsData } = useQuery(GET_CART_ITEMS_BY_USER_ID);
+  const [createCartItem] = useMutation(CREATE_CART_ITEM, {
+    refetchQueries: [{ query: GET_CART_ITEMS_BY_USER_ID }],
+  });
 
   const handleOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorElMenu(event.currentTarget);
@@ -92,10 +92,12 @@ const FoodCard = ({ discount, _id, image, name, price }: IFoods) => {
       variables: {
         data: { food: _id, quantity: 1 },
       },
-    }).then(() => {
-      toast.success("Category created successfully!");
-      handleCloseDialog();
-    });
+    })
+      .then(() => {
+        toast.success("Cart item created successfully!");
+        handleCloseDialog();
+      })
+      .catch((e) => console.log("Cart item created error:", e?.message));
   };
 
   return (

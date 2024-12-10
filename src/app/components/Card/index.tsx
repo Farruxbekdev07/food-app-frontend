@@ -38,7 +38,7 @@ const CardComponent = ({
         price={price || 0}
         title={name || ""}
         image={image || Burger}
-        quantity={quantity || 0}
+        quantity={quantity || 1}
       />
     );
   }

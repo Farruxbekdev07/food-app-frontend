@@ -23,7 +23,7 @@ export const CREATE_FOOD = gql`
 `;
 
 export const CREATE_CART_ITEM = gql`
-  mutation CreateCartItem($data: CartItemInput) {
+  mutation createCartItem($data: CartItemInput) {
     createCartItem(data: $data) {
       payload {
         _id
@@ -52,24 +52,28 @@ export const CREATE_CART_ITEM = gql`
 `;
 
 export const UPDATE_CART_FOOD_QUANTITY = gql`
-  mutation UpdateCartFoodQuantity($food: ID, $quantity: Int) {
-    updateCartFoodQuantity(food: $food, quantity: $quantity) {
+  mutation updateCartFoodQuantity($cartItemId: ID, $quantity: Int) {
+    updateCartFoodQuantity(cartItemId: $cartItemId, quantity: $quantity) {
       payload {
         _id
-        user
-        price
         quantity
+        price
         discount
+        user
         food {
           _id
+          shortName
           name
           image
-          price
-          likes
-          category
-          discount
-          shortName
           description
+          price
+          discount
+          likes
+          category {
+            _id
+            name
+            image
+          }
         }
       }
     }
@@ -92,7 +96,11 @@ export const DELETE_CART_ITEM = gql`
           price
           likes
           discount
-          category
+          category {
+            _id
+            name
+            image
+          }
           shortName
           description
         }

@@ -115,7 +115,7 @@ const Header = () => {
         </IconButton>
 
         <div className="user__wrapper">
-          {userRole === "user" && (
+          {userRole === "user" && token && (
             <IconButton
               className="shopping__cart-button"
               onClick={handleToggleInvoiceSidebar}

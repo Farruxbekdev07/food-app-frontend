@@ -22,11 +22,10 @@ import {
 } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
-import { ApolloError } from "apollo-server";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useMutation, useQuery } from "@apollo/client";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { useLazyQuery, useMutation } from "@apollo/client";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 import MenuComponent from "../Menu";
@@ -40,7 +39,7 @@ import {
   DELETE_CATEGORY_BY_ID,
   UPDATE_CATEGORY_BY_ID,
 } from "../../graphql/Mutation/Categories";
-import { GET_CATEGORY_BY_ID } from "../../graphql/Query/Foods";
+import { GET_CATEGORY_BY_ID } from "../../graphql/Query/Category";
 
 interface Props {
   id: string;
@@ -63,10 +62,11 @@ function ChipComponent({
 }: Props) {
   const [blob, setBlob] = useState("");
   const [uploadFileUrl, setUploadFileUrl] = useState("");
-  const [dialogMode, setDialogMode] = useState<"delete" | "update">("delete");
+  const token = useAppSelector((state) => state.auth.token);
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
   const userRole = useAppSelector((state) => state.auth.role) as UserRole;
   const [anchorElMenu, setAnchorElMenu] = useState<null | HTMLElement>(null);
+  const [dialogMode, setDialogMode] = useState<"delete" | "update">("delete");
 
   const {
     reset,
@@ -76,9 +76,12 @@ function ChipComponent({
   } = useForm();
 
   const open = Boolean(anchorElMenu);
-  const { data: categoryData } = useQuery(GET_CATEGORY_BY_ID, {
-    variables: { categoryId: id },
-  });
+  const [getCategoryById, { data: categoryData }] = useLazyQuery(
+    GET_CATEGORY_BY_ID,
+    {
+      variables: { categoryId: id },
+    }
+  );
   const [updateCategory] = useMutation(UPDATE_CATEGORY_BY_ID);
   const [deleteCategory] = useMutation(DELETE_CATEGORY_BY_ID);
 
@@ -115,11 +118,13 @@ function ChipComponent({
       variables: {
         categoryId: id,
       },
-    }).then(() => {
-      toast.success("Category deleted successfully!");
-      handleCloseDialog();
-      refetchCategory();
-    });
+    })
+      .then(() => {
+        toast.success("Category deleted successfully!");
+        handleCloseDialog();
+        refetchCategory();
+      })
+      .catch((e) => console.log("Category deleted error:", e?.message));
   };
 
   const handleUpdateCategory = (values: FieldValues) => {
@@ -130,11 +135,13 @@ function ChipComponent({
           name: values.name,
         },
       },
-    }).then(() => {
-      toast.success("Category updated successfully!");
-      handleCloseDialog();
-      refetchCategory();
-    });
+    })
+      .then(() => {
+        toast.success("Category updated successfully!");
+        handleCloseDialog();
+        refetchCategory();
+      })
+      .catch((e) => console.log("Category updated error:", e?.message));
   };
 
   const handleOpenDialog = (mode: "delete" | "update") => {
@@ -142,6 +149,12 @@ function ChipComponent({
     setOpenConfirmModal(true);
     handleCloseMenu();
   };
+
+  useEffect(() => {
+    if (token && userRole === "admin") {
+      getCategoryById();
+    }
+  }, [token]);
 
   useEffect(() => {
     const category = categoryData?.getCategoryById?.payload;

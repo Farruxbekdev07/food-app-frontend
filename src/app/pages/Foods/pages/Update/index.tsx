@@ -86,10 +86,12 @@ function UpdateFood() {
           },
           image: blob,
         },
-      }).then(() => {
-        toast.success("Update food successfully!");
-        navigate(ROUTE_PATHS.FOODS);
-      });
+      })
+        .then(() => {
+          toast.success("Update food successfully!");
+          navigate(ROUTE_PATHS.FOODS);
+        })
+        .catch((e) => console.log("Food updated error:", e?.message));
     },
     [updateFood]
   );

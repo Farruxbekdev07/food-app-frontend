@@ -1,64 +1,97 @@
+import { toast } from "react-toastify";
 import ForwardIcon from "@mui/icons-material/Forward";
 import { useCallback, useEffect, useState } from "react";
-import { useLazyQuery, useSubscription } from "@apollo/client";
+import { useLazyQuery, useMutation } from "@apollo/client";
 import { Button, Divider, IconButton, Typography } from "@mui/material";
 
 import SidebarStyles from "./Sidebar.style";
 import Loader from "../../../../components/Loader";
 import NoData from "../../../../components/NoData";
 import CardComponent from "../../../../components/Card";
-import { CREATE_ORDER } from "../../../../graphql/Subscription/Orders";
+import { CREATE_ORDER } from "../../../../graphql/Mutation/Order";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
 import { GET_CART_ITEMS_BY_USER_ID } from "../../../../graphql/Query/Foods";
 import { setOpenInvoiceSidebar } from "../../../../../store/reducer/foodSlice";
 
 function InvoiceSidebar() {
-  const [startSubscription, setStartSubscription] = useState(false);
+  const [location, setLocation] = useState<{
+    latitude: number;
+    longitude: number;
+  } | null>(null);
   const isOpenSidebar = useAppSelector(
     (state) => state.food.isOpenInvoiceSidebar
   );
-  const token = useAppSelector((state) => state.auth.token);
-
   const dispatch = useAppDispatch();
+  const token = useAppSelector((state) => state.auth.token);
+  const userRole = useAppSelector((state) => state.auth.role);
 
-  const [getCartItems, { data, loading, refetch }] = useLazyQuery(
+  const [getCartItemsByUserId, { data, loading }] = useLazyQuery(
     GET_CART_ITEMS_BY_USER_ID
   );
-  const { data: CreateOrderData, error: CreateOrderError } = useSubscription(
-    CREATE_ORDER,
-    {
-      variables: {
-        order: {
-          to: data?.getCartItemsByUserId?.payload || [],
-        },
-      },
-      skip: !startSubscription,
+  const [createOrder] = useMutation(CREATE_ORDER, {
+    refetchQueries: [{ query: GET_CART_ITEMS_BY_USER_ID }],
+  });
+
+  const fetchLocation = () => {
+    if (!navigator.geolocation) {
+      toast.error("Geolocation is not supported in your browser.");
+      return;
     }
-  );
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setLocation({ latitude, longitude });
+      },
+      (error) => {
+        console.error("There was an error getting location:", error.message);
+        toast.error(`There was an error getting location!, ${error.message}`);
+      }
+    );
+  };
 
   const handleCloseSidebar = () => {
     dispatch(setOpenInvoiceSidebar(!isOpenSidebar));
   };
 
   const handleOrder = useCallback(() => {
-    setStartSubscription(true);
-  }, [CreateOrderError]);
+    if (data?.getCartItemsByUserId?.payload?.items?.length > 0) {
+      createOrder({
+        variables: {
+          address: [location?.latitude, location?.longitude],
+        },
+      })
+        .then(() => {
+          toast.success("Order created successfully!");
+        })
+        .catch((e) => console.log("Order created error:", e?.message));
+    } else {
+      toast.error("Order not found!");
+    }
+  }, [data]);
 
   useEffect(() => {
-    if (token) {
-      refetch();
-      getCartItems();
+    fetchLocation();
+  }, []);
+
+  useEffect(() => {
+    if (token && userRole === "user" && isOpenSidebar) {
+      getCartItemsByUserId();
     }
-  }, [token, getCartItems]);
+  }, [token, userRole, isOpenSidebar]);
 
   const cartItems = data?.getCartItemsByUserId?.payload?.items || [];
 
   const totalPrice =
     cartItems.reduce(
-      (total: number, order: { price: number; quantity: number }) =>
-        total + order?.price * order?.quantity,
+      (total: number, food: any) => total + food?.price * food?.quantity,
       0
     ) || 0;
+
+  const totalDiscount = cartItems.reduce(
+    (sum: number, food: any) => sum + (food.discount || 0),
+    0
+  );
 
   return (
     <SidebarStyles isOpenSidebar={isOpenSidebar}>
@@ -71,17 +104,20 @@ function InvoiceSidebar() {
       <div className="selected__foods-container">
         {loading && <Loader isInner />}
         {cartItems?.length !== 0 ? (
-          cartItems?.map(({ _id, price, name }: any) => (
-            <>
-              <CardComponent
-                _id={_id}
-                price={price}
-                type="cartItem"
-                name={name || ""}
-              />
-              <Divider />
-            </>
-          ))
+          cartItems?.map(
+            ({ _id, price, food: { name, shortName }, quantity }: any) => (
+              <>
+                <CardComponent
+                  _id={_id}
+                  type="cartItem"
+                  quantity={quantity}
+                  name={name || shortName}
+                  price={price * quantity}
+                />
+                <Divider />
+              </>
+            )
+          )
         ) : (
           <NoData />
         )}
@@ -93,7 +129,7 @@ function InvoiceSidebar() {
         </div>
         <div className="food__price-container">
           <Typography className="food__price">Discount</Typography>
-          <Typography className="food__price">0 UZS</Typography>
+          <Typography className="food__price">{totalDiscount} UZS</Typography>
         </div>
       </div>
       <Button

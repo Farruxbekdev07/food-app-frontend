@@ -8,10 +8,11 @@ import {
   DialogActions,
   DialogContentText,
 } from "@mui/material";
+import { useState } from "react";
+import { toast } from "react-toastify";
 import { ApolloError } from "apollo-server";
 import { useMutation } from "@apollo/client";
 import AddIcon from "@mui/icons-material/Add";
-import { useCallback, useState } from "react";
 import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -22,6 +23,7 @@ import {
 import ConfirmModal from "../../../ConfirmModal";
 import { CartItemStyles } from "./CartItem.style";
 import Burger from "../../../../assets/images/burger.png";
+import { GET_CART_ITEMS_BY_USER_ID } from "../../../../graphql/Query/Foods";
 
 interface Props {
   id: string;
@@ -34,7 +36,9 @@ interface Props {
 const CartItem = ({ image, title, price, quantity = 1, id }: Props) => {
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
 
-  const [deleteCartItem] = useMutation(DELETE_CART_ITEM);
+  const [deleteCartItem] = useMutation(DELETE_CART_ITEM, {
+    refetchQueries: [{ query: GET_CART_ITEMS_BY_USER_ID }],
+  });
   const [updateCartFoodQuantity] = useMutation(UPDATE_CART_FOOD_QUANTITY);
 
   const handleOpenDialog = () => {
@@ -45,36 +49,52 @@ const CartItem = ({ image, title, price, quantity = 1, id }: Props) => {
     setOpenConfirmModal(false);
   };
 
-  const handleIncrement = useCallback(() => {
+  const handleIncrement = () => {
     updateCartFoodQuantity({
       variables: {
-        food: id,
+        cartItemId: id,
         quantity: quantity + 1,
       },
-    }).catch((e: ApolloError) => {
-      console.error(e.message);
-    });
-  }, [updateCartFoodQuantity]);
+    })
+      .then(() => {
+        toast.success("Updated cart item quantity successfully!");
+      })
+      .catch((e: ApolloError) => {
+        console.error(e.message);
+      });
+  };
 
-  const handleDecrement = useCallback(() => {
-    updateCartFoodQuantity({
-      variables: {
-        food: id,
-        quantity: quantity - 1,
-      },
-    }).catch((e: ApolloError) => {
-      console.error(e.message);
-    });
-  }, [updateCartFoodQuantity]);
+  const handleDecrement = () => {
+    if (quantity >= 1) {
+      updateCartFoodQuantity({
+        variables: {
+          cartItemId: id,
+          quantity: quantity - 1,
+        },
+      })
+        .then(() => {
+          toast.success("Updated cart item quantity successfully!");
+        })
+        .catch((e: ApolloError) => {
+          console.error(e.message);
+        });
+    } else {
+      toast.error("You cannot decrease the quantity below 1");
+    }
+  };
 
   const handleDeleteCartItem = () => {
     deleteCartItem({
       variables: {
         food: id,
       },
-    }).catch((e: ApolloError) => {
-      console.error(e.message);
-    });
+    })
+      .then(() => {
+        toast.success("Deleted cart item successfully!");
+      })
+      .catch((e: ApolloError) => {
+        console.error(e.message);
+      });
     handleCloseDialog();
   };
 
@@ -97,7 +117,11 @@ const CartItem = ({ image, title, price, quantity = 1, id }: Props) => {
             </Typography>
           </div>
           <div className="card__quantity-container">
-            <IconButton onClick={handleDecrement} className="card__button">
+            <IconButton
+              onClick={handleDecrement}
+              className="card__button"
+              disabled={quantity <= 1}
+            >
               <RemoveIcon fontSize="small" />
             </IconButton>
             <Typography variant="body2" className="card__quantity">
