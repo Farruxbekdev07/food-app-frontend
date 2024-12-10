@@ -102,15 +102,3 @@ export const GET_FAVORITE_FOODS = gql`
     }
   }
 `;
-
-export const GET_CATEGORY_BY_ID = gql`
-  query getCategoryById($categoryId: ID!) {
-    getCategoryById(categoryId: $categoryId) {
-      payload {
-        _id
-        name
-        image
-      }
-    }
-  }
-`;

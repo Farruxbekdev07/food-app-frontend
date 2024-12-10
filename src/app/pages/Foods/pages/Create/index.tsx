@@ -76,10 +76,12 @@ function CreateFood() {
           },
           image: blob,
         },
-      }).then(() => {
-        toast.success("Create food successfully!");
-        navigate(ROUTE_PATHS.FOODS);
-      });
+      })
+        .then(() => {
+          toast.success("Create food successfully!");
+          navigate(ROUTE_PATHS.FOODS);
+        })
+        .catch((e) => console.log("Food created error:", e?.message));
     },
     [createFoods, data, loading]
   );

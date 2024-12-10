@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { useLazyQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
@@ -34,8 +35,9 @@ const TableOfOrder = () => {
     },
   });
 
-  const [getOrdersByUserId, { data: getOrderByUserIdData, refetch }] =
-    useLazyQuery(GET_ORDERS_BY_USER_ID);
+  const [getOrdersByUserId, { data: getOrderByUserIdData }] = useLazyQuery(
+    GET_ORDERS_BY_USER_ID
+  );
 
   const toggleDrawer = (newOpen: boolean) => {
     setOpen(newOpen);
@@ -139,15 +141,20 @@ const TableOfOrder = () => {
   ];
 
   useEffect(() => {
-    console.log("user role:", userRole);
-    if (token && userRole === "user") {
-      getOrdersByUserId();
+    if (token) {
+      switch (userRole) {
+        case "user":
+          getOrdersByUserId();
+          break;
+        case "admin":
+          getAllOrders();
+          break;
+        default:
+          toast.error("Token or user role is incorrect!");
+          break;
+      }
     }
-    if (token && userRole === "admin") {
-      refetch();
-      getAllOrders();
-    }
-  }, [token, userRole, getOrdersByUserId, getAllOrders]);
+  }, [token]);
 
   const orders =
     ordersData?.getOrders?.payload?.map((order: any, orderNumber: number) => ({
