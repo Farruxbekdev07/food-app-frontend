@@ -5,26 +5,26 @@ export const CREATE_ORDER = gql`
     createOrder(order: { address: $address }) {
       payload {
         _id
-        totalPrice
         status
         address
         createdAt
         updatedAt
+        totalPrice
         orderItems {
           _id
-          quantity
-          price
-          discount
           user
+          price
+          quantity
+          discount
           food {
             _id
-            shortName
             name
             image
-            description
             price
-            discount
             likes
+            discount
+            shortName
+            description
             category {
               _id
               name
@@ -35,12 +35,12 @@ export const CREATE_ORDER = gql`
         createdBy {
           _id
           name
-          phone
           role
+          phone
           photo
-          telegramId
           createdAt
           updatedAt
+          telegramId
         }
       }
     }
