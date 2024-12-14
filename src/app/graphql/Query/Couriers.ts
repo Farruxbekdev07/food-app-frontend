@@ -5,13 +5,46 @@ export const GET_ALL_COURIERS = gql`
     getCouriers(name: $name, phone: $phone) {
       payload {
         _id
-        name
-        phone
+        user {
+          _id
+          name
+          phone
+          role
+          photo
+          telegramId
+          createdAt
+          updatedAt
+        }
         orders {
           _id
           totalPrice
-          createdAt
           status
+          address
+          createdAt
+          updatedAt
+          orderItems {
+            _id
+            quantity
+            price
+            discount
+            user
+            food {
+              _id
+              shortName
+              name
+              image
+              description
+              price
+              discount
+              likes
+              isFavorite
+              category {
+                _id
+                name
+                image
+              }
+            }
+          }
           createdBy {
             _id
             name
@@ -19,6 +52,8 @@ export const GET_ALL_COURIERS = gql`
             role
             photo
             telegramId
+            createdAt
+            updatedAt
           }
         }
       }

@@ -91,11 +91,17 @@ function OrderDetails({ toggleDrawer }: Props) {
   ];
 
   const orders =
-    orderItems?.map(({ food }: any) => ({
-      name: food?.name,
-      photo: food?.image,
-      price: food?.price,
-    })) || [];
+    orderItems?.map(
+      ({ food }: any) => (
+        console.log("food", food),
+        {
+          name: food?.name,
+          photo: food?.image,
+          price: food?.price,
+          _id: food?._id || `${food?.name}-${food?.price}`,
+        }
+      )
+    ) || [];
 
   return (
     <OrderDetailStyles>
@@ -135,8 +141,8 @@ function OrderDetails({ toggleDrawer }: Props) {
             hideFooter
             rows={orders}
             disableRowSelectionOnClick
-            getRowId={(row) => row._id}
             columns={orderDetailColumns}
+            getRowId={(row) => row?._id}
           />
         </div>
         <div className="card__total__container">

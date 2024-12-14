@@ -203,8 +203,8 @@ function ChipComponent({
       </MenuComponent>
       <ConfirmModal
         open={openConfirmModal}
-        title="Delete Category"
         handleClose={handleCloseDialog}
+        title={dialogMode === "delete" ? "Delete Category" : "Update Category"}
       >
         <DialogContent
           sx={{ display: "flex", gap: pxToRem(16), flexDirection: "column" }}

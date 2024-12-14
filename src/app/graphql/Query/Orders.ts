@@ -95,26 +95,26 @@ export const GET_ORDERS_BY_USER_ID = gql`
     getOrdersByUserId(status: $status) {
       payload {
         _id
-        totalPrice
         status
         address
         createdAt
         updatedAt
+        totalPrice
         orderItems {
           _id
-          quantity
-          price
-          discount
           user
+          price
+          quantity
+          discount
           food {
             _id
-            shortName
             name
             image
-            description
             price
-            discount
             likes
+            discount
+            shortName
+            description
             category {
               _id
               name
@@ -125,12 +125,12 @@ export const GET_ORDERS_BY_USER_ID = gql`
         createdBy {
           _id
           name
-          phone
           role
+          phone
           photo
-          telegramId
           createdAt
           updatedAt
+          telegramId
         }
       }
     }
@@ -139,44 +139,44 @@ export const GET_ORDERS_BY_USER_ID = gql`
 
 export const GET_ORDERS = gql(`
   query getOrders($statuses: String, $page: Int, $limit: Int) {
-      getOrders(statuses: $statuses, page: $page, limit: $limit) {
-        payload {
+    getOrders(statuses: $statuses, page: $page, limit: $limit) {
+      payload {
+        _id
+        to
+        status
+        createdAt
+        totalPrice
+        foods {
+          _id
+          user
+          price
+          quantity
+          discount
+          food {
             _id
-            totalPrice
-            createdAt
-            status
-            to
-            foods {
-                _id
-                quantity
-                price
-                discount
-                user
-                food {
-                    _id
-                    shortName
-                    name
-                    image
-                    description
-                    price
-                    discount
-                    likes
-                    category {
-                   _id
-                   name
-                   image
-                    }
-                }
+            name
+            image
+            price
+            likes
+            discount
+            shortName
+            description
+            category {
+              _id
+              name
+              image
             }
-            createdBy {
-                _id
-                name
-                phone
-                role
-                photo
-                telegramId
-            }
+          }
+        }
+        createdBy {
+          _id
+          name
+          role
+          phone
+          photo
+          telegramId
         }
       }
+    }
   }
 `);

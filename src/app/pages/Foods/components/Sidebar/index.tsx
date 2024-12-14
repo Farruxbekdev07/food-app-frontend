@@ -29,6 +29,9 @@ function InvoiceSidebar() {
     GET_CART_ITEMS_BY_USER_ID
   );
   const [createOrder] = useMutation(CREATE_ORDER, {
+    variables: {
+      address: [location?.latitude, location?.longitude],
+    },
     refetchQueries: [{ query: GET_CART_ITEMS_BY_USER_ID }],
   });
 
