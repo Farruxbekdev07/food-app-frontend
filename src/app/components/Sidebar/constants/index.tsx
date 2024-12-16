@@ -1,4 +1,4 @@
-import { Moped, Cloche } from "dazzle-icons";
+import { Moped, Cloche, BagShopping } from "dazzle-icons";
 
 import { SidebarLinkType } from "../routes/types";
 import ROUTE_PATHS from "../../../routes/paths/paths";
@@ -12,7 +12,7 @@ export const SIDEBAR_LINKS: SidebarLinkType[] = [
   {
     title: "Orders",
     path: ROUTE_PATHS.ORDER,
-    icon: <Moped fontSize={25} />,
+    icon: <BagShopping fontSize={25} />,
   },
 ];
 

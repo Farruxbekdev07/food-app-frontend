@@ -29,6 +29,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 import IFoods from "./types";
 import FoodStyles from "./Food.style";
+import { useModal } from "../../hooks";
 import { pxToRem } from "../../constants";
 import NoData from "../../components/NoData";
 import Loader from "../../components/Loader";
@@ -59,9 +60,10 @@ const Foods = () => {
   const [page, setPage] = useState(1);
   const [blob, setBlob] = useState("");
   const [uploadFileUrl, setUploadFileUrl] = useState("");
-  const [openDialog, setOpenDialog] = useState<boolean>(false);
   const categories = useAppSelector((state) => state.food?.categories);
   const userRole = useAppSelector((state) => state.auth?.role) as UserRole;
+
+  const { isOpen, openModal, closeModal } = useModal();
 
   const {
     reset,
@@ -138,15 +140,6 @@ const Foods = () => {
     }
   };
 
-  const handleOpenDialog = () => {
-    setOpenDialog(true);
-  };
-
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-    reset();
-  };
-
   const handleCreateCategory = (values: FieldValues) => {
     createCategory({
       variables: {
@@ -158,8 +151,8 @@ const Foods = () => {
     })
       .then(() => {
         toast.success("Category created successfully!");
-        handleCloseDialog();
         refetchCategory();
+        closeModal();
         reset();
       })
       .catch((e) => console.log("Category created error:", e?.message));
@@ -180,8 +173,8 @@ const Foods = () => {
           <div className="button__group">
             <Button
               variant="contained"
+              onClick={openModal}
               startIcon={<AddIcon />}
-              onClick={handleOpenDialog}
             >
               New Category
             </Button>
@@ -254,8 +247,8 @@ const Foods = () => {
       )}
       <Dialog
         keepMounted
-        open={openDialog}
-        onClose={handleCloseDialog}
+        open={isOpen}
+        onClose={closeModal}
         TransitionComponent={Transition}
         aria-describedby="alert-dialog-slide-description"
       >
@@ -338,7 +331,7 @@ const Foods = () => {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog}>Cancel</Button>
+          <Button onClick={closeModal}>Cancel</Button>
           <Button onClick={handleSubmit(handleCreateCategory)}>Create</Button>
         </DialogActions>
       </Dialog>

@@ -16,6 +16,7 @@ import { toast } from "react-toastify";
 import { useMutation, useQuery } from "@apollo/client";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 
+import { useModal } from "../../../../hooks";
 import { pxToRem } from "../../../../constants";
 import { DataGridStyles } from "./DataGrid.style";
 import { formatPhoneNumber } from "../../../../helpers";
@@ -24,8 +25,8 @@ import { GET_ALL_COURIERS } from "../../../../graphql/Query/Couriers";
 import { DELETE_COURIER } from "../../../../graphql/Mutation/Couriers";
 
 export default function CouriersTable() {
+  const { isOpen, openModal, closeModal } = useModal();
   const [courierId, setCourierId] = useState<GridRowId>("");
-  const [openConfirmModal, setOpenConfirmModal] = useState(false);
 
   const [deleteCourier] = useMutation(DELETE_COURIER, {
     refetchQueries: [{ query: GET_ALL_COURIERS }],
@@ -36,23 +37,15 @@ export default function CouriersTable() {
     if (courierId) {
       deleteCourier({ variables: { courierId } })
         .then(() => {
-          setOpenConfirmModal(false);
+          closeModal();
           toast.success("Courier deleted successfully!");
         })
         .catch(() => {
-          setOpenConfirmModal(false);
+          closeModal();
         });
     } else {
       toast.error("User ID is not found!");
     }
-  };
-
-  const handleOpenDialog = () => {
-    setOpenConfirmModal(true);
-  };
-
-  const handleCloseDialog = () => {
-    setOpenConfirmModal(false);
   };
 
   const columns: GridColDef[] = [
@@ -103,7 +96,7 @@ export default function CouriersTable() {
             label="Delete"
             color="inherit"
             icon={<DeleteIcon />}
-            onClick={handleOpenDialog}
+            onClick={openModal}
           />,
         ];
       },
@@ -129,9 +122,9 @@ export default function CouriersTable() {
         getRowId={(row) => row.id}
       />
       <ConfirmModal
-        open={openConfirmModal}
+        open={isOpen}
         title="Delete Courier"
-        handleClose={handleCloseDialog}
+        handleClose={closeModal}
       >
         <DialogContent
           sx={{ display: "flex", gap: pxToRem(16), flexDirection: "column" }}
@@ -141,7 +134,7 @@ export default function CouriersTable() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog}>Cancel</Button>
+          <Button onClick={closeModal}>Cancel</Button>
           <Button onClick={handleDeleteCourier}>Delete</Button>
         </DialogActions>
       </ConfirmModal>

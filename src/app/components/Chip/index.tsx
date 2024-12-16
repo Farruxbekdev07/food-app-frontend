@@ -28,17 +28,18 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
+import {
+  DELETE_CATEGORY_BY_ID,
+  UPDATE_CATEGORY_BY_ID,
+} from "../../graphql/Mutation/Categories";
 import MenuComponent from "../Menu";
+import { useModal } from "../../hooks";
 import { pxToRem } from "../../constants";
 import { ChipStyles } from "./Chip.style";
 import ConfirmModal from "../ConfirmModal";
 import { UserRole } from "../../types/enums";
 import { useAppSelector } from "../../hooks/redux";
 import DefaultMedia from "../../assets/images/burger.png";
-import {
-  DELETE_CATEGORY_BY_ID,
-  UPDATE_CATEGORY_BY_ID,
-} from "../../graphql/Mutation/Categories";
 import { GET_CATEGORY_BY_ID } from "../../graphql/Query/Category";
 
 interface Props {
@@ -60,10 +61,10 @@ function ChipComponent({
   className,
   refetchCategory,
 }: Props) {
-  const [blob, setBlob] = useState("");
+  // const [blob, setBlob] = useState("");
+  const { isOpen, openModal, closeModal } = useModal();
   const [uploadFileUrl, setUploadFileUrl] = useState("");
   const token = useAppSelector((state) => state.auth.token);
-  const [openConfirmModal, setOpenConfirmModal] = useState(false);
   const userRole = useAppSelector((state) => state.auth.role) as UserRole;
   const [anchorElMenu, setAnchorElMenu] = useState<null | HTMLElement>(null);
   const [dialogMode, setDialogMode] = useState<"delete" | "update">("delete");
@@ -94,7 +95,7 @@ function ChipComponent({
     if (files && files.length > 0) {
       const file = files[0];
       const blob = await new Blob([file], { type: file.type }).text();
-      setBlob(blob);
+      // setBlob(blob);
       const url = URL.createObjectURL(file);
       field.onChange(file);
       setUploadFileUrl(url);
@@ -109,10 +110,6 @@ function ChipComponent({
     setAnchorElMenu(null);
   };
 
-  const handleCloseDialog = () => {
-    setOpenConfirmModal(false);
-  };
-
   const handleDeleteCategory = () => {
     deleteCategory({
       variables: {
@@ -121,8 +118,8 @@ function ChipComponent({
     })
       .then(() => {
         toast.success("Category deleted successfully!");
-        handleCloseDialog();
         refetchCategory();
+        closeModal();
       })
       .catch((e) => console.log("Category deleted error:", e?.message));
   };
@@ -138,16 +135,16 @@ function ChipComponent({
     })
       .then(() => {
         toast.success("Category updated successfully!");
-        handleCloseDialog();
         refetchCategory();
+        closeModal();
       })
       .catch((e) => console.log("Category updated error:", e?.message));
   };
 
   const handleOpenDialog = (mode: "delete" | "update") => {
     setDialogMode(mode);
-    setOpenConfirmModal(true);
     handleCloseMenu();
+    openModal();
   };
 
   useEffect(() => {
@@ -202,8 +199,8 @@ function ChipComponent({
         </MenuItem>
       </MenuComponent>
       <ConfirmModal
-        open={openConfirmModal}
-        handleClose={handleCloseDialog}
+        open={isOpen}
+        handleClose={closeModal}
         title={dialogMode === "delete" ? "Delete Category" : "Update Category"}
       >
         <DialogContent
@@ -293,14 +290,14 @@ function ChipComponent({
         <DialogActions>
           {dialogMode === "update" ? (
             <>
-              <Button onClick={handleCloseDialog}>Cancel</Button>
+              <Button onClick={closeModal}>Cancel</Button>
               <Button onClick={handleSubmit(handleUpdateCategory)}>
                 Update
               </Button>
             </>
           ) : (
             <>
-              <Button onClick={handleCloseDialog}>Cancel</Button>
+              <Button onClick={closeModal}>Cancel</Button>
               <Button onClick={handleDeleteCategory}>Delete</Button>
             </>
           )}

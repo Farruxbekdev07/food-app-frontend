@@ -17,6 +17,7 @@ import { DataGridStyles } from "./DataGrid.style";
 import ROUTE_PATHS from "../../../../routes/paths/paths";
 import { CREATE_ORDER } from "../../../../graphql/Subscription/Orders";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
+// import NotificationSound from "../../../../assets/audio/notification.mp3";
 
 const TableOfOrder = () => {
   const [location, setLocation] = useState<{
@@ -25,21 +26,30 @@ const TableOfOrder = () => {
   } | null>(null);
   const [open, setOpen] = useState(false);
   const [orders, setOrders] = useState<any>([]);
+  const [audio] = useState(
+    new Audio("../../../../assets/audio/notification.mp3")
+  );
   const token = useAppSelector((state) => state.auth.token);
   const [subscribe, setSubscribe] = useState<boolean>(false);
   const userRole = useAppSelector((state) => state.auth.role);
+  const [userInteracted, setUserInteracted] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const [getAllOrders, { data: ordersData }] = useLazyQuery(GET_ALL_ORDERS, {
-    variables: { page: 1, limit: 10 },
+    variables: { page: 1, limit: 100 },
     fetchPolicy: "network-only",
   });
 
   const { data: subscribeOrdersData } = useSubscription(CREATE_ORDER, {
-    skip: !subscribe,
+    // skip: !subscribe,
   });
+
+  const enableAudio = () => {
+    setUserInteracted(true);
+    document.removeEventListener("click", enableAudio);
+  };
 
   const fetchLocation = () => {
     if (!navigator.geolocation) {
@@ -142,6 +152,12 @@ const TableOfOrder = () => {
   useEffect(() => {
     console.log("fetching location...");
     fetchLocation();
+
+    document.addEventListener("click", enableAudio);
+
+    return () => {
+      document.removeEventListener("click", enableAudio);
+    };
   }, []);
 
   useEffect(() => {
@@ -170,13 +186,24 @@ const TableOfOrder = () => {
   }, [ordersData]);
 
   useEffect(() => {
+    console.log("subscribeOrdersData:", subscribeOrdersData);
+
     if (subscribeOrdersData?.createOrder) {
       setOrders((prevOrders: any) => [
-        subscribeOrdersData.createOrder,
+        subscribeOrdersData.createOrder?.payload,
         ...prevOrders,
       ]);
     }
   }, [subscribeOrdersData]);
+
+  useEffect(() => {
+    if (userInteracted) {
+      audio
+        .play()
+        .then(() => console.log("Audio ijro etildi"))
+        .catch((err) => console.error("Audio ijro etishda xatolik:", err));
+    }
+  }, [userInteracted, audio]);
 
   console.log("get all orders:", ordersData);
 

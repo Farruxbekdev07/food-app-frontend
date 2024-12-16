@@ -10,17 +10,18 @@ import {
   DialogContent,
   DialogActions,
 } from "@mui/material";
+import React from "react";
 import { toast } from "react-toastify";
-import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import { useMutation, useQuery } from "@apollo/client";
 import { TransitionProps } from "@mui/material/transitions";
 import { Controller, FieldValues, useForm } from "react-hook-form";
 
+import { useModal } from "../../hooks";
 import { pxToRem } from "../../constants";
 import { CourierStyle } from "./Courier.style";
-import { formatPhoneNumber } from "../../helpers";
 import CouriersTable from "./components/DataGrid";
+import { formatPhoneNumber } from "../../helpers";
 import PageTitle from "../../components/PageTitle";
 import { GET_ALL_USERS } from "../../graphql/Query/Users";
 import { CREATE_COURIER } from "../../graphql/Mutation/Couriers";
@@ -36,8 +37,7 @@ const Transition = React.forwardRef(function Transition(
 });
 
 const Courier = () => {
-  const [open, setOpen] = React.useState(false);
-
+  const { isOpen, openModal, closeModal } = useModal();
   const {
     control,
     handleSubmit,
@@ -49,29 +49,23 @@ const Courier = () => {
   });
   const { data: getUsersData } = useQuery(GET_ALL_USERS);
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const handleCreateCourier = (values: FieldValues) => {
     const { userId } = values || {};
 
-    createCourier({
-      variables: {
-        userId,
-      },
-    })
-      .then(() => {
-        setOpen(false);
-        toast.success("Courier created successfully!");
+    if (userId) {
+      createCourier({
+        variables: {
+          userId,
+        },
       })
-      .catch((e) => {
-        console.error(e);
-      });
+        .then(() => {
+          closeModal();
+          toast.success("Courier created successfully!");
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+    }
   };
 
   const users =
@@ -87,16 +81,16 @@ const Courier = () => {
         <Button
           color="primary"
           variant="contained"
-          onClick={handleOpen}
+          onClick={openModal}
           startIcon={<AddIcon />}
         >
           Add New Courier
         </Button>
       </PageTitle>
       <Dialog
-        open={open}
         keepMounted
-        onClose={handleClose}
+        open={isOpen}
+        onClose={closeModal}
         TransitionComponent={Transition}
         aria-describedby="alert-dialog-slide-description"
       >
@@ -168,7 +162,7 @@ const Courier = () => {
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={closeModal}>Cancel</Button>
           <Button onClick={handleSubmit(handleCreateCourier)}>Create</Button>
         </DialogActions>
       </Dialog>
