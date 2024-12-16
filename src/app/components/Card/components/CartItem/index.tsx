@@ -8,7 +8,6 @@ import {
   DialogActions,
   DialogContentText,
 } from "@mui/material";
-import { useState } from "react";
 import { toast } from "react-toastify";
 import { ApolloError } from "apollo-server";
 import { useMutation } from "@apollo/client";
@@ -22,6 +21,7 @@ import {
 } from "../../../../graphql/Mutation/Foods";
 import ConfirmModal from "../../../ConfirmModal";
 import { CartItemStyles } from "./CartItem.style";
+import { useModal } from "../../../../hooks";
 import Burger from "../../../../assets/images/burger.png";
 import { GET_CART_ITEMS_BY_USER_ID } from "../../../../graphql/Query/Foods";
 
@@ -34,20 +34,12 @@ interface Props {
 }
 
 const CartItem = ({ image, title, price, quantity = 1, id }: Props) => {
-  const [openConfirmModal, setOpenConfirmModal] = useState(false);
+  const { isOpen, openModal, closeModal } = useModal();
 
   const [deleteCartItem] = useMutation(DELETE_CART_ITEM, {
     refetchQueries: [{ query: GET_CART_ITEMS_BY_USER_ID }],
   });
   const [updateCartFoodQuantity] = useMutation(UPDATE_CART_FOOD_QUANTITY);
-
-  const handleOpenDialog = () => {
-    setOpenConfirmModal(true);
-  };
-
-  const handleCloseDialog = () => {
-    setOpenConfirmModal(false);
-  };
 
   const handleIncrement = () => {
     updateCartFoodQuantity({
@@ -95,7 +87,7 @@ const CartItem = ({ image, title, price, quantity = 1, id }: Props) => {
       .catch((e: ApolloError) => {
         console.error(e.message);
       });
-    handleCloseDialog();
+    closeModal();
   };
 
   return (
@@ -131,14 +123,14 @@ const CartItem = ({ image, title, price, quantity = 1, id }: Props) => {
               <AddIcon fontSize="small" />
             </IconButton>
           </div>
-          <IconButton aria-label="options" onClick={handleOpenDialog}>
+          <IconButton aria-label="options" onClick={openModal}>
             <DeleteIcon className="delete__icon" />
           </IconButton>
         </div>
         <ConfirmModal
-          open={openConfirmModal}
+          open={isOpen}
           title="Delete Cart Item"
-          handleClose={handleCloseDialog}
+          handleClose={closeModal}
         >
           <DialogContent>
             <DialogContentText>
@@ -146,7 +138,7 @@ const CartItem = ({ image, title, price, quantity = 1, id }: Props) => {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button autoFocus onClick={handleCloseDialog}>
+            <Button autoFocus onClick={closeModal}>
               Cancel
             </Button>
             <Button onClick={handleDeleteCartItem} autoFocus>

@@ -26,3 +26,7 @@ declare module "leaflet" {
   class FeatureGroup extends L.LayerGroup<L.Layer> {}
   class Map extends L.Map {}
 }
+
+declare module "graphql-ws" {
+  export function createClient(options: any): any;
+}

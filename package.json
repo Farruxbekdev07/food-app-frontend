@@ -27,6 +27,7 @@
     "axios": "^1.7.8",
     "dazzle-icons": "^1.0.7",
     "graphql": "^16.9.0",
+    "graphql-ws": "^5.16.0",
     "leaflet": "^1.9.4",
     "leaflet-draw": "^1.0.4",
     "react": "^18.3.1",

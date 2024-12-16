@@ -5,22 +5,23 @@ export const CREATE_COURIER = gql`
     createCourier(userId: $userId) {
       payload {
         _id
-        _id
-        name
-        phone
+        user {
+          _id
+          name
+          phone
+          role
+          photo
+          telegramId
+          createdAt
+          updatedAt
+        }
         orders {
           _id
           totalPrice
           status
           address
-          createdAt
-          updatedAt
           orderItems {
             _id
-            quantity
-            price
-            discount
-            user
             food {
               _id
               shortName
@@ -29,13 +30,18 @@ export const CREATE_COURIER = gql`
               description
               price
               discount
-              likes
               category {
                 _id
                 name
                 image
               }
+              likes
+              isFavorite
             }
+            quantity
+            price
+            discount
+            user
           }
           createdBy {
             _id
@@ -47,6 +53,8 @@ export const CREATE_COURIER = gql`
             createdAt
             updatedAt
           }
+          createdAt
+          updatedAt
         }
       }
     }

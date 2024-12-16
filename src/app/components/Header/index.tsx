@@ -29,6 +29,7 @@ import {
 } from "../../../store/reducer/authSlice";
 import client from "../../graphql";
 import MenuComponent from "../Menu";
+import { useMenu } from "../../hooks";
 import { UserRole } from "../../types/enums";
 import { HeaderStyles } from "./Header.style";
 import ROUTE_PATHS from "../../routes/paths/paths";
@@ -38,34 +39,25 @@ import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 
 const Header = () => {
   const navigate = useNavigate();
-  const user = useAppSelector((state) => state?.auth?.user);
-  const token = useAppSelector((state) => state?.auth?.token);
-  const userRole = useAppSelector((state) => state?.auth?.role) as UserRole;
   const isOpenInvoiceSidebar = useAppSelector(
     (state) => state.food.isOpenInvoiceSidebar
   );
-  const [anchorElMenu, setAnchorElMenu] = useState<null | HTMLElement>(null);
+  const user = useAppSelector((state) => state?.auth?.user);
+  const token = useAppSelector((state) => state?.auth?.token);
+  const { open, anchorEl, handleOpen, handleClose } = useMenu();
+  const userRole = useAppSelector((state) => state?.auth?.role) as UserRole;
   const { isOpenSidebar }: FoodState = useSelector((state: any) => state?.food);
 
   const [telegramUserLogin, { data, loading }] = useLazyQuery(LOGIN);
 
   const dispatch = useAppDispatch();
-  const open = Boolean(anchorElMenu);
 
   const handleToggle = () => {
     dispatch(setOpenSidebar(!isOpenSidebar));
   };
 
-  const handleOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorElMenu(event.currentTarget);
-  };
-
-  const handleCloseMenu = () => {
-    setAnchorElMenu(null);
-  };
-
   const handleLogOut = () => {
-    handleCloseMenu();
+    handleClose();
     dispatch(logOut());
     navigate(ROUTE_PATHS.MAIN);
   };
@@ -128,7 +120,7 @@ const Header = () => {
               <Button
                 size="small"
                 variant="outlined"
-                onClick={handleOpenMenu}
+                onClick={handleOpen}
                 className="user__info-button"
               >
                 <Avatar
@@ -147,11 +139,7 @@ const Header = () => {
           )}
         </div>
       </div>
-      <MenuComponent
-        open={open}
-        anchorEl={anchorElMenu}
-        onClose={handleCloseMenu}
-      >
+      <MenuComponent open={open} anchorEl={anchorEl} onClose={handleClose}>
         <MenuItem onClick={handleLogOut}>
           <ListItemIcon>
             <Logout fontSize="small" />

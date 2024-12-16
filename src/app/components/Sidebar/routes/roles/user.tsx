@@ -1,4 +1,4 @@
-import MopedIcon from "@mui/icons-material/Moped";
+import { BagShopping } from "dazzle-icons";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 
 import { SidebarLinkType } from "../types";
@@ -12,7 +12,7 @@ export const SIDEBAR_USER_ROUTES: SidebarLinkType[] = [
   },
   {
     title: "Orders",
-    icon: <MopedIcon />,
+    icon: <BagShopping fontSize={25} />,
     path: ROUTE_PATHS.ORDER,
   },
 ];
