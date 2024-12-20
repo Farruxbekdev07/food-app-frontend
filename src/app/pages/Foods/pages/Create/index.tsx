@@ -74,7 +74,6 @@ function CreateFood() {
             price: Number(price),
             discount: Number(discount),
           },
-          image: blob,
         },
       })
         .then(() => {

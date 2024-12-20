@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const CREATE_FOOD = gql`
-  mutation createFood($food: FoodInput!, $image: Upload) {
-    createFood(food: $food, image: $image) {
+  mutation createFood($food: FoodInput!) {
+    createFood(food: $food) {
       payload {
         _id
         shortName

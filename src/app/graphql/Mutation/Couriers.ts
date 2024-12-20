@@ -62,8 +62,8 @@ export const CREATE_COURIER = gql`
 `;
 
 export const DELETE_COURIER = gql`
-  mutation deleteCourierById($userId: ID!) {
-    deleteCourierById(userId: $userId) {
+  mutation deleteCourierById($courierId: ID!) {
+    deleteCourierById(courierId: $courierId) {
       payload {
         _id
         name
@@ -71,6 +71,8 @@ export const DELETE_COURIER = gql`
         role
         photo
         telegramId
+        createdAt
+        updatedAt
       }
     }
   }
