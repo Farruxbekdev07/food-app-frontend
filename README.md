@@ -34,13 +34,13 @@ This project was developed in a team, but I personally implemented most of the c
 
 ## 🚀 Run Locally
 
-````bash
+```bash
 npm install
 npm start
 
-```❗ Note: This project was initially developed in a shared repository where I was a collaborator. To showcase my personal contributions and for easier review, I’ve moved the source code to this personal repository.
+❗ Note: This project was initially developed in a shared repository where I was a collaborator. To showcase my personal contributions and for easier review, I’ve moved the source code to this personal repository.
 
 ![Foods page](https://github.com/Farruxbekdev07/food-app-frontend/blob/main/src/app/assets/screenshots/foods.jpg?raw=true)
 ![Orders page](https://github.com/Farruxbekdev07/food-app-frontend/blob/main/src/app/assets/screenshots/orders.jpg?raw=true)
 ![Couriers page](https://github.com/Farruxbekdev07/food-app-frontend/blob/main/src/app/assets/screenshots/couriers.jpg?raw=true)
-````
+```
