@@ -9,7 +9,6 @@ import {
 import { pxToRem } from "../../constants";
 import { customColors } from "../../theme/colors";
 import { SIDEBAR_WIDTH } from "../Sidebar/constants";
-import { LAYOUT_MAX_WIDTH } from "../Layout/constants";
 
 export const HeaderStyles = styled.header`
   z-index: 10;
