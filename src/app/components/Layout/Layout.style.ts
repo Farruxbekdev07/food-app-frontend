@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 
 import { pxToRem } from "../../constants";
-import { LAYOUT_MAX_WIDTH } from "./constants";
 import { customColors } from "../../theme/colors";
 import { HEADER_HEIGHT } from "../Header/constants";
 import { SIDEBAR_WIDTH } from "../Sidebar/constants";

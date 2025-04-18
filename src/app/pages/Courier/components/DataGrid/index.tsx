@@ -89,14 +89,17 @@ export default function CouriersTable() {
       headerName: "Actions",
       cellClassName: "actions",
       getActions: ({ id }) => {
-        setCourierId(id);
+        const handleOpenModal = () => {
+          setCourierId(id);
+          openModal();
+        };
 
         return [
           <GridActionsCellItem
             label="Delete"
             color="inherit"
             icon={<DeleteIcon />}
-            onClick={openModal}
+            onClick={handleOpenModal}
           />,
         ];
       },

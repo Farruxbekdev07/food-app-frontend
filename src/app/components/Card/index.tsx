@@ -27,10 +27,6 @@ const CardComponent = ({
     );
   }
 
-  if (type === "order") {
-    return <OrderCard />;
-  }
-
   if (type === "cartItem") {
     return (
       <CartItem

@@ -190,7 +190,12 @@ const TableOfOrder = () => {
 
     if (subscribeOrdersData?.createOrder) {
       setOrders((prevOrders: any) => [
-        subscribeOrdersData.createOrder?.payload,
+        subscribeOrdersData.createOrder.payload.map(
+          (order: any, index: number) => ({
+            ...order,
+            orderNumber: index + 1,
+          })
+        ),
         ...prevOrders,
       ]);
     }
